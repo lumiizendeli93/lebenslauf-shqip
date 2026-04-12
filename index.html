@@ -181,6 +181,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.6}
 @page{margin:0;size:A4}
 
 .hidden{display:none!important}
+#photoInput{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px}
 .mt-1{margin-top:8px}
 .mt-2{margin-top:16px}
 .actions{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -259,19 +260,20 @@ textarea{resize:vertical;min-height:80px;line-height:1.6}
       <div class="card-sub">Plotësoni të dhënat tuaja personale me kujdes — këto do të shfaqen në Lebenslauf-in tuaj përfundimtar.</div>
 
       <div style="display:flex;align-items:flex-start;gap:20px;margin-bottom:1.5rem;padding:1rem;background:#fafafa;border-radius:var(--radius-sm);border:1px solid var(--gray2)">
-        <label for="photoInput" id="photoPreview"
-          style="width:90px;height:110px;border-radius:8px;border:2px dashed var(--gray3);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;overflow:hidden;background:#fff;transition:border-color .2s">
+        <div id="photoPreview"
+          style="width:90px;height:110px;border-radius:8px;border:2px dashed var(--gray3);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;overflow:hidden;background:#fff;"
+          onclick="triggerPhoto()">
           <span style="font-size:26px;margin-bottom:4px">📷</span>
           <span style="font-size:9px;color:var(--gray4);text-align:center;line-height:1.4">Ngarko<br>foto</span>
-        </label>
+        </div>
         <div style="font-size:12px;color:var(--gray5);line-height:1.8">
           <strong style="display:block;margin-bottom:6px;font-size:13px">Foto profesionale (Lichtbild)</strong>
           Në Gjermani, fotoja në CV (Lebenslauf) është standard.<br>
           Rekomandohet një foto profesionale me sfond neutral.<br>
-          Klikoni foton për ta ngarkuar (JPG/PNG).
+          <span style="color:var(--red);font-size:11px;cursor:pointer;font-weight:500" onclick="triggerPhoto()">Klikoni foton për ta ngarkuar (JPG/PNG)</span>
         </div>
       </div>
-      <input type="file" id="photoInput" accept="image/*" style="opacity:0;position:absolute;pointer-events:none;width:0;height:0" onchange="loadPhoto(this)"/>
+      <input type="file" id="photoInput" accept="image/*" onchange="loadPhoto(this)"/>
 
       <div class="form-grid">
         <div class="field">
@@ -741,6 +743,11 @@ function goStep(n){
   window.scrollTo(0,0);
 }
 
+function triggerPhoto(){
+  var inp=document.getElementById('photoInput');
+  if(inp) inp.click();
+}
+
 function loadPhoto(input){
   if(!input.files||!input.files[0])return;
   var reader=new FileReader();
@@ -752,7 +759,7 @@ function loadPhoto(input){
   reader.readAsDataURL(input.files[0]);
 }
 
-// EDUCATION
+
 function addEdu(){
   var id=Date.now();
   educations.push({id:id,school:'',degree:'',field:'',from:'',to:'',current:false,grade:''});
@@ -775,7 +782,7 @@ function renderEduList(){
     '</div></div>';}).join('');
 }
 
-// EXPERIENCE
+
 function addExp(){
   var id=Date.now();
   experiences.push({id:id,company:'',role:'',location:'',from:'',to:'',desc:''});
@@ -799,7 +806,7 @@ function renderExpList(){
     '</div>';}).join('');
 }
 
-// SKILLS
+
 function addSkill(){
   var inp=document.getElementById('skillInput');
   var v=inp.value.trim();
@@ -827,7 +834,7 @@ function renderSkill2Tags(){
   }).join('');
 }
 
-// LANGUAGES
+
 function addLang(){
   var id='lang_'+langCount++;
   langs.push({id:id,name:'',level:'Muttersprache'});
@@ -847,7 +854,7 @@ function renderLangList(){
     '</div>';}).join('');
 }
 
-// TEMPLATE
+
 function selectTemplate(t){
   selectedTemplate=t;
   ['klassisch','modern','kreativ','blue','dark','minimal'].forEach(function(x){
@@ -856,7 +863,7 @@ function selectTemplate(t){
   });
 }
 
-// ANSCHREIBEN - TEMPLATE AUTOMATIK (pa AI)
+
 function generateAnschreiben(){
   var company=document.getElementById('a_company').value.trim();
   var position=document.getElementById('a_position').value.trim();
@@ -876,7 +883,7 @@ function generateAnschreiben(){
   var dateStr=pcity?pcity+', ':'' ;
   dateStr+=today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
 
-  // Berufserfahrung summary
+
   var expText='';
   if(experiences.length>0){
     var e=experiences[0];
@@ -888,13 +895,13 @@ function generateAnschreiben(){
     expText='Durch meine bisherige Berufserfahrung habe ich umfangreiche Kenntnisse erworben.';
   }
 
-  // Skills summary
+
   var allSkills=[...skills,...skills2];
   var skillText=allSkills.length>0
     ?'Meine Kenntnisse umfassen unter anderem: '+allSkills.slice(0,5).join(', ')+'.'
     :'Ich verfüge über solide Fachkenntnisse in meinem Berufsfeld.';
 
-  // Ausbildung
+
   var eduText='';
   if(educations.length>0){
     var edu=educations[0];
@@ -904,10 +911,7 @@ function generateAnschreiben(){
 
   var anschreibenHTML=
     '<div style="font-family:\'Outfit\',Arial,sans-serif;font-size:12px;line-height:1.8;color:#222;padding:0">'+
-
-    // ZWEI SPALTEN: Absender links | Empfänger rechts
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px">'+
-    // Absender
     '<div>'+
     '<div style="font-weight:700;font-size:13px;margin-bottom:4px">'+fname+' '+lname+'</div>'+
     (addr?'<div>'+addr+'</div>':'')+
@@ -915,48 +919,30 @@ function generateAnschreiben(){
     (phone?'<div>'+phone+'</div>':'')+
     (email?'<div>'+email+'</div>':'')+
     '</div>'+
-    // Empfänger
     '<div>'+
     '<div style="font-weight:700;font-size:13px;margin-bottom:4px">'+company+'</div>'+
     (city?'<div>'+city+'</div>':'')+
     '</div>'+
     '</div>'+
-
-    // DATUM
     '<div style="text-align:right;margin-bottom:24px;color:#555">'+
     pcity+(pcity?', ':'')+dateStr+
     '</div>'+
-
-    // BETREFF
     '<div style="font-weight:700;font-size:13px;margin-bottom:20px;text-decoration:underline">'+
     'Bewerbung als '+position+
     '</div>'+
-
-    // ANREDE
     '<div style="margin-bottom:16px">Sehr geehrte Damen und Herren,</div>'+
-
-    // EINLEITUNG
     '<div style="margin-bottom:14px">'+
     'mit großem Interesse habe ich Ihre Stellenanzeige für die Position als <strong>'+position+'</strong> bei '+company+' auf '+source+' gelesen. Da mein Profil Ihren Anforderungen entspricht, bewerbe ich mich hiermit mit Überzeugung auf diese Stelle.'+
     '</div>'+
-
-    // HAUPTTEIL
     '<div style="margin-bottom:14px">'+
     expText+' '+skillText+(eduText?' '+eduText:'')+
     ' Ich bin überzeugt, dass ich mit meinen Fähigkeiten und meiner Motivation einen wertvollen Beitrag zu Ihrem Team leisten kann.'+
     '</div>'+
-
-    // SCHLUSS
     '<div style="margin-bottom:28px">'+
     'Über die Möglichkeit, mich in einem persönlichen Gespräch vorzustellen, würde ich mich sehr freuen. Ich stehe Ihnen jederzeit gerne zur Verfügung.'+
     '</div>'+
-
-    // GRUSS
     '<div style="margin-bottom:48px">Mit freundlichen Grüßen</div>'+
-
-    // NAME
     '<div style="font-weight:700">'+fname+' '+lname+'</div>'+
-
     '</div>';
 
   anschreibenContent=fname+' '+lname+'\n'+addr+'\n'+(plz?plz+' ':'')+pcity+'\n'+phone+'\n'+email+'\n\n'+pcity+(pcity?', ':'')+dateStr+'\n\n'+company+'\n'+(city?city:'')+'Bewerbung als '+position+'\n\nSehr geehrte Damen und Herren,\n\n...';
@@ -973,7 +959,7 @@ function copyAnschreiben(){
   });
 }
 
-// HELPERS
+
 function g(id){var el=document.getElementById(id);return el?el.value.trim():'';}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -987,7 +973,7 @@ function fmtDate(d){
   return d;
 }
 
-// RENDER CV
+
 function renderCV(){
   var data={
     fname:g('p_fname'),lname:g('p_lname'),job:g('p_job'),
@@ -1012,7 +998,7 @@ function photoImg(cls,style){
 }
 
 function renderKlassisch(d){
-  // Template 1: Clean German Classic - white, minimal, professional
+
   var infoLeft=[
     d.addr?esc(d.addr):'',
     (d.plz||d.city)?esc((d.plz?d.plz+' ':'')+d.city):'',
@@ -1027,7 +1013,7 @@ function renderKlassisch(d){
 
   return '<div style="font-family:\'Inter\',Arial,sans-serif;padding:40px 48px;background:#fff;color:#222;font-size:12px;line-height:1.6">'+
 
-    // NAME HEADER with photo
+
     '<div style="display:flex;gap:20px;align-items:flex-start;border-bottom:2px solid #1a1a1a;padding-bottom:16px;margin-bottom:20px">'+
     '<div style="flex:1">'+
     '<div style="font-size:28px;font-weight:700;letter-spacing:-.3px;color:#111">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
@@ -1036,13 +1022,13 @@ function renderKlassisch(d){
     (photoDataUrl?'<img src="'+photoDataUrl+'" style="width:90px;height:110px;object-fit:cover;border-radius:4px;flex-shrink:0">':'')+
     '</div>'+
 
-    // CONTACT ROW
+
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;margin-bottom:24px;font-size:11.5px;color:#444">'+
     infoLeft.map(function(i){return '<div>'+i+'</div>';}).join('')+
     infoRight.map(function(i){return '<div>'+i+'</div>';}).join('')+
     '</div>'+
 
-    // AUSBILDUNG
+
     (educations.length?
     '<div style="margin-bottom:22px">'+
     '<div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:12px">Ausbildung</div>'+
@@ -1057,7 +1043,7 @@ function renderKlassisch(d){
     );}).join('')+
     '</div>':'')+ 
 
-    // BERUFSERFAHRUNG
+
     (experiences.length?
     '<div style="margin-bottom:22px">'+
     '<div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:12px">Berufserfahrung</div>'+
@@ -1072,7 +1058,7 @@ function renderKlassisch(d){
     );}).join('')+
     '</div>':'')+ 
 
-    // KENNTNISSE
+
     (skills.length?
     '<div style="margin-bottom:22px">'+
     '<div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:12px">Kenntnisse</div>'+
@@ -1080,7 +1066,7 @@ function renderKlassisch(d){
     skills.map(function(s){return '<span style="background:#f5f5f5;border:1px solid #ddd;padding:3px 10px;border-radius:3px;font-size:11px;color:#333">'+esc(s)+'</span>';}).join('')+
     '</div></div>':'')+ 
 
-    // SPRACHEN
+
     (langs.filter(function(l){return l.name;}).length?
     '<div style="margin-bottom:22px">'+
     '<div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:12px">Sprachkenntnisse</div>'+
@@ -1090,12 +1076,12 @@ function renderKlassisch(d){
         '<span style="color:#666;font-size:11.5px">'+esc(l.level)+'</span></div>';
     }).join('')+'</div>':'')+ 
 
-    // INTERESSEN
+
     (d.hobbies?
     '<div style="margin-bottom:22px"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:10px">Interessen & Hobbys</div>'+
     '<div style="color:#555;font-size:11.5px">'+esc(d.hobbies)+'</div></div>':'')+
 
-    // FÜHRERSCHEIN
+
     (d.fuehrerschein?
     '<div><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C8102E;border-bottom:1.5px solid #C8102E;padding-bottom:5px;margin-bottom:10px">Führerschein</div>'+
     '<div style="color:#444;font-size:11.5px">'+esc(d.fuehrerschein)+'</div></div>':'')+
@@ -1113,21 +1099,21 @@ function renderModern(d){
 
   return '<div style="font-family:\'Inter\',Arial,sans-serif;display:flex;min-height:620px;background:#fff;font-size:12px">'+
 
-    // SIDEBAR
+
     '<div style="width:185px;background:#1a1a1a;padding:28px 18px;flex-shrink:0;color:#fff">'+
 
-    // FOTO
+
     (photoDataUrl?
       '<img src="'+photoDataUrl+'" style="width:110px;height:130px;object-fit:cover;display:block;margin:0 auto 14px;border:3px solid #C8102E;border-radius:4px">':
       '<div style="width:110px;height:130px;background:#2a2a2a;margin:0 auto 14px;border:2px solid #333;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#555;font-size:11px;text-align:center">Kein<br>Foto</div>')+
 
-    // NAME
+
     '<div style="text-align:center;margin-bottom:16px">'+
     '<div style="font-size:13px;font-weight:700;color:#fff;line-height:1.3">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
     (d.job?'<div style="font-size:9px;color:#C8102E;margin-top:5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;line-height:1.4">'+esc(d.job)+'</div>':'')+
     '</div>'+
 
-    // KONTAKT
+
     '<div style="border-top:1px solid #2a2a2a;padding-top:12px">'+
     '<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C8102E;margin-bottom:7px">Kontakt</div>'+
     (d.phone?'<div style="font-size:10px;color:#ccc;margin-bottom:4px;line-height:1.4">'+esc(d.phone)+'</div>':'')+
@@ -1136,21 +1122,21 @@ function renderModern(d){
     (d.addr?'<div style="font-size:10px;color:#ccc;margin-bottom:4px">'+esc(d.addr)+'</div>':'')+
     '</div>'+
 
-    // PERSÖNLICH
+
     (infoItems.length?
     '<div style="border-top:1px solid #2a2a2a;padding-top:12px;margin-top:12px">'+
     '<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C8102E;margin-bottom:7px">Persönlich</div>'+
     infoItems.map(function(i){return '<div style="font-size:9.5px;color:#bbb;margin-bottom:4px;line-height:1.5">'+i+'</div>';}).join('')+
     '</div>':'')+
 
-    // KENNTNISSE
+
     (skills.length?
     '<div style="border-top:1px solid #2a2a2a;padding-top:12px;margin-top:12px">'+
     '<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C8102E;margin-bottom:7px">Kenntnisse</div>'+
     skills.map(function(s){return '<div style="font-size:9.5px;color:#ccc;padding:2px 0;border-bottom:1px solid #2a2a2a;line-height:1.5">'+esc(s)+'</div>';}).join('')+
     '</div>':'')+
 
-    // SPRACHEN
+
     (langs.filter(function(l){return l.name;}).length?
     '<div style="border-top:1px solid #2a2a2a;padding-top:12px;margin-top:12px">'+
     '<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C8102E;margin-bottom:7px">Sprachkenntnisse</div>'+
@@ -1161,7 +1147,7 @@ function renderModern(d){
         '</div>';
     }).join('')+'</div>':'')+
 
-    // FÜHRERSCHEIN
+
     (d.fuehrerschein?
     '<div style="border-top:1px solid #2a2a2a;padding-top:12px;margin-top:12px">'+
     '<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C8102E;margin-bottom:7px">Führerschein</div>'+
@@ -1169,7 +1155,7 @@ function renderModern(d){
 
     '</div>'+
 
-    // HAUPTINHALT
+
     '<div style="flex:1;padding:28px 26px;line-height:1.6">'+
 
     (educations.length?
@@ -1203,9 +1189,11 @@ function renderModern(d){
     '<div><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#1a1a1a;border-bottom:2px solid #C8102E;padding-bottom:4px;margin-bottom:10px">Interessen & Hobbys</div>'+
     '<div style="color:#555;font-size:11.5px">'+esc(d.hobbies)+'</div></div>':'')+
 
+    '</div></div>';
+}
 
 function renderKreativ(d){
-  // Template 3: Elegant minimal - top header bar, clean body
+
   var contacts=[
     d.phone?'<span>📞 '+esc(d.phone)+'</span>':'',
     d.email?'<span>✉ '+esc(d.email)+'</span>':'',
@@ -1215,7 +1203,7 @@ function renderKreativ(d){
 
   return '<div style="font-family:\'DM Sans\',Arial,sans-serif;background:#fff;color:#222;font-size:12px">'+
 
-    // TOP HEADER
+
     '<div style="background:#111;padding:28px 40px 24px;position:relative">'+
     '<div style="position:absolute;top:0;right:0;width:6px;height:100%;background:#C8102E"></div>'+
     '<div style="font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
@@ -1224,10 +1212,10 @@ function renderKreativ(d){
     contacts.join('')+
     '</div></div>'+
 
-    // BODY - two sections
+
     '<div style="display:grid;grid-template-columns:2fr 1fr;min-height:400px">'+
 
-    // LEFT MAIN
+
     '<div style="padding:28px 32px 28px 40px;border-right:1px solid #f0f0f0">'+
 
     (educations.length?
@@ -1262,7 +1250,7 @@ function renderKreativ(d){
 
     '</div>'+
 
-    // RIGHT SIDEBAR
+
     '<div style="padding:28px 24px;background:#fafafa">'+
 
     (d.bdate||d.nation||d.civil?
@@ -1361,7 +1349,7 @@ function renderMinimal(d){
 
   return '<div style="font-family:\'Inter\',Arial,sans-serif;background:#fff;color:#222;font-size:12px;line-height:1.6;padding:36px 44px">'+
 
-    // HEADER - emri + foto
+
     '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-left:5px solid #1a3a5c;padding-left:16px;margin-bottom:14px">'+
     '<div>'+
     '<div style="font-size:26px;font-weight:800;color:#1a3a5c;letter-spacing:-.3px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
@@ -1370,18 +1358,18 @@ function renderMinimal(d){
     (photoDataUrl?'<img src="'+photoDataUrl+'" style="width:85px;height:105px;object-fit:cover;border-radius:4px;border:1px solid #ddd">':'')+
     '</div>'+
 
-    // KONTAKT BAR
+
     '<div style="display:flex;flex-wrap:wrap;gap:4px 16px;font-size:11px;color:#555;padding:7px 14px;background:#f5f7fa;border-radius:4px;margin-bottom:8px">'+
     [d.phone,d.email,(d.plz?d.plz+' ':'')+d.city,d.addr].filter(Boolean).map(function(c){return '<span>'+esc(c)+'</span>';}).join('')+
     '</div>'+
 
-    // INFO ROW
+
     (infoItems.length?'<div style="display:flex;flex-wrap:wrap;gap:4px 16px;font-size:10.5px;color:#666;margin-bottom:20px;padding-left:4px">'+infoItems.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'<div style="margin-bottom:20px"></div>')+
 
-    // HAUPTINHALT - 2 Spalten
+
     '<div style="display:grid;grid-template-columns:2fr 1fr;gap:28px">'+
 
-    // LINKE SPALTE
+
     '<div>'+
     (educations.length?
       '<div style="margin-bottom:20px">'+
@@ -1410,7 +1398,7 @@ function renderMinimal(d){
 
     '</div>'+
 
-    // RECHTE SPALTE
+
     '<div>'+
 
     (langs.filter(function(l){return l.name;}).length?
@@ -1442,7 +1430,7 @@ function renderMinimal(d){
 }
 
 function printCV(){
-  // Sync anschreiben if available
+
   var ansPrint=document.getElementById('anschreibenPrintSection');
   var ansPrintText=document.getElementById('anschreibenPrintText');
   if(anschreibenContent&&ansPrint&&ansPrintText){
@@ -1459,7 +1447,7 @@ function printCV(){
   },300);
 }
 
-// INIT
+
 renderEduList();
 renderExpList();
 renderLangList();

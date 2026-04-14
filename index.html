@@ -176,7 +176,7 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 
 /* ============ AI FORM ============ */
 .ai-form{background:var(--gray);border-radius:var(--radius-sm);padding:1.3rem;margin-bottom:1rem;border:1px solid var(--gray2)}
-.ai-result{border:none;border-radius:var(--radius-sm);padding:2.5rem 3rem;font-size:13.5px;line-height:1.95;color:#1a1a1a;background:#fff;min-height:400px;box-shadow:0 4px 32px rgba(0,0,0,0.10);position:relative;font-family:'Georgia',serif}
+.ai-result{border:none;border-radius:12px;padding:16mm 18mm;font-size:12px;line-height:1.85;color:#1a1a1a;background:#fff;min-height:400px;box-shadow:0 8px 40px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);font-family:'Georgia','Times New Roman',serif;max-width:620px;margin:0 auto;border-top:4px solid #1e2d3d}
 .ai-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 
 /* ============ BUTTONS ============ */
@@ -446,7 +446,7 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
       <div class="step-item" id="si6">
         <button class="step-btn" onclick="goStep(6)">
           <div class="step-circle">7</div>
-          <span class="step-label">Export</span>
+          <span class="step-label">Shkarko</span>
         </button>
       </div>
     </div>
@@ -922,11 +922,11 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
         <div>
           <div style="font-size:15px;font-weight:600">Lebenslauf-i juaj është gati</div>
-          <div style="font-size:12px;color:var(--gray4)">Kontrolloni pamjen finale dhe eksportoni si PDF</div>
+          <div style="font-size:12px;color:var(--gray4)">Kontrolloni pamjen finale dhe shkarkoni si PDF</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-outline btn-sm" onclick="goStep(0)">✏️ Ndrysho</button>
-          <button class="btn btn-primary" onclick="startPayment()" id="payBtn">💳 Paguaj 10€ & Eksporto PDF</button>
+          <button class="btn btn-primary" onclick="startPayment()" id="payBtn">💳 Paguaj 10€ & Shkarko PDF</button>
           <button onclick="downloadHTMLTest()" style="background:#16a34a;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer">🖨️ Shkarko PDF (Test)</button>
         </div>
       </div>
@@ -978,14 +978,14 @@ function downloadHTMLTest(){
     'window.addEventListener("load",function(){'+
     '  var el=document.getElementById("cvScaler");'+
     '  if(!el)return;'+
-    '  var pageH=297*3.7795;'+ // 297mm in px at 96dpi
+    '  var a4px=297*3.7795;'+
     '  var h=el.scrollHeight;'+
-    '  if(h>pageH){'+
-    '    var scale=pageH/h;'+
-    '    if(scale<0.65)scale=0.65;'+ // max shrink 65%
-    '    el.style.transform="scale("+scale+")";'+
+    '  if(h>a4px){'+
+    '    var scale=a4px/h;'+
+    '    if(scale<0.60)scale=0.60;'+
     '    el.style.transformOrigin="top left";'+
-    '    el.style.width=(100/scale)+"mm";'+
+    '    el.style.transform="scale("+scale+")";'+
+    '    el.style.width=(100/scale)+"%";'+
     '  }'+
     '});'+
     '<\/script>'+
@@ -1202,25 +1202,31 @@ function generateAnschreiben(){
   }
 
   var anschreibenHTML=
-    '<div style="font-family:\'Georgia\',\'Times New Roman\',serif;font-size:12.5px;line-height:1.9;color:#1a1a1a;padding:0">'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-bottom:20px">'+
-    '<div>'+
-    '<div style="font-weight:700;font-size:13px;margin-bottom:4px">'+fname+' '+lname+'</div>'+
-    (addr?'<div>'+addr+'</div>':'')+
-    ((plz||pcity)?'<div>'+(plz?plz+' ':'')+pcity+'</div>':'')+
-    (phone?'<div>'+phone+'</div>':'')+
-    (email?'<div>'+email+'</div>':'')+
+    '<div style="font-family:\'Georgia\',\'Times New Roman\',serif;font-size:12px;line-height:1.85;color:#1a1a1a">'+
+
+    // Sender block — top left
+    '<div style="margin-bottom:24px">'+
+      '<div style="font-weight:700;font-size:12.5px;margin-bottom:2px">'+fname+' '+lname+'</div>'+
+      (addr?'<div style="color:#444">'+addr+'</div>':'')+
+      ((plz||pcity)?'<div style="color:#444">'+(plz?plz+' ':'')+pcity+'</div>':'')+
+      (phone?'<div style="color:#444">'+phone+'</div>':'')+
+      (email?'<div style="color:#444">'+email+'</div>':'')+
     '</div>'+
-    '<div style="text-align:right;justify-self:end;max-width:260px">'+
-    '<div style="font-weight:700;font-size:13px;margin-bottom:4px">'+company+'</div>'+
-    (aStreet?'<div>'+aStreet+'</div>':'')+
-    (city?'<div>'+city+'</div>':'')+
+
+    // Recipient block — indented right
+    '<div style="margin-bottom:28px;margin-left:200px">'+
+      '<div style="font-weight:700;font-size:12.5px;margin-bottom:2px">'+company+'</div>'+
+      (aStreet?'<div style="color:#444">'+aStreet+'</div>':'')+
+      (city?'<div style="color:#444">'+city+'</div>':'')+
     '</div>'+
-    '</div>'+
-    '<div style="text-align:right;margin-bottom:22px;color:#555">'+dateStr+'</div>'+
-    '<div style="font-weight:700;font-size:13px;margin-bottom:18px;text-decoration:underline">'+
+
+    // Date — right aligned
+    '<div style="text-align:right;margin-bottom:28px;color:#555;font-size:11.5px">'+dateStr+'</div>'+
+
+    // Subject — bold underlined
+    '<div style="font-weight:700;font-size:13px;margin-bottom:22px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block">'+
     'Bewerbung als '+position+
-    '</div>'+
+    '</div><br>'+
     '<div style="margin-bottom:14px">Sehr geehrte Damen und Herren,</div>'+
     '<div style="margin-bottom:14px">'+
     'mit großem Interesse habe ich Ihre Stellenanzeige für die Position als <strong>'+position+'</strong> bei '+company+' auf '+source+' gelesen. Da mein Profil Ihren Anforderungen entspricht, bewerbe ich mich hiermit mit Überzeugung auf diese Stelle.'+
@@ -1283,11 +1289,15 @@ function fillDemo(){
   s('p_email','max@mustermann.de');
   educations=[
     {id:1,school:'Berufliche Schule Stuttgart',degree:'Fachinformatiker Systemintegration',field:'',from:'09/2019',to:'06/2022',current:false,grade:''},
-    {id:2,school:'Realschule Stuttgart',degree:'Mittlere Reife',field:'',from:'09/2014',to:'06/2019',current:false,grade:''}
+    {id:2,school:'Realschule Stuttgart',degree:'Mittlere Reife',field:'',from:'09/2014',to:'06/2019',current:false,grade:''},
+    {id:3,school:'Test Schule',degree:'Test 1',field:'',from:'Test – Test',to:'',current:false,grade:''},
+    {id:4,school:'Test 2',degree:'Test 2',field:'',from:'Test 2 – Test 2',to:'',current:false,grade:''}
   ]; renderEduList();
   experiences=[
     {id:1,company:'Bosch GmbH',role:'IT-Administrator',location:'Stuttgart',from:'07/2022',to:'heute',desc:''},
-    {id:2,company:'Lidl GmbH',role:'Lagerist',location:'Stuttgart',from:'01/2020',to:'06/2022',desc:''}
+    {id:2,company:'Lidl GmbH',role:'Lagerist',location:'Stuttgart',from:'01/2020',to:'06/2022',desc:''},
+    {id:3,company:'PiraCon GmbH',role:'Administrator',location:'Stuttgart',from:'01/2025',to:'09/2026',desc:''},
+    {id:4,company:'Test 2 · Test 2',role:'Test 2',location:'',from:'Test 2 – Test 2',to:'',desc:''}
   ]; renderExpList();
   skills=['Microsoft Office','Windows Server','PowerShell','Teamarbeit']; renderSkillTags();
   langs=[
@@ -1329,7 +1339,35 @@ function renderCV(){
   else if(selectedTemplate==='dark') html=renderDark(data);
   else if(selectedTemplate==='minimal') html=renderMinimal(data);
   else if(selectedTemplate==='tabellarisch') html=renderTabellarisch(data);
-  document.getElementById('cvPreview').innerHTML=html;
+  var preview=document.getElementById('cvPreview');
+  preview.innerHTML=html;
+
+  if(selectedTemplate==='klassisch'){
+    // Iteratively reduce font+margin until content fits one A4 page
+    var sizes=[[13.2,22],[12.2,18],[11.4,14],[10.6,10],[9.8,8]];
+    var a4px=1122; // 297mm at 96dpi
+    for(var i=0;i<sizes.length;i++){
+      preview.innerHTML=renderKlassisch(data,sizes[i][0],sizes[i][1]);
+      var el=preview.firstElementChild;
+      if(!el||el.scrollHeight<=a4px||i===sizes.length-1) break;
+    }
+  }
+  if(selectedTemplate==='modern'){
+    // Scale preview to fit container (A4 is ~794px wide, preview is 720px max)
+    setTimeout(function(){
+      var inner=preview.firstElementChild;
+      if(!inner) return;
+      var containerW=preview.offsetWidth||720;
+      var contentW=inner.scrollWidth;
+      if(contentW>containerW){
+        var scale=containerW/contentW;
+        inner.style.transformOrigin='top left';
+        inner.style.transform='scale('+scale+')';
+        inner.style.width=(contentW)+'px';
+        preview.style.height=Math.round(inner.scrollHeight*scale)+'px';
+      }
+    },50);
+  }
 }
 
 function photoImg(cls,style){
@@ -1401,7 +1439,7 @@ function renderSkillsList(){
   }).join('')+'</div>';
 }
 
-function renderKlassisch(d){
+function renderKlassisch(d, _fs, _mb){
   var accent='#111111';
   var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
   var contact=[];
@@ -1409,36 +1447,41 @@ function renderKlassisch(d){
   if(d.phone) contact.push('Tel.: '+d.phone);
   if(d.email) contact.push('E-Mail: '+d.email);
   var profile=buildProfileItems(d);
-
-  // Auto-scale: count actual lines including description text
-  function countLines(arr, field){ return arr.reduce(function(n,e){ return n + 1 + (e[field]?e[field].split('\n').filter(function(l){return l.trim();}).length:0); },0); }
-  var expLines = countLines(experiences,'desc');
-  var eduLines = countLines(educations,'');
-  var langLines = langs.filter(function(l){return l.name;}).length;
-  var skillRows = Math.ceil(skills.length/4);
-  var totalLines = expLines + eduLines + langLines + skillRows + (d.hobbies?1:0) + (d.fuehrerschein?1:0);
-  var fontSize = 13.2;
-  if(totalLines > 12) fontSize = 12.4;
-  if(totalLines > 16) fontSize = 11.6;
-  if(totalLines > 20) fontSize = 10.8;
-  if(totalLines > 25) fontSize = 10.2;
-  var mb = totalLines > 14 ? 14 : 22;
-  var lineH = fontSize > 12 ? 1.72 : 1.62;
-
-  return '<div style="font-family:\'Lato\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#111827;width:210mm;min-height:297mm;padding:15mm 14mm 14mm 14mm;box-sizing:border-box;font-size:'+fontSize+'px;line-height:'+lineH+'">'+
+  var fs=_fs||13.2, mb=_mb||22, lh=fs>12?1.72:1.62;
+  var entryMb=mb<18?10:14;
+  var expHtml=experiences.map(function(e){
+    return '<div style="display:grid;grid-template-columns:118px 1fr;gap:10px;margin-bottom:'+entryMb+'px">'+
+      '<div style="font-size:'+Math.round(fs*0.8)+'px;color:#6b7280;font-weight:600;white-space:nowrap">'+formatRange(e.from,e.to)+'</div>'+
+      '<div>'+
+        '<div style="font-family:\'Lato\',Arial,sans-serif;font-size:'+fs+'px;font-weight:700;color:#111827">'+esc(e.role||'')+'</div>'+
+        '<div style="font-size:'+(fs-1)+'px;color:'+accent+';font-weight:700;margin-top:2px">'+esc(e.company||'')+(e.location?' · '+esc(e.location):'')+'</div>'+
+        (e.desc?'<div style="font-size:'+(fs-1.5)+'px;color:#4b5563;margin-top:4px;line-height:1.55">'+esc(e.desc)+'</div>':'')+
+      '</div>'+
+    '</div>';
+  }).join('');
+  var eduHtml=educations.map(function(e){
+    return '<div style="display:grid;grid-template-columns:118px 1fr;gap:10px;margin-bottom:'+entryMb+'px">'+
+      '<div style="font-size:'+Math.round(fs*0.8)+'px;color:#6b7280;font-weight:600;white-space:nowrap">'+formatRange(e.from,e.to)+'</div>'+
+      '<div>'+
+        '<div style="font-family:\'Lato\',Arial,sans-serif;font-size:'+fs+'px;font-weight:700;color:#111827">'+esc(e.degree||'')+'</div>'+
+        '<div style="font-size:'+(fs-1)+'px;color:'+accent+';font-weight:700;margin-top:2px">'+esc(e.school||'')+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  return '<div style="font-family:\'Lato\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#111827;width:210mm;min-height:297mm;padding:15mm 14mm 14mm 14mm;box-sizing:border-box;font-size:'+fs+'px;line-height:'+lh+'">'+
     '<div style="display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start;border-bottom:3px solid '+accent+';padding-bottom:16px;margin-bottom:0">'+
       '<div>'+
-        '<div style="font-family:\'Georgia\',serif;font-size:34px;font-weight:700;letter-spacing:-0.5px;color:#111827">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
-        (d.job?'<div style="font-family:\'Lato\',Arial,sans-serif;font-size:15px;font-weight:700;color:#444;margin-top:8px;letter-spacing:.3px">'+esc(d.job)+'</div>':'')+
+        '<div style="font-family:\'Georgia\',serif;font-size:'+(fs>12?34:30)+'px;font-weight:700;letter-spacing:-0.5px;color:#111827">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+        (d.job?'<div style="font-family:\'Lato\',Arial,sans-serif;font-size:'+(fs>12?15:13)+'px;font-weight:700;color:#444;margin-top:8px;letter-spacing:.3px">'+esc(d.job)+'</div>':'')+
       '</div>'+
       (photoDataUrl?'<img src="'+photoDataUrl+'" style="width:132px;height:160px;object-fit:cover;border-radius:2px;border:1.5px solid #111">':'')+
     '</div>'+
-    ((contact.length||profile.length)?'<div style="margin:8px 0 22px 0;padding:10px 14px 11px 14px;background:#f5f5f5;border-top:1.5px solid #111;border-bottom:1.5px solid #111;font-size:11.6px;color:#1f2937;line-height:1.75">'+
-      (profile.length?'<div style="font-weight:600;margin-bottom:3px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">'+profile.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
-      (contact.length?'<div style="font-weight:600;color:#374151;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">'+contact.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
+    ((contact.length||profile.length)?'<div style="margin:8px 0 '+mb+'px 0;padding:10px 14px 11px 14px;background:#f5f5f5;border-top:1.5px solid #111;border-bottom:1.5px solid #111;font-size:11.6px;color:#1f2937;line-height:1.75">'+
+      (profile.length?'<div style="font-weight:600;margin-bottom:4px;display:flex;gap:6px 24px;flex-wrap:wrap">'+profile.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
+      (contact.length?'<div style="font-weight:600;color:#374151;display:flex;gap:6px 24px;flex-wrap:wrap">'+contact.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
     '</div>':'')+
-    (experiences.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Berufserfahrung',accent)+renderExperienceItems(accent)+'</div>':'')+
-    (educations.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Ausbildung',accent)+renderEducationItems(accent)+'</div>':'')+
+    (experiences.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Berufserfahrung',accent)+expHtml+'</div>':'')+
+    (educations.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Ausbildung',accent)+eduHtml+'</div>':'')+
     ((skills.length||langs.filter(function(l){return l.name;}).length||d.fuehrerschein||d.hobbies)?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">':'')+
       '<div>'+
         (skills.length?'<div style="margin-bottom:18px">'+sectionTitle('Kenntnisse',accent)+renderSkillsList()+'</div>':'')+
@@ -1457,9 +1500,9 @@ function renderModern(d){
   var accent='#1e3a5f';
   var sideAccent='#f9fafb';
   var profile=buildProfileItems(d);
-  return '<div style="font-family:\'Georgia\',serif;background:#fff;color:#111827;font-size:13px;line-height:1.7;display:grid;grid-template-columns:220px 1fr;min-height:980px">'+
+  return '<div style="font-family:\'Georgia\',serif;background:#fff;color:#111827;font-size:13px;line-height:1.7;display:grid;grid-template-columns:220px 1fr;min-height:100%">'+
     // LEFT SIDEBAR — dark
-    '<div style="background:#1e2d3d;color:#f9fafb;padding:32px 22px">'+
+    '<div style="background:#1e2d3d;color:#f9fafb;padding:32px 22px;align-self:stretch">'+
       (photoDataUrl?'<img src="'+photoDataUrl+'" style="width:124px;height:150px;object-fit:cover;border-radius:4px;border:2px solid rgba(255,255,255,0.15);margin:0 auto 18px;display:block">':'<div style="width:124px;height:150px;border-radius:4px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);margin:0 auto 18px"></div>')+
       '<div style="text-align:center;margin-bottom:22px">'+
         '<div style="font-family:\'Georgia\',serif;font-size:17px;font-weight:700;line-height:1.25;color:#fff">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
@@ -1703,11 +1746,11 @@ function startPayment(){
     .then(function(r){return r.json();})
     .then(function(data){
       if(data.url) window.location.href=data.url;
-      else{ btn.disabled=false; btn.textContent='💳 Paguaj 10€ & Eksporto PDF'; alert('Gabim! Provo përsëri.'); }
+      else{ btn.disabled=false; btn.textContent='💳 Paguaj 10€ & Shkarko PDF'; alert('Gabim! Provo përsëri.'); }
     })
     .catch(function(){
       btn.disabled=false;
-      btn.textContent='💳 Paguaj 10€ & Eksporto PDF';
+      btn.textContent='💳 Paguaj 10€ & Shkarko PDF';
       alert('Gabim lidhje! Provo përsëri.');
     });
 }
@@ -1756,57 +1799,56 @@ function renderTabellarisch(d){
   var gold='#8B6914';
   var addrFull=(d.addr||'')+((d.plz||d.city)?(', '+(d.plz?d.plz+' ':'')+d.city):'');
 
-  // PAGE 1 - flex column so grid children stretch full height = full divider line
+  // PAGE 1 — full A4, everything stretched to fill
   var page1 =
-    '<div style="page-break-after:always;font-family:\'Georgia\',serif;background:#fff;color:#222;box-sizing:border-box;border-right:6px solid '+gold+';height:29.7cm;display:flex;flex-direction:column">'+
-      // Top header strip
-      '<div style="text-align:center;padding:18px 60px 14px;border-bottom:1px solid #ccc;font-family:\'Lato\',Arial,sans-serif;font-size:13px;color:#333;flex-shrink:0">'+
-        '<div style="font-weight:700;font-size:15px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
-        (addrFull?'<div style="margin-top:3px">'+esc(addrFull)+'</div>':'')+
-        '<div style="margin-top:3px">'+[d.phone?'Mobil: '+esc(d.phone):'',d.email?'E-Mail: '+esc(d.email):''].filter(Boolean).join(' | ')+'</div>'+
-      '</div>'+
-      // Two columns — NO divider line
-      '<div style="display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0">'+
+    '<div style="page-break-after:always;font-family:\'Georgia\',serif;background:#fff;color:#222;box-sizing:border-box;border-right:6px solid '+gold+';width:210mm;height:297mm;display:flex;flex-direction:column">'+
 
-        // LEFT — personal info only
-        '<div style="padding:46px 38px 40px 58px;display:flex;flex-direction:column">'+
+      // Two columns — flex:1 stretches to fill remaining A4 height
+      '<div style="display:grid;grid-template-columns:1fr 1fr;flex:1;align-items:stretch">'+
+
+        // LEFT — content spread with space-between to fill full height
+        '<div style="padding:32px 20px 32px 40px;display:flex;flex-direction:column;justify-content:space-between">'+
           '<div>'+
-            '<div style="font-size:28px;font-weight:700;color:#bbb;margin-bottom:18px;font-family:\'Lato\',Arial,sans-serif;letter-spacing:1px">Lebenslauf</div>'+
-            '<div style="font-size:44px;font-weight:700;color:'+gold+';margin-bottom:56px;font-family:\'Georgia\',serif;line-height:1.12">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
+            '<div style="font-size:22px;font-weight:700;color:#ccc;margin-bottom:14px;font-family:\'Lato\',Arial,sans-serif;letter-spacing:1px">Lebenslauf</div>'+
+            '<div style="font-size:46px;font-weight:700;color:'+gold+';margin-bottom:52px;font-family:\'Georgia\',serif;line-height:1.1">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
+          '</div>'+
+          '<div>'+
             (d.bdate?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:6px">Geburtsdatum, -ort</div>'+
-              '<div style="font-size:14.5px;color:#444;margin-bottom:28px">'+esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:5px;font-family:\'Lato\',Arial,sans-serif">Geburtsdatum, -ort</div>'+
+              '<div style="font-size:15.5px;color:#444;margin-bottom:28px;font-family:\'Lato\',Arial,sans-serif">'+esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')+'</div>'
             :'')+
             (d.nation?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:6px">Staatsangehörigkeit</div>'+
-              '<div style="font-size:14.5px;color:#444;margin-bottom:28px">'+esc(d.nation)+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:5px;font-family:\'Lato\',Arial,sans-serif">Staatsangehörigkeit</div>'+
+              '<div style="font-size:15.5px;color:#444;margin-bottom:28px;font-family:\'Lato\',Arial,sans-serif">'+esc(d.nation)+'</div>'
             :'')+
             (d.civil?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:6px">Familienstand</div>'+
-              '<div style="font-size:14.5px;color:#444;margin-bottom:28px">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:5px;font-family:\'Lato\',Arial,sans-serif">Familienstand</div>'+
+              '<div style="font-size:15.5px;color:#444;font-family:\'Lato\',Arial,sans-serif">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</div>'
             :'')+
           '</div>'+
         '</div>'+
 
-        // RIGHT — photo top, Kontakt below
-        '<div style="padding:46px 58px 40px 38px;display:flex;flex-direction:column;align-items:flex-end">'+
-          (photoDataUrl?
-            '<img src="'+photoDataUrl+'" style="width:200px;height:250px;object-fit:cover;border:1px solid #ccc;display:block;margin-bottom:36px"/>':
-            '<div style="width:200px;height:250px;background:#f0f0f0;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999;margin-bottom:36px">Kein Foto</div>'
-          )+
+        // RIGHT — photo big + Kontakt, spread to fill height
+        '<div style="padding:32px 40px 32px 20px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between">'+
+          '<div style="width:100%;display:flex;justify-content:center">'+
+            (photoDataUrl?
+              '<img src="'+photoDataUrl+'" style="width:265px;height:330px;object-fit:cover;border:1px solid #ccc;display:block"/>':
+              '<div style="width:265px;height:330px;background:#f0f0f0;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999">Kein Foto</div>'
+            )+
+          '</div>'+
           '<div style="text-align:right;width:100%">'+
-            '<div style="font-size:30px;font-weight:700;color:'+gold+';margin-bottom:22px;font-family:\'Georgia\',serif">Kontakt</div>'+
+            '<div style="font-size:30px;font-weight:700;color:'+gold+';margin-bottom:18px;font-family:\'Georgia\',serif">Kontakt</div>'+
             (d.addr||d.plz||d.city?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:5px">Adresse:</div>'+
-              '<div style="font-size:14.5px;color:#444;margin-bottom:22px">'+(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+d.city)+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:4px;font-family:\'Lato\',Arial,sans-serif">Adresse:</div>'+
+              '<div style="font-size:15.5px;color:#444;margin-bottom:18px;font-family:\'Lato\',Arial,sans-serif">'+(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+d.city)+'</div>'
             :'')+
             (d.phone?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:5px">Telefon:</div>'+
-              '<div style="font-size:14.5px;color:#444;margin-bottom:22px">'+esc(d.phone)+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:4px;font-family:\'Lato\',Arial,sans-serif">Telefon:</div>'+
+              '<div style="font-size:15.5px;color:#444;margin-bottom:18px;font-family:\'Lato\',Arial,sans-serif">'+esc(d.phone)+'</div>'
             :'')+
             (d.email?
-              '<div style="font-weight:700;font-size:16px;margin-bottom:5px">Mail:</div>'+
-              '<div style="font-size:14.5px;color:'+gold+';margin-bottom:0">'+esc(d.email)+'</div>'
+              '<div style="font-weight:700;font-size:17px;margin-bottom:4px;font-family:\'Lato\',Arial,sans-serif">Mail:</div>'+
+              '<div style="font-size:15.5px;color:'+gold+';font-family:\'Lato\',Arial,sans-serif">'+esc(d.email)+'</div>'
             :'')+
           '</div>'+
         '</div>'+

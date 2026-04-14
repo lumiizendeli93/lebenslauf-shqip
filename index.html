@@ -176,7 +176,7 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 
 /* ============ AI FORM ============ */
 .ai-form{background:var(--gray);border-radius:var(--radius-sm);padding:1.3rem;margin-bottom:1rem;border:1px solid var(--gray2)}
-.ai-result{border:1.5px solid var(--gray3);border-radius:var(--radius-sm);padding:2rem 2.5rem;font-size:13.5px;line-height:1.9;color:var(--text);background:#fff;min-height:400px}
+.ai-result{border:none;border-radius:var(--radius-sm);padding:2.5rem 3rem;font-size:13.5px;line-height:1.95;color:#1a1a1a;background:#fff;min-height:400px;box-shadow:0 4px 32px rgba(0,0,0,0.10);position:relative;font-family:'Georgia',serif}
 .ai-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 
 /* ============ BUTTONS ============ */
@@ -359,6 +359,19 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
     Krijo CV-në tënde
   </button>
   <div class="hero-note">Nuk kërkohet regjistrim &middot; Shkarko PDF për 10€</div>
+
+  <!-- DATA PRIVACY NOTICE -->
+  <div style="margin-top:40px;display:inline-flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 24px;max-width:520px;text-align:left;backdrop-filter:blur(8px)">
+    <div style="font-size:22px;flex-shrink:0;margin-top:2px">🔒</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:6px;letter-spacing:.2px">Të dhënat tuaja janë të sigurta</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.8">
+        Asnjë e dhënë personale <strong style="color:#cbd5e1">nuk ruhet</strong> në server — gjithçka mbetet vetëm në shfletuesin tuaj (browser).<br>
+        Pasi të mbyllni faqen ose të shkarkoni PDF-in, të dhënat <strong style="color:#cbd5e1">fshihen automatikisht</strong>.<br>
+        <span style="color:#64748b;font-size:11px">Ne nuk shohim, nuk ruajmë dhe nuk ndajmë asgjë me të tjerët.</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- WHY SECTION -->
@@ -778,6 +791,49 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
       <div class="card-title">Anschreiben / Motivationsschreiben</div>
       <div class="card-sub">Gjenero letër motivimi automatike bazuar në të dhënat e CV-së tuaj</div>
 
+      <!-- INFO BOX - Çfarë është Anschreiben -->
+      <div style="background:linear-gradient(135deg,#0f172a 0%,#1e2d3d 100%);border-radius:var(--radius-sm);padding:20px 22px;margin-bottom:1.5rem;color:#f1f5f9">
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div style="font-size:28px;flex-shrink:0">📄</div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px">Çfarë është Anschreiben-i dhe pse duhet?</div>
+            <div style="font-size:13px;color:#94a3b8;line-height:1.85">
+              <strong style="color:#e2e8f0">Anschreiben-i është letra që shoqëron CV-në tuaj</strong> — është hapi i parë që lexon punëdhënësi para se të shikojë CV-në. Në Gjermani, shumica e kompanive <strong style="color:#fbbf24">e kërkojnë obligativisht</strong> bashkë me Lebenslauf-in.
+            </div>
+            <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px">
+                <div style="font-size:11px;font-weight:700;color:#fbbf24;margin-bottom:6px;letter-spacing:.5px">✅ ÇFARË TREGON</div>
+                <div style="font-size:12px;color:#cbd5e1;line-height:1.8">
+                  Pse dëshiron të punosh <em>pikërisht</em> tek ata<br>
+                  Çfarë sjell ti si punëtor<br>
+                  Që je serioz dhe i interesuar<br>
+                  Se di të komunikosh në gjermanisht
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px">
+                <div style="font-size:11px;font-weight:700;color:#fbbf24;margin-bottom:6px;letter-spacing:.5px">⚠️ PA ANSCHREIBEN</div>
+                <div style="font-size:12px;color:#cbd5e1;line-height:1.8">
+                  Aplikimi mund të hidhet poshtë<br>
+                  Tregon mungesë serioziteti<br>
+                  Humb avantazh ndaj kandidatëve të tjerë<br>
+                  Kompanitë nuk do t'ju kontaktojnë
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:12px;font-size:13px;color:#a3e635;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;font-weight:500">
+              ✨ <strong style="color:#a3e635">Anschreiben-i gjenerohet automatikisht!</strong> Plotëso vetëm emrin e firmës dhe pozicionin — sistemi shkruan vetë të gjithë letrën profesionale për ty në gjermanisht.
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:#64748b;line-height:1.8">
+              Nëse nuk jeni të kënaqur me rezultatin, mund ta gjeneroni Anschreiben-in edhe përmes platformave të tjera të inteligjencës artificiale si
+              <a href="https://chat.openai.com" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">ChatGPT</a> ·
+              <a href="https://claude.ai" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">Claude</a> ·
+              <a href="https://gemini.google.com" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">Gemini</a> —
+              <span style="color:#475569">kërkoni: <em>"Schreib mir ein professionelles Anschreiben für [pozicioni] bei [firma]"</em></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="ai-form">
         <div class="form-grid">
           <div class="field">
@@ -820,6 +876,36 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
           <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Printo</button>
         </div>
       </div>
+
+      <!-- PASTE ZONE for external AI -->
+      <div style="margin-top:1.5rem">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="flex:1;height:1px;background:var(--gray2)"></div>
+          <span style="font-size:12px;color:var(--gray4);font-weight:600;white-space:nowrap">OSE ngjit Anschreiben-in nga platforma tjetër</span>
+          <div style="flex:1;height:1px;background:var(--gray2)"></div>
+        </div>
+        <div class="field">
+          <label>Ngjit tekstin këtu <span>(nga ChatGPT, Claude, Gemini...)</span></label>
+          <textarea id="manualAnschreiben" rows="12" placeholder="Ngjit (Paste) këtu Anschreiben-in që ke gjeneruar nga platforma tjetër...&#10;&#10;Sehr geehrte Damen und Herren,&#10;..." style="font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.75"
+            oninput="
+              var v=this.value.trim();
+              var btn=document.getElementById('manualSaveBtn');
+              if(btn) btn.style.display=v?'inline-flex':'none';
+            "></textarea>
+        </div>
+        <button id="manualSaveBtn" class="btn btn-primary mt-1" style="display:none" onclick="
+          var txt=document.getElementById('manualAnschreiben').value.trim();
+          if(!txt) return;
+          anschreibenContent=txt;
+          document.getElementById('anschreibenText').innerText=txt;
+          document.getElementById('anschreibenResult').classList.remove('hidden');
+          var p=document.getElementById('anschreibenPrintSection');
+          var pt=document.getElementById('anschreibenPrintText');
+          if(p&&pt){p.classList.remove('hidden');pt.innerText=txt;}
+          alert('✅ Anschreiben-i u ruajt! Mund ta printoni tani.');
+        ">💾 Ruaj & Përdor këtë Anschreiben</button>
+      </div>
+
     </div>
     <div class="actions no-print">
       <button class="btn btn-outline" onclick="goStep(4)">Kthehu</button>
@@ -861,24 +947,54 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 function downloadHTMLTest(){
   renderCV();
   var cvHtml = document.getElementById('cvPreview').innerHTML;
+
+  // Include Anschreiben if available
+  var ansHtml = '';
+  if(anschreibenContent && anschreibenContent.trim()){
+    var ansEl = document.getElementById('anschreibenPrintText');
+    if(ansEl && ansEl.innerHTML.trim()){
+      ansHtml = '<div style="page-break-before:always;padding:20mm;font-family:Georgia,serif;font-size:12.5px;line-height:1.9;color:#1a1a1a">'+ ansEl.innerHTML +'</div>';
+    } else {
+      ansHtml = '<div style="page-break-before:always;padding:20mm;font-family:Georgia,serif;font-size:12.5px;line-height:1.9;color:#1a1a1a;white-space:pre-wrap">'+anschreibenContent+'</div>';
+    }
+  }
+
   var printWin = window.open('','_blank');
   printWin.document.write('<!DOCTYPE html><html><head>'+
     '<meta charset="UTF-8"><title>Lebenslauf</title>'+
-    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700;900&family=Georgia&display=swap" rel="stylesheet"/>'+
+    '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Lato:wght@400;700;900&family=Georgia&display=swap" rel="stylesheet"/>'+
     '<style>'+
     '*{box-sizing:border-box;margin:0;padding:0}'+
     'html,body{width:210mm;margin:0;padding:0;background:#fff;}'+
     '@page{size:A4 portrait;margin:0;}'+
-    '@media print{'+
-      'html,body{width:210mm;}'+
-      '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'+
-    '}'+
-    '</style></head><body>'+cvHtml+'</body></html>');
+    '@media print{html,body{width:210mm;}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}}'+
+    // Auto-scale: shrink content to fit one page if too long
+    '.cv-scaler{width:210mm;}'+
+    '</style></head><body>'+
+    '<div class="cv-scaler" id="cvScaler">'+cvHtml+'</div>'+
+    ansHtml+
+    '<script>'+
+    // Auto-scale the CV to fit A4 if content overflows
+    'window.addEventListener("load",function(){'+
+    '  var el=document.getElementById("cvScaler");'+
+    '  if(!el)return;'+
+    '  var pageH=297*3.7795;'+ // 297mm in px at 96dpi
+    '  var h=el.scrollHeight;'+
+    '  if(h>pageH){'+
+    '    var scale=pageH/h;'+
+    '    if(scale<0.65)scale=0.65;'+ // max shrink 65%
+    '    el.style.transform="scale("+scale+")";'+
+    '    el.style.transformOrigin="top left";'+
+    '    el.style.width=(100/scale)+"mm";'+
+    '  }'+
+    '});'+
+    '<\/script>'+
+    '</body></html>');
   printWin.document.close();
   printWin.focus();
   setTimeout(function(){
     printWin.print();
-  }, 800);
+  }, 1000);
 }
 
 function startCVBuilder() {
@@ -1293,7 +1409,23 @@ function renderKlassisch(d){
   if(d.phone) contact.push('Tel.: '+d.phone);
   if(d.email) contact.push('E-Mail: '+d.email);
   var profile=buildProfileItems(d);
-  return '<div style="font-family:\'Lato\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#111827;width:210mm;min-height:297mm;padding:15mm 14mm 14mm 14mm;box-sizing:border-box;font-size:13.2px;line-height:1.72">'+
+
+  // Auto-scale: count actual lines including description text
+  function countLines(arr, field){ return arr.reduce(function(n,e){ return n + 1 + (e[field]?e[field].split('\n').filter(function(l){return l.trim();}).length:0); },0); }
+  var expLines = countLines(experiences,'desc');
+  var eduLines = countLines(educations,'');
+  var langLines = langs.filter(function(l){return l.name;}).length;
+  var skillRows = Math.ceil(skills.length/4);
+  var totalLines = expLines + eduLines + langLines + skillRows + (d.hobbies?1:0) + (d.fuehrerschein?1:0);
+  var fontSize = 13.2;
+  if(totalLines > 12) fontSize = 12.4;
+  if(totalLines > 16) fontSize = 11.6;
+  if(totalLines > 20) fontSize = 10.8;
+  if(totalLines > 25) fontSize = 10.2;
+  var mb = totalLines > 14 ? 14 : 22;
+  var lineH = fontSize > 12 ? 1.72 : 1.62;
+
+  return '<div style="font-family:\'Lato\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#111827;width:210mm;min-height:297mm;padding:15mm 14mm 14mm 14mm;box-sizing:border-box;font-size:'+fontSize+'px;line-height:'+lineH+'">'+
     '<div style="display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start;border-bottom:3px solid '+accent+';padding-bottom:16px;margin-bottom:0">'+
       '<div>'+
         '<div style="font-family:\'Georgia\',serif;font-size:34px;font-weight:700;letter-spacing:-0.5px;color:#111827">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
@@ -1305,8 +1437,8 @@ function renderKlassisch(d){
       (profile.length?'<div style="font-weight:600;margin-bottom:3px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">'+profile.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
       (contact.length?'<div style="font-weight:600;color:#374151;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">'+contact.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
     '</div>':'')+
-    (experiences.length?'<div style="margin-bottom:22px">'+sectionTitle('Berufserfahrung',accent)+renderExperienceItems(accent)+'</div>':'')+
-    (educations.length?'<div style="margin-bottom:22px">'+sectionTitle('Ausbildung',accent)+renderEducationItems(accent)+'</div>':'')+
+    (experiences.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Berufserfahrung',accent)+renderExperienceItems(accent)+'</div>':'')+
+    (educations.length?'<div style="margin-bottom:'+mb+'px">'+sectionTitle('Ausbildung',accent)+renderEducationItems(accent)+'</div>':'')+
     ((skills.length||langs.filter(function(l){return l.name;}).length||d.fuehrerschein||d.hobbies)?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">':'')+
       '<div>'+
         (skills.length?'<div style="margin-bottom:18px">'+sectionTitle('Kenntnisse',accent)+renderSkillsList()+'</div>':'')+
@@ -1799,10 +1931,9 @@ checkPaymentAndPrint();
     <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;font-family:'DM Serif Display',serif">Impressum</h2>
     <p style="color:#e11d48;font-size:12px;background:#fff0f3;border-left:3px solid #e11d48;padding:10px 14px;border-radius:6px;margin-bottom:20px">⚠️ <strong>Bitte ausfüllen:</strong> Diese Angaben sind gesetzlich verpflichtend (§5 TMG). Ersetze die Platzhalter mit deinen echten Daten.</p>
     <p><strong>Angaben gemäß § 5 TMG</strong></p>
-    <p>[Vorname Nachname]<br>[Straße Hausnr.]<br>[PLZ Ort]<br>Deutschland</p>
-    <p><strong>Kontakt:</strong><br>E-Mail: info@lebenslauf-shqip.de<br>Tel.: [deine Nummer]</p>
-    <p><strong>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV):</strong><br>[Vorname Nachname], [Adresse]</p>
-    <p style="font-size:12px;color:#666;margin-top:16px">Hinweis: Als Einzelunternehmer musst du deinen vollständigen Namen und deine Postanschrift angeben.</p>
+    <p>Fatlum Zendeli<br>Makenhofstr. 4<br>71672 Marbach am Neckar<br>Deutschland</p>
+    <p><strong>Kontakt:</strong><br>E-Mail: info@lebenslauf-shqip.de</p>
+    <p><strong>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV):</strong><br>Fatlum Zendeli, Makenhofstr. 4, 71672 Marbach am Neckar</p>
   </div>
 </div>
 

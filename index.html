@@ -526,7 +526,7 @@ body.dark-mode .btn-outline:hover{border-color:var(--red)!important;color:var(--
 .why-card p{font-size:13.5px;color:rgba(255,255,255,0.35);line-height:1.7;margin:0}
 @media(max-width:640px){
   .why-cards{grid-template-columns:1fr;max-width:360px}
-  .hero-dark{padding:60px 20px 50px;min-height:100svh;justify-content:center}
+  .hero-dark{padding:60px 20px 50px;min-height:auto;justify-content:center}
 }
 /* Screenshot protection - only prevent selection on CV output */
 .cv-preview { -webkit-user-select: none; user-select: none; }
@@ -543,36 +543,32 @@ input, textarea, select { -webkit-user-select: text !important; user-select: tex
   }
 }
 
-/* --- HERO: center content instead of pushing to bottom --- */
+/* --- HERO: center content, background fix for mobile --- */
 @media (max-width: 768px) {
   .hero-dark {
     justify-content: center;
-    padding-top: 60px;
-    padding-bottom: 48px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     padding-left: 20px;
     padding-right: 20px;
-    min-height: 100svh;
-    background-position: center 65%;
+    min-height: auto;
+    /* Shfaq pjesën e poshtme të imazhit (peizazhi), jo zonën me logo/tekst */
+    background-position: bottom center !important;
+    background-size: cover !important;
   }
-  /* Overlay i errët mbi imazhin e sfondit në mobile — mbulon logo/text dekorativ */
-  .hero-dark::after {
+  /* Overlay i fortë që mbulon plotësisht tekstin dekorativ të imazhit */
+  .hero-dark::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.65) 0%,
-      rgba(0,0,0,0.35) 40%,
-      rgba(0,0,0,0.65) 70%,
-      rgba(0,0,0,0.88) 100%
-    );
+    background: rgba(5, 5, 10, 0.78);
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
-  /* Elementët brenda hero mbi overlay */
+  /* Të gjithë elementët mbi overlay */
   .hero-dark > * {
-    position: relative;
-    z-index: 2;
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .hero-h1 {

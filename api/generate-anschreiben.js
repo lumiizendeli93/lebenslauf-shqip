@@ -81,7 +81,14 @@ const SYSTEM_PROMPT = 'Du bist ein professioneller Bewerbungscoach. Du schreibst
   'Schreibe NICHT die Anrede ("Sehr geehrte Damen und Herren") und NICHT den Schlussgruß ("Mit freundlichen Grüßen") — diese werden separat hinzugefügt. ' +
   'Antworte AUSSCHLIESSLICH mit validem JSON in der Form {"paragraphs": ["Absatz 1", "Absatz 2", "Absatz 3", "Absatz 4"]} ohne weiteren Text, ohne Markdown-Codeblock. ' +
   'Schreibe 3 bis 4 Absätze: (1) überzeugender Einstieg mit Bezug auf Position, Unternehmen und Quelle der Ausschreibung, (2) relevante Berufserfahrung/Ausbildung/Fähigkeiten passend zur Stelle, (3) Motivation für gerade dieses Unternehmen, (4) kurzer Schlusssatz mit Wunsch nach einem persönlichen Gespräch. ' +
-  'Nutze ausschließlich die gegebenen Fakten, erfinde keine neuen Tätigkeiten oder Qualifikationen. Schreibe natürlich und individuell, vermeide generische Floskeln und Wiederholungen.';
+  'Nutze ausschließlich die gegebenen Fakten, erfinde keine neuen Tätigkeiten oder Qualifikationen.\n\n' +
+  'GANZ WICHTIG — das Ergebnis darf NICHT nach KI klingen. Personalverantwortliche erkennen KI-Texte inzwischen sehr leicht an bestimmten Mustern. Vermeide daher strikt:\n' +
+  '- Textbaustein-Formulierungen wie "In der heutigen schnelllebigen Welt", "Ich bin überzeugt, dass ich die ideale Ergänzung für Ihr Team bin", "einen wertvollen Beitrag leisten", "meine Leidenschaft für...", "auf eine Reise begeben", "es ist mir eine Freude"\n' +
+  '- Aufzählungs-Rhythmus, bei dem jeder Satz exakt gleich aufgebaut ist oder mit Konnektoren wie "Darüber hinaus", "Zudem", "Des Weiteren" beginnt (höchstens einmal im ganzen Text verwenden)\n' +
+  '- Übertriebene, glatte Superlative ("herausragend", "einzigartig", "leidenschaftlich", "hochmotiviert") — normale, ehrliche Formulierungen wirken glaubwürdiger\n' +
+  '- Perfekt symmetrische Satzlängen — variiere bewusst zwischen kurzen und längeren Sätzen, wie ein Mensch beim Schreiben es tun würde\n' +
+  '- Übergänge, die zu glatt/werblich klingen; schreib stattdessen konkret und sachlich, mit Bezug auf echte Details aus dem Profil (Firmennamen, Tätigkeiten, Zeiträume) statt vager Phrasen\n' +
+  'Schreibe stattdessen so, wie eine reale Person es tun würde: direkt, konkret, leicht unperfekt in der Satzmelodie, mit echtem Bezug auf die genannten Fakten statt auf generische Eigenschaften.';
 
 function buildPrompt(d) {
   const lines = [];

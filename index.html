@@ -3144,6 +3144,13 @@ function renderCV(){
 
 // Ngjeshje proporcionale: nëse përmbajtja kalon A4, zvogëlohet me CSS zoom derisa të futet.
 var A4_PAGE_PX=1122; // 297mm @ 96dpi
+// Disa shfletues/OS (p.sh. "Save to Files" i Safari-t në iOS) shtojnë vetë një header/footer
+// (URL, datë, "Seite X von Y") kur ruhet si PDF, që ha pak hapësirë vertikale shtesë — hapësirë
+// që faqja s'e "sheh" kur mat lartësinë e vet. Pa këtë rezervë, një CV që del saktë 297mm në
+// ekran mund të derdhet pak mbi një faqe 2 pothuajse bosh në PDF-in real. Kjo rezervë e sigurisë
+// e bën ngjeshjen pak më agresive, që të mos ndodhë kjo.
+var A4_SAFETY_PX=40; // ~10.6mm rezervë
+var A4_FIT_TARGET_PX=A4_PAGE_PX-A4_SAFETY_PX;
 // Nivelet e ngjeshjes progresive — vetëm aq sa duhet për të hyrë në 1 faqe A4.
 // zoom tkurr fontin+hapësirat bashkë (jo vetëm marzhe), dhe mbetet edhe në print/PDF
 // (ndryshe nga transform, që ndikon vetëm ekranin dhe anulohet me qëllim gjatë printimit).
@@ -3173,13 +3180,13 @@ function fitCvToPage(){
     el.style.zoom=z;
     el.style.width=(210/z)+'mm';
     chosen=z;
-    if(realH()<=A4_PAGE_PX) break;
+    if(realH()<=A4_FIT_TARGET_PX) break;
   }
   el.dataset.fitZoom=chosen;
   // Nëse edhe ngjeshja maksimale e zoom-it s'mjafton, ngushto edhe hapësirat më të mëdha
   // mes seksioneve (marzhe/padding/gap) — disa hapa, para se të pranohet faqja 2.
-  if(realH()>A4_PAGE_PX){
-    for(var pass=0;pass<8&&realH()>A4_PAGE_PX;pass++){
+  if(realH()>A4_FIT_TARGET_PX){
+    for(var pass=0;pass<8&&realH()>A4_FIT_TARGET_PX;pass++){
       var shrunkAny=false;
       el.querySelectorAll('[style]').forEach(function(node){
         ['marginTop','marginBottom','paddingTop','paddingBottom','gap','rowGap','columnGap'].forEach(function(key){

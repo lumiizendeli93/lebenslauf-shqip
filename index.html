@@ -646,6 +646,16 @@ input, textarea, select { -webkit-user-select: text !important; user-select: tex
   border:3px solid rgba(120,120,120,0.28);border-radius:14px;
   padding:14px 34px;white-space:nowrap;
 }
+/* Letra (Anschreiben) është kryesisht tekst i thjeshtë bardh e zi, pa ngjyra/forma që "konkurrojnë"
+   me watermark-un si te CV-ja — i njëjti nivel opaciteti e bën shumë më të vështirë për t'u lexuar.
+   E lehtësojmë vetëm këtu, duke ruajtur mbrojtjen kundër kopjimit para pagesës. */
+.anschreiben-print.cv-preview::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='330' height='250'%3E%3Ctext x='165' y='125' font-family='Arial' font-size='17' font-weight='700' fill='%23808080' fill-opacity='0.14' text-anchor='middle' letter-spacing='2' transform='rotate(-30 165 125)'%3Elebenslauf-shqip.de %C2%B7 PREVIEW%3C/text%3E%3C/svg%3E");
+}
+.anschreiben-print.cv-preview::before{
+  color:rgba(120,120,120,0.20);
+  border-color:rgba(120,120,120,0.16);
+}
 .live-frame-inner,.live-overlay-frame{position:relative}
 .live-frame-inner::after,.live-overlay-frame::after{
   content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
@@ -3155,7 +3165,11 @@ var A4_FIT_TARGET_PX=A4_PAGE_PX-A4_SAFETY_PX;
 // zoom tkurr fontin+hapësirat bashkë (jo vetëm marzhe), dhe mbetet edhe në print/PDF
 // (ndryshe nga transform, që ndikon vetëm ekranin dhe anulohet me qëllim gjatë printimit).
 var CV_ZOOM_LEVELS=[1,0.97,0.94,0.91,0.88,0.85,0.82];
-function fitCvToPage(){
+function fitCvToPage(finalPrint){
+  // Rezerva e sigurisë (A4_FIT_TARGET_PX) duhet të veprojë VETËM në momentin e printimit real
+  // (finalPrint===true, thirrur nga printCV() para window.print()) — jo te pamja e zakonshme
+  // në ekran, përndryshe çdo CV shtrëngohet pa nevojë dhe lë hapësirë bosh të panevojshme poshtë.
+  var target=finalPrint?A4_FIT_TARGET_PX:A4_PAGE_PX;
   var preview=document.getElementById('cvPreview'),el=preview&&preview.firstElementChild;
   if(!el)return;
   el.style.transform='';
@@ -3180,13 +3194,13 @@ function fitCvToPage(){
     el.style.zoom=z;
     el.style.width=(210/z)+'mm';
     chosen=z;
-    if(realH()<=A4_FIT_TARGET_PX) break;
+    if(realH()<=target) break;
   }
   el.dataset.fitZoom=chosen;
   // Nëse edhe ngjeshja maksimale e zoom-it s'mjafton, ngushto edhe hapësirat më të mëdha
   // mes seksioneve (marzhe/padding/gap) — disa hapa, para se të pranohet faqja 2.
-  if(realH()>A4_FIT_TARGET_PX){
-    for(var pass=0;pass<8&&realH()>A4_FIT_TARGET_PX;pass++){
+  if(realH()>target){
+    for(var pass=0;pass<8&&realH()>target;pass++){
       var shrunkAny=false;
       el.querySelectorAll('[style]').forEach(function(node){
         ['marginTop','marginBottom','paddingTop','paddingBottom','gap','rowGap','columnGap'].forEach(function(key){
@@ -3896,7 +3910,7 @@ function printCV(){
     ansPrint.classList.add('hidden');
     ansPrintText.innerHTML='';
   }
-  if(typeof fitCvToPage==='function') fitCvToPage();
+  if(typeof fitCvToPage==='function') fitCvToPage(true);
   // Trup me dy faqe për template-t 2-faqësh (Premium) OSE kur ka Anschreiben (faqe shtesë)
   var isTwoPage = !!document.querySelector('#cvPreview > .cv-twopage');
   document.body.classList.toggle('printing-twopage', isTwoPage);

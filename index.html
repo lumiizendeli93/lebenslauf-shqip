@@ -3906,6 +3906,19 @@ function printCV(){
   document.documentElement.classList.toggle('printing-letter', !!hasLetter);
   var msg=document.getElementById('printMsg');
   if(msg) msg.style.display='block';
+  // Fshih përkohësisht session_id nga URL-ja para printimit — disa shfletues/OS (p.sh. "Save to
+  // Files" i Safari-t në iOS) e shtypin vetë URL-në aktuale si footer në PDF, dhe ID-ja e gjatë e
+  // sesionit s'duhet të dalë në një dokument si CV/letër motivimi. E rikthejmë pas printimit që
+  // rifreskimi i faqes të mund ta rikonfirmojë ende pagesën (shih checkPaymentAndPrint()).
+  var urlBeforePrint=window.location.href;
+  var hasSessionParam=/[?&]session_id=/.test(urlBeforePrint);
+  if(hasSessionParam){
+    try{history.replaceState(null,'',window.location.pathname);}catch(ignore){}
+  }
+  window.addEventListener('afterprint',function restoreUrl(){
+    window.removeEventListener('afterprint',restoreUrl);
+    if(hasSessionParam){try{history.replaceState(null,'',urlBeforePrint);}catch(ignore){}}
+  },{once:true});
   setTimeout(function(){
     window.print();
     if(msg) setTimeout(function(){msg.style.display='none';},3000);

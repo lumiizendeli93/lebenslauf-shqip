@@ -305,7 +305,10 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 .anschreiben-print .letter-recipient{text-align:right;flex:1}
 .anschreiben-print .letter-date{text-align:right;margin:22px 0;color:#777;font-size:12px}
 .anschreiben-print .letter-subject{font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block}
-@media(max-width:600px){
+/* `screen and`: Safari e iOS-it printon me gjerësinë e telefonit, jo me 210mm të faqes A4 —
+   pa këtë kufizim, stivosja për ekran të vogël hyn edhe në PDF dhe adresa e marrësit del
+   poshtë dërguesit në vend që të jetë djathtas tij. */
+@media screen and (max-width:600px){
   .anschreiben-print .letter-header{flex-direction:column;gap:16px}
   .anschreiben-print .letter-recipient{text-align:left;border-top:1px solid #eee;padding-top:14px}
 }
@@ -366,7 +369,10 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 /* PRINT: natural page flow prevents irreversible loss of long CV/letter content. */
 @page{size:A4 portrait;margin:0}
 @media print{
-  html,body{background:#fff;margin:0;padding:0;width:210mm;height:auto!important;overflow:visible!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  /* !important: rregullat e mëvonshme `body{background:var(--bg)}` dhe `body.dark-mode{...}`
+     përndryshe fitojnë nga radha/specifika dhe, bashkë me print-color-adjust:exact, e pikturojnë
+     sfondin e redaktorit (gri, ose thuajse të zi në dark-mode) në çdo hapësirë të mbetur të faqes. */
+  html,body{background:#fff!important;margin:0;padding:0;width:210mm;height:auto!important;overflow:visible!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
   .app-header,.steps-wrap,.landing-only,.actions,.no-print,footer,.skip-link,#appStatus,.live-panel,.live-fab,.live-overlay,[id$="Modal"]{display:none!important}
   #mainContent{display:block!important;max-width:none;width:210mm;margin:0;padding:0}
   #mainContent>div:not(#step6),#step6>.card{display:none!important}
@@ -3180,7 +3186,10 @@ function removeA4Filler(preview){
 function fillA4Gap(preview,el){
   removeA4Filler(preview);
   var elRect=el.getBoundingClientRect();
-  var gap=A4_PAGE_PX-elRect.height;
+  // Mbushja ndalon te i njëjti kufi si vetë CV-ja (me rezervën A4_SAFETY_PX), jo te 1122px.
+  // Po e mbushëm deri te kufiri absolut i faqes, mbushësi e ha vetë rezervën dhe mjafton një
+  // rrumbullakim i motorit të printimit që të derdhet në një faqe të dytë pothuajse bosh.
+  var gap=A4_FIT_TARGET_PX-elRect.height;
   if(gap<=2)return; // pa hapësirë kuptimplote, ose përmbajtja tashmë kalon faqen
   var filler=document.createElement('div');
   filler.className='a4-fill-gap';
@@ -3199,7 +3208,9 @@ function fillA4Gap(preview,el){
       filler.appendChild(part);
     });
   }else{
-    filler.style.background=getComputedStyle(el).backgroundColor;
+    var bg=getComputedStyle(el).backgroundColor;
+    // Sfond transparent te dokumenti => mbushësi do të linte të dukej sfondi i faqes.
+    filler.style.background=(!bg||bg==='transparent'||/,\s*0\s*\)$/.test(bg))?'#fff':bg;
   }
   preview.appendChild(filler);
 }

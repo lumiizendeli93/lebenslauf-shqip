@@ -1403,7 +1403,7 @@ body.dark-mode .modal-box a{color:#ff6b85!important}
         </div>
         <div class="field">
           <label>Datëlindja <span>(Geburtsdatum)</span></label>
-          <input id="p_bdate" type="text" placeholder="tt.mm.vvvv (p.sh. 15.03.1990)" pattern="\d{2}\.\d{2}\.\d{4}"/>
+          <input id="p_bdate" type="text" placeholder="tt.mm.vvvv (p.sh. 15.03.1990)" pattern="\d{2}\.\d{2}\.\d{4}" inputmode="numeric" maxlength="10" oninput="formatDateInput(this)"/>
         </div>
         <div class="field">
           <label>Vendlindja <span>(Geburtsort)</span></label>
@@ -1415,7 +1415,7 @@ body.dark-mode .modal-box a{color:#ff6b85!important}
         </div>
         <div class="field">
           <label>Hyrja në Gjermani <span>(Einreise nach Deutschland · optional)</span></label>
-          <input id="p_einreise" type="text" placeholder="MM/JJJJ" pattern="(0[1-9]|1[0-2])/(19|20)\d{2}" inputmode="numeric" maxlength="7" title="Format: MM/JJJJ (p.sh. 09/2019)"/>
+          <input id="p_einreise" type="text" placeholder="MM/JJJJ" pattern="(0[1-9]|1[0-2])/(19|20)\d{2}" inputmode="numeric" maxlength="7" title="Format: MM/JJJJ (p.sh. 09/2019)" oninput="formatMonthYearInput(this)"/>
           <span style="font-size:11px;color:var(--gray4);font-weight:400;line-height:1.5">Plotësoje vetëm nëse dëshiron që kjo të shfaqet në CV. Kjo e dhënë nuk është e detyrueshme.<br>Nur ausfüllen, wenn diese Angabe im Lebenslauf erscheinen soll. Diese Angabe ist freiwillig.</span>
         </div>
         <div class="field">
@@ -2322,8 +2322,8 @@ function renderEduList(){
     '<div class="form-grid">'+
     '<div class="field"><label>Institucioni arsimor <span>(Schule / Universität)</span></label><input value="'+esc(e.school)+'" oninput="updateEdu('+e.id+',\'school\',this.value)" placeholder="p.sh. Berufsschule Stuttgart"/></div>'+
     '<div class="field"><label>Drejtimi / Kualifikimi <span>(Ausbildung / Studiengang / Abschluss)</span></label><input value="'+esc(e.degree)+'" oninput="updateEdu('+e.id+',\'degree\',this.value)" placeholder="p.sh. Fachinformatiker für Systemintegration"/></div>'+
-    '<div class="field"><label>Nga <span>(Von)</span></label><input value="'+esc(e.from)+'" oninput="updateEdu('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ"/></div>'+
-    '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="updateEdu('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose aktualisht"/></div>'+
+    '<div class="field"><label>Nga <span>(Von)</span></label><input value="'+esc(e.from)+'" inputmode="numeric" oninput="formatMonthYearInput(this);updateEdu('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ"/></div>'+
+    '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="formatMonthYearInput(this);updateEdu('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose aktualisht"/></div>'+
         '</div></div>';}).join('');
 }
 
@@ -2345,8 +2345,8 @@ function renderExpList(){
     '<div class="field"><label>Kompania <span>(Unternehmen) *</span></label><input value="'+esc(e.company)+'" oninput="updateExp('+e.id+',\'company\',this.value)" placeholder="z.B. Bosch GmbH"/></div>'+
     '<div class="field"><label>Roli / Pozicioni <span>(Stelle / Berufsbezeichnung) *</span></label><input value="'+esc(e.role)+'" oninput="updateExp('+e.id+',\'role\',this.value)" placeholder="z.B. IT-Administrator"/></div>'+
     '<div class="field"><label>Vendndodhja <span>(Ort)</span></label><input value="'+esc(e.location)+'" oninput="updateExp('+e.id+',\'location\',this.value)" placeholder="z.B. Stuttgart"/></div>'+
-    '<div class="field"><label>Nga <span>(Von) *</span></label><input value="'+esc(e.from)+'" oninput="updateExp('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ z.B. 01/2022"/></div>'+
-    '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="updateExp('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose Aktuell"/></div>'+
+    '<div class="field"><label>Nga <span>(Von) *</span></label><input value="'+esc(e.from)+'" inputmode="numeric" oninput="formatMonthYearInput(this);updateExp('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ z.B. 01/2022"/></div>'+
+    '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="formatMonthYearInput(this);updateExp('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose Aktuell"/></div>'+
     '<div class="field" style="grid-column:1/-1"><label>Detyrat dhe arritjet <span>(Aufgaben und Erfolge)</span></label><textarea oninput="updateExp('+e.id+',\'desc\',this.value)" placeholder="Përshkruaji në gjermanisht">'+esc(e.desc)+'</textarea></div>'+
     '</div>'+
     '</div>';}).join('');
@@ -2728,6 +2728,22 @@ function selectLetter(){var ed=document.getElementById('anschreibenEdit');ed.foc
 
 function g(id){var el=document.getElementById(id);return el?el.value.trim():'';}
 function esc(s){return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+// Auto-formatim i datave gjatë shkrimit (fut '/' ose '.' vetë) — kryesisht për tastierën numerike
+// e mobilit, ku shenjat e ndarjes s'janë të arritshme. Nuk prek fushat ku përdoruesi po shkruan
+// tekst (p.sh. "aktuell"/"aktualisht" te fusha "Deri").
+function formatMonthYearInput(el){
+  if(/[a-zA-Z]/.test(el.value))return;
+  var digits=el.value.replace(/\D/g,'').slice(0,6);
+  el.value=digits.length>2?digits.slice(0,2)+'/'+digits.slice(2):digits;
+}
+function formatDateInput(el){
+  if(/[a-zA-Z]/.test(el.value))return;
+  var digits=el.value.replace(/\D/g,'').slice(0,8);
+  if(digits.length>4)el.value=digits.slice(0,2)+'.'+digits.slice(2,4)+'.'+digits.slice(4);
+  else if(digits.length>2)el.value=digits.slice(0,2)+'.'+digits.slice(2);
+  else el.value=digits;
+}
 
 function fmtDate(d){
   if(!d)return'';

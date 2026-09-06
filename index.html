@@ -84,6 +84,19 @@ input::placeholder,textarea::placeholder{font-weight:400;color:var(--gray4);opac
   background:linear-gradient(90deg,transparent,var(--red),transparent);
   border-radius:2px;
 }
+.brand-mark{display:flex;align-items:center;gap:12px}
+.brand-emblem{
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(160deg,var(--red2),var(--red-dark));
+  color:#fff;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:20px;
+  box-shadow:0 3px 10px rgba(200,16,46,0.28);
+}
+.brand-copy{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
+.brand-name{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:var(--black);letter-spacing:-.2px}
+.brand-name em{font-style:normal;color:var(--red)}
+.brand-tag{font-family:var(--font-ui);font-size:10.5px;font-weight:600;letter-spacing:.4px;color:var(--gray4)}
+@media(max-width:480px){.brand-emblem{width:32px;height:32px;font-size:17px;border-radius:8px}.brand-name{font-size:17px}}
 
 .container{max-width:840px;margin:0 auto;padding:2.5rem 1.5rem}
 
@@ -170,6 +183,7 @@ label{
   letter-spacing:.6px;text-transform:uppercase;
   font-family:var(--font-ui);
 }
+.field>label{line-height:1.4;min-height:2.8em}
 label span{font-size:11px;color:var(--gray4);font-weight:400;text-transform:none;letter-spacing:0}
 input,textarea,select{
   font-family:var(--font-ui);font-size:14.5px;
@@ -342,7 +356,7 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
   #mainContent>div:not(#step6),#step6>.card{display:none!important}
   #step6{display:block!important}
   .cv-wrap,#cvPreview{border:0;border-radius:0;box-shadow:none;margin:0;padding:0;width:210mm;max-width:none;height:auto!important;overflow:visible!important}
-  #cvPreview>.cv-document{transform:none!important;zoom:1!important;width:210mm!important;max-height:none!important;overflow:visible!important;break-inside:auto}
+  #cvPreview>.cv-document{transform:none!important;max-height:none!important;overflow:visible!important;break-inside:auto}
   .cv-twopage>*{height:auto!important;min-height:296mm;max-height:none!important;overflow:visible!important}
   .cv-twopage>*:first-child{break-after:page}
   .cv-twopage>*:last-child{break-after:auto}
@@ -462,6 +476,23 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
   box-shadow:0 24px 64px rgba(200,16,46,0.5),0 8px 24px rgba(200,16,46,0.25);
 }
 .hero-note{margin-top:18px;font-size:12.5px;color:#aaa69f;letter-spacing:.6px;font-family:var(--font-ui);display:flex;align-items:center;justify-content:center;gap:2px}
+
+/* ============ JOB MARQUEE (shirit lëvizës profesionesh) ============ */
+.job-marquee-section{background:#0d0b0a;padding:40px 0 34px;text-align:center}
+.job-marquee-intro{padding:0 24px;margin-bottom:24px}
+.jobm-kicker{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#e8556a;margin-bottom:10px;font-family:var(--font-ui)}
+.jobm-title{font-family:'DM Serif Display','Playfair Display',Georgia,serif;font-size:clamp(22px,3.6vw,32px);font-weight:700;color:#fff;line-height:1.3;margin:0}
+.jobm-title span{color:#aaa69f;font-family:var(--font-ui);font-weight:400;font-size:.62em;display:block;margin-top:6px;letter-spacing:0}
+.job-marquee{position:relative;overflow:hidden;padding:4px 0}
+.job-marquee::before,.job-marquee::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.job-marquee::before{left:0;background:linear-gradient(90deg,#0d0b0a,rgba(13,11,10,0))}
+.job-marquee::after{right:0;background:linear-gradient(270deg,#0d0b0a,rgba(13,11,10,0))}
+.job-marquee-track{display:flex;width:max-content;gap:12px;animation:jobMarqueeScroll 34s linear infinite}
+.job-marquee:hover .job-marquee-track{animation-play-state:paused}
+.job-tag{display:flex;align-items:center;gap:9px;white-space:nowrap;background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.09);color:#d6d0c9;font-size:13px;font-weight:600;font-family:var(--font-ui);padding:10px 20px;border-radius:100px;letter-spacing:.15px}
+.job-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
+@keyframes jobMarqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.job-marquee-track{animation:none}}
 
 /* ============ STATS STRIP (urë mes hero-s dhe përmbajtjes) ============ */
 .stats-strip{
@@ -781,6 +812,8 @@ body.builder-active .live-fab{display:flex}
 .anim-ready .why-kicker,
 .anim-ready .why-title,
 .anim-ready .why-sub,
+.anim-ready .jobm-kicker,
+.anim-ready .jobm-title,
 .anim-ready .how-cta{
   opacity:0;transform:translateY(22px);
   transition:opacity .65s cubic-bezier(.22,.65,.3,1),transform .65s cubic-bezier(.22,.65,.3,1),box-shadow .3s,border-color .3s;
@@ -817,6 +850,8 @@ body.builder-active .live-fab{display:flex}
   .anim-ready .why-kicker,
   .anim-ready .why-title,
   .anim-ready .why-sub,
+  .anim-ready .jobm-kicker,
+  .anim-ready .jobm-title,
   .anim-ready .how-cta{transform:translateY(12px);transition-duration:.45s}
   .hero-dark .hero-h1{animation-duration:.55s}
 }
@@ -835,6 +870,8 @@ body.builder-active .live-fab{display:flex}
   .anim-ready .why-kicker,
   .anim-ready .why-title,
   .anim-ready .why-sub,
+  .anim-ready .jobm-kicker,
+  .anim-ready .jobm-title,
   .anim-ready .how-cta{opacity:1;transform:none;transition:none}
   .hero-btn-main:hover,.why-card:hover,.how-step:hover,.how-cta:hover{transform:none}
 }
@@ -986,16 +1023,42 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
 .skills-guide p{font-size:14px;color:#526176;line-height:1.7;margin-bottom:18px}
 .skills-guide>label{display:block;text-transform:none;font-size:13px;letter-spacing:0;margin-bottom:7px}
 .skills-guide>select{background:#f0f3f6}
-.skill-suggestions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
-.suggestion{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;border:1px solid #c9d3df;border-radius:9px;background:#edf1f5;padding:13px;cursor:pointer;font-family:var(--font-ui);color:#334155;min-width:0}
-.suggestion strong{font-size:13px;font-weight:600;display:block;overflow-wrap:anywhere}.suggestion small{display:block;font-size:12px;color:#626f80;margin-top:4px}.suggestion>span:last-child{font-size:21px;color:#65758b}
-.suggestion:hover{border-color:#8d9eb4;background:#e0e7ef}.suggestion:disabled{opacity:.65;cursor:default;background:#dde7e1}
+.skills-guide-note{margin-top:8px;font-size:11.5px;line-height:1.6;color:#68788d}
+.skills-guide-note strong{color:#4b5a6e}
+.skill-suggestions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}
+.suggestion{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;border:1px solid #c9d3df;border-radius:9px;background:#edf1f5;padding:8px 10px;min-height:44px;cursor:pointer;font-family:var(--font-ui);color:#334155;min-width:0;transition:background .15s,border-color .15s}
+.suggestion strong{font-size:12px;font-weight:600;line-height:1.3;display:block;overflow-wrap:anywhere}.suggestion small{display:block;font-size:10.5px;color:#626f80;margin-top:2px;overflow-wrap:anywhere}.suggestion>span:last-child{font-size:16px;color:#65758b;flex-shrink:0}
+.suggestion:hover{border-color:#8d9eb4;background:#e0e7ef}
+.suggestion:focus-visible{outline:3px solid #5676a0;outline-offset:2px}
+.suggestion:disabled{cursor:default;opacity:1;background:#dcefe3;border-color:#8fbfa0}
+.suggestion:disabled strong,.suggestion:disabled small{color:#1f5c3a}
+.suggestion:disabled>span:last-child{color:#1f5c3a;font-size:14px}
+@media(min-width:860px){.skill-suggestions{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:640px){.skill-suggestions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){.skill-suggestions{grid-template-columns:minmax(0,1fr)}}
+
+/* ============ ANSCHREIBEN (letër motivuese) — kartat e reja ============ */
+#step5 .letter-intro{margin-bottom:16px}
+#step5 .letter-intro h3{margin:0 0 6px;font-family:var(--font-ui);font-size:15px;font-weight:700;color:var(--text)}
+#step5 .letter-intro p{margin:0;color:var(--gray5);font-size:13.5px;line-height:1.75}
+#step5 .letter-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:16px}
+#step5 .letter-info-card{background:#e9edf2;border:1px solid #ccd4df;border-radius:14px;padding:18px 20px;min-width:0}
+#step5 .letter-info-card h3{margin:0 0 10px;font-family:var(--font-ui);font-size:13.5px;font-weight:700;color:var(--text)}
+#step5 .letter-info-card ul{margin:0;padding-left:18px;color:var(--gray5);font-size:12.5px;line-height:1.75}
+#step5 .letter-info-card li+li{margin-top:5px}
+#step5 .letter-info-card li::marker{color:#8a97a8}
+#step5 .letter-ai-highlight{background:#f6ecef;border:1px solid #e6ced5;border-radius:14px;padding:16px 20px;margin-bottom:18px}
+#step5 .letter-ai-highlight h3{margin:0 0 6px;font-family:var(--font-ui);font-size:13.5px;font-weight:700;color:#893448}
+#step5 .letter-ai-highlight p{margin:0;color:#7a4550;font-size:12.5px;line-height:1.7}
+#step5 .letter-optional-hint{margin:2px 0 0;font-size:11.5px;line-height:1.6;color:var(--gray4)}
+@media(max-width:600px){#step5 .letter-info-grid{grid-template-columns:minmax(0,1fr)}#step5 .letter-info-card,#step5 .letter-ai-highlight{padding:14px 16px}}
+
 #skillTags{display:grid;gap:9px;width:100%;margin-top:18px}
 .skill-selected{display:grid;grid-template-columns:minmax(0,1fr) minmax(130px,200px) 34px;align-items:center;gap:10px;border:1px solid #cbd4df;border-radius:10px;background:#e8edf3;padding:11px 12px}
 .skill-selected>span{font-size:14px;font-weight:600;overflow-wrap:anywhere}.skill-selected select{font-size:12px;padding:8px;background:#f1f4f7}.skill-selected button{border:0;background:transparent;color:#7e3345;font-size:22px;cursor:pointer;min-height:34px}
 .why-section,.how-section{background:#e7e9ed}.why-card,.how-step{background:#f0f2f5;border:1px solid #ced5df;box-shadow:none}.why-sub,.how-step p,.why-card p{color:#536071}
 .hero-dark{padding-top:80px;padding-bottom:72px}.hero-h1{font-family:var(--font-ui);font-size:clamp(36px,5.5vw,66px);font-weight:750;letter-spacing:-2px;line-height:1.13}.hero-btn-main,.how-cta{border-radius:12px}
-@media(max-width:600px){.card{padding:22px 16px}.card-title{font-size:21px}.skills-guide{padding:16px}.skill-suggestions{grid-template-columns:1fr}.skill-selected{grid-template-columns:minmax(0,1fr) 32px}.skill-selected select{grid-column:1;grid-row:2}.skill-selected button{grid-column:2;grid-row:1/3}.hero-h1{letter-spacing:-1px}}
+@media(max-width:600px){.card{padding:22px 16px}.card-title{font-size:21px}.skills-guide{padding:16px}.skill-selected{grid-template-columns:minmax(0,1fr) 32px}.skill-selected select{grid-column:1;grid-row:2}.skill-selected button{grid-column:2;grid-row:1/3}.hero-h1{letter-spacing:-1px}}
 @media print{.card{box-shadow:none}.cv-document{letter-spacing:normal}}
 
 
@@ -1019,9 +1082,11 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
 <div id="appStatus" role="status" aria-live="polite" class="sr-only"></div>
 
 <header class="app-header">
-  <div style="text-align:center">
-    <div style="font-size:22px;font-weight:700;color:var(--black);letter-spacing:-.3px;font-family:'Playfair Display',serif">Professioneller Lebenslauf</div>
-    
+  <div class="brand-mark">
+    <span class="brand-emblem" aria-hidden="true">L</span>
+    <span class="brand-copy">
+      <span class="brand-name">lebenslauf<em>shqip</em></span>
+    </span>
   </div>
 </header>
 
@@ -1048,17 +1113,41 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
     Fillo tani
   </button>
   <div class="hero-note">Pa regjistrim &nbsp;·&nbsp; Pamja paraprake falas</div>
+</div>
 
-  <!-- DATA PRIVACY NOTICE -->
-  <div class="hero-privacy" style="margin-top:40px;display:inline-flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 24px;max-width:520px;text-align:left;backdrop-filter:blur(8px)">
-    <div style="font-size:22px;flex-shrink:0;margin-top:2px">🔒</div>
-    <div>
-      <div style="font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:6px;letter-spacing:.2px">Si përdoren të dhënat e tua</div>
-      <div style="font-size:12px;color:#94a3b8;line-height:1.8">
-        CV-ja përpunohet në shfletues. Para pagesës, ruhet përkohësisht në këtë skedë që të mos humbasë kur kthehesh nga Stripe.<br>
-        KI-ja është opsionale dhe dërgon të dhënat profesionale për përpunim. Varianti pa KI punon lokalisht.<br>
-        Eksportimi nuk i fshin të dhënat. Përdor “Fshi të dhënat” kur të përfundosh.
-      </div>
+<!-- JOB MARQUEE — çdo profesion ka vend këtu, jo vetëm zyra -->
+<div class="job-marquee-section landing-only" id="jobMarquee">
+  <div class="job-marquee-intro">
+    <p class="jobm-kicker">Për çdo profesion</p>
+    <h2 class="jobm-title">Çdo punë ka vlerë. <span>Edhe përvoja jote.</span></h2>
+    <p class="jobm-sub sr-only">Zyrë &amp; IT, Lager &amp; Logistikë, Prodhim, Maler, Gartenbau, Gastronomi, Pastrim, Kujdes shëndetësor, Ndërtim, Shitje, Shofer, Zanate.</p>
+  </div>
+  <div class="job-marquee" aria-hidden="true">
+    <div class="job-marquee-track">
+      <span class="job-tag">Zyrë &amp; IT</span>
+      <span class="job-tag">Lager &amp; Logistikë</span>
+      <span class="job-tag">Prodhim</span>
+      <span class="job-tag">Maler</span>
+      <span class="job-tag">Gartenbau</span>
+      <span class="job-tag">Gastronomi</span>
+      <span class="job-tag">Pastrim</span>
+      <span class="job-tag">Kujdes shëndetësor</span>
+      <span class="job-tag">Ndërtim</span>
+      <span class="job-tag">Shitje</span>
+      <span class="job-tag">Shofer</span>
+      <span class="job-tag">Zanate</span>
+      <span class="job-tag">Zyrë &amp; IT</span>
+      <span class="job-tag">Lager &amp; Logistikë</span>
+      <span class="job-tag">Prodhim</span>
+      <span class="job-tag">Maler</span>
+      <span class="job-tag">Gartenbau</span>
+      <span class="job-tag">Gastronomi</span>
+      <span class="job-tag">Pastrim</span>
+      <span class="job-tag">Kujdes shëndetësor</span>
+      <span class="job-tag">Ndërtim</span>
+      <span class="job-tag">Shitje</span>
+      <span class="job-tag">Shofer</span>
+      <span class="job-tag">Zanate</span>
     </div>
   </div>
 </div>
@@ -1338,7 +1427,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
       <div class="card-title">Aftësitë dhe gjuhët <span style="color:#9ca3af;font-weight:400;font-size:12.5px;font-style:italic;font-family:'DM Sans',sans-serif;letter-spacing:.1px">(Kenntnisse und Sprachen)</span></div>
       <div class="card-sub">Shto aftësitë dhe gjuhët që lidhen me punën për të cilën aplikon.</div>
 
-<div class="skills-guide"><span class="section-eyebrow">AFTËSITË E TUA</span><h3>Çfarë di të bësh mirë në punë?</h3><p>Zgjidh fushën e punës dhe shto aftësitë që zotëron. Mund të shkruash edhe aftësi të tjera në gjermanisht.</p><label for="skillCategory">Shiko shembuj sipas profesionit</label><select id="skillCategory" onchange="renderSuggestions()"><option value="office">Zyrë / IT</option><option value="warehouse">Magazinë / Logjistikë</option><option value="hospitality">Gastronomi / Pastrim</option><option value="construction">Ndërtim</option><option value="care">Kujdes shëndetësor</option><option value="transport">Transport</option></select><div id="skillSuggestions" class="skill-suggestions"></div></div>
+<div class="skills-guide"><span class="section-eyebrow">AFTËSITË E TUA</span><h3>Çfarë di të bësh mirë në punë?</h3><p>Zgjidh disa aftësi që të përshtaten. Mund të shtosh edhe aftësi të tjera vetë.</p><label for="skillCategory">Shiko shembuj sipas profesionit</label><select id="skillCategory" onchange="renderSuggestions()"><option value="office">Zyrë / Administratë</option><option value="it">IT / Technik</option><option value="sales">Verkauf / Einzelhandel</option><option value="warehouse">Lager / Logistik</option><option value="production">Produktion</option><option value="construction">Bau</option><option value="painter">Maler / Lackierer</option><option value="gardening">Gartenbau / Landschaftsbau</option><option value="gastronomy">Gastronomie / Service</option><option value="kitchen">Küche</option><option value="cleaning">Reinigung</option><option value="care">Pflege / Betreuung</option><option value="driver">Fahrer / Lieferung</option><option value="craft">Handwerk</option><option value="hairdresser">Friseur / Kosmetik</option><option value="security">Security</option><option value="bakery">Bäckerei / Lebensmittel</option><option value="other">Andere / Sonstiges</option></select><p class="skills-guide-note">Zgjidh një fushë vetëm për të parë shembuj. <strong>Kjo zgjedhje nuk shfaqet automatikisht në CV</strong> — ti vetë zgjedh cilat aftësi t'i shtosh.</p><div id="skillSuggestions" class="skill-suggestions"></div></div>
       <div class="field">
         <label for="skillInput">Shto një aftësi tjetër <span>(Kenntnis)</span></label>
         <div class="skill-input-row" style="flex-direction:column;gap:10px">
@@ -1405,7 +1494,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <!-- Red header -->
             <div style="background:#8b1a1a;padding:8px 10px">
-              <div style="font-size:8.5px;font-weight:700;color:#fff;font-family:Georgia,serif;margin-bottom:1px">Kim Mustermann</div>
+              <div style="font-size:8.5px;font-weight:700;color:#fff;font-family:Georgia,serif;margin-bottom:1px">Arber Krasniqi</div>
               <div style="font-size:4px;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">IT-Administrator</div>
               <div style="display:flex;gap:6px;font-size:4px;color:rgba(255,255,255,0.7)">
                 <span>✉ kim@mail.de</span><span>✆ +49 170 123</span>
@@ -1459,9 +1548,9 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="padding:10px;text-align:center;border-bottom:2px solid #1a1a1a">
               <div style="width:26px;height:26px;border-radius:50%;background:#ddd;margin:0 auto 4px"></div>
-              <div style="font-size:8.5px;font-weight:800;color:#111">KIM MUSTERMANN</div>
+              <div style="font-size:8.5px;font-weight:800;color:#111">ARBER KRASNIQI</div>
               <div style="font-size:6px;color:#1a73e8;font-weight:600">B2B PRODUCT SPECIALIST</div>
-              <div style="display:flex;justify-content:center;gap:6px;margin-top:3px;font-size:5px;color:#666"><span>kim@mustermann.de</span><span>+49 078 123</span></div>
+              <div style="display:flex;justify-content:center;gap:6px;margin-top:3px;font-size:5px;color:#666"><span>arber@krasniqi.de</span><span>+49 078 123</span></div>
             </div>
             <div style="padding:6px 9px">
               <div style="font-size:5.5px;font-weight:700;color:#333;margin-bottom:2px">Fähigkeiten</div>
@@ -1483,7 +1572,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="width:44px;background:#1e2d3d;padding:7px 6px;flex-shrink:0;display:flex;flex-direction:column;align-items:center">
               <div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.15);margin-bottom:5px"></div>
-              <div style="font-size:5px;font-weight:700;color:#fff;text-align:center;line-height:1.3;margin-bottom:6px">Kim<br>Muster</div>
+              <div style="font-size:5px;font-weight:700;color:#fff;text-align:center;line-height:1.3;margin-bottom:6px">Arbër<br>Krasn.</div>
               <div style="font-size:4px;font-weight:700;color:rgba(255,255,255,0.6);align-self:flex-start;margin-bottom:2px">KONTAKT</div>
               <div style="height:1.5px;width:32px;background:rgba(255,255,255,0.25);margin-bottom:1.5px"></div>
               <div style="height:1.5px;width:24px;background:rgba(255,255,255,0.25);margin-bottom:5px"></div>
@@ -1522,13 +1611,13 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
           <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;background:#fff">
             <div class="template-check">✓</div>
             <div style="padding:7px 10px;border-bottom:1px solid #ccc;text-align:center;background:#fafaf8">
-              <div style="font-size:8px;font-weight:800;color:#111">KIM MUSTERMANN</div>
-              <div style="font-size:4.5px;color:#666;margin-top:2px">kim@mustermann.de · +49 078 123 · Stuttgart</div>
+              <div style="font-size:8px;font-weight:800;color:#111">ARBER KRASNIQI</div>
+              <div style="font-size:4.5px;color:#666;margin-top:2px">arber@krasniqi.de · +49 078 123 · Stuttgart</div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;min-height:100px">
               <div style="padding:6px 8px;border-right:1px solid #e0d0a0">
                 <div style="font-size:5.5px;color:#bbb;font-weight:700;letter-spacing:.5px;margin-bottom:2px">Lebenslauf</div>
-                <div style="font-size:8px;font-weight:700;color:#8B6914;line-height:1.2;margin-bottom:6px">Kim<br>Mustermann</div>
+                <div style="font-size:8px;font-weight:700;color:#8B6914;line-height:1.2;margin-bottom:6px">Arbër<br>Krasniqi</div>
                 <div style="font-size:4.5px;font-weight:700;color:#333;margin-bottom:1px">Geburtsdatum</div>
                 <div style="font-size:4px;color:#666;margin-bottom:3px">01.01.1990, Berlin</div>
                 <div style="font-size:4.5px;font-weight:700;color:#333;margin-bottom:1px">Familienstand</div>
@@ -1562,7 +1651,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <!-- Main (weiss) -->
             <div style="flex:1;padding:7px 8px;background:#fff">
               <div style="font-size:3.5px;color:#79716b;letter-spacing:1.5px;margin-bottom:1px">LEBENSLAUF</div>
-              <div style="font-size:8px;font-weight:700;color:#1c1917;margin-bottom:1px;font-family:Georgia,serif">Max Müller</div>
+              <div style="font-size:8px;font-weight:700;color:#1c1917;margin-bottom:1px;font-family:Georgia,serif">Arber Krasniqi</div>
               <div style="font-size:4px;color:#9a7c2e;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px">Fachinformatiker</div>
               <div style="font-size:4px;font-weight:700;color:#9a7c2e;letter-spacing:1.5px;margin-bottom:2px;display:flex;align-items:center;gap:4px">ERFAHRUNG<span style="flex:1;height:1px;background:#e7e2da"></span></div>
               <div style="display:flex;gap:4px;margin-bottom:4px">
@@ -1595,7 +1684,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
               <div style="width:22px;height:22px;border-radius:50%;border:1.5px solid #c8984a;padding:2px;margin-bottom:4px">
                 <div style="width:100%;height:100%;border-radius:50%;background:rgba(255,255,255,0.1)"></div>
               </div>
-              <div style="font-size:5px;font-weight:600;color:#fff;text-align:center;line-height:1.2;margin-bottom:2px">Maria<br>Müller</div>
+              <div style="font-size:5px;font-weight:600;color:#fff;text-align:center;line-height:1.2;margin-bottom:2px">Arbër<br>Krasniqi</div>
               <div style="font-size:3.5px;color:#c8984a;letter-spacing:1px;margin-bottom:6px">PFLEGE</div>
               <div style="font-size:3.5px;color:#c8984a;letter-spacing:1px;margin-bottom:3px;width:100%;border-bottom:1px solid #c8984a44;padding-bottom:2px;text-align:center">KONTAKT</div>
               <div style="height:1.5px;width:28px;background:rgba(255,255,255,0.15);margin-bottom:1.5px"></div>
@@ -1607,8 +1696,8 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             </div>
             <!-- Main -->
             <div style="flex:1;padding:7px 8px;background:#faf8f4">
-              <div style="font-size:10px;font-weight:300;color:#1a1a1a;line-height:1">Maria</div>
-              <div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:2px">Müller</div>
+              <div style="font-size:10px;font-weight:300;color:#1a1a1a;line-height:1">Arbër</div>
+              <div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:2px">Krasniqi</div>
               <div style="font-size:4px;color:#8a8a8a;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;border-bottom:1.5px solid #c8984a44;padding-bottom:3px">Krankenpflegerin</div>
               <div style="font-size:4px;font-weight:600;color:#c8984a;letter-spacing:2px;margin-bottom:3px;display:flex;align-items:center;gap:4px">ERFAHRUNG<span style="flex:1;height:1px;background:#c8984a33"></span></div>
               <div style="margin-bottom:3px">
@@ -1635,7 +1724,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="display:flex;justify-content:space-between;align-items:flex-start">
               <div>
-                <div style="font-size:10px;font-weight:700;color:#111;font-family:Georgia,serif;line-height:1.1">Max<br><span style="font-weight:400;font-style:italic">Mustermann</span></div>
+                <div style="font-size:10px;font-weight:700;color:#111;font-family:Georgia,serif;line-height:1.1">Arbër<br><span style="font-weight:400;font-style:italic">Krasniqi</span></div>
                 <div style="font-size:3.5px;color:#777;letter-spacing:2px;text-transform:uppercase;margin-top:3px">IT-Administrator</div>
               </div>
               <div style="width:16px;height:20px;background:#eee;border:1px solid #ddd"></div>
@@ -1671,7 +1760,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="background:#eff6ff;border-bottom:1px solid #dbeafe;padding:8px 9px;display:flex;justify-content:space-between;align-items:center">
               <div>
-                <div style="font-size:8px;font-weight:800;color:#0f172a">Max Mustermann</div>
+                <div style="font-size:8px;font-weight:800;color:#0f172a">Arber Krasniqi</div>
                 <div style="font-size:3.5px;font-weight:700;color:#1d4ed8;letter-spacing:1.5px;text-transform:uppercase;margin-top:1px">IT-Administrator</div>
                 <div style="font-size:3.5px;color:#475569;margin-top:2px">+49 170 · max@mail.de · Stuttgart</div>
               </div>
@@ -1705,7 +1794,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="width:42px;background:#0f172a;padding:7px 5px;display:flex;flex-direction:column;align-items:center">
               <div style="width:18px;height:21px;border-radius:3px;background:#ffffff0d;border:1px solid #ffffff22;margin-bottom:3px"></div>
-              <div style="font-size:4px;font-weight:800;color:#fff;text-align:center;line-height:1.3">Max<br>Mustermann</div>
+              <div style="font-size:4px;font-weight:800;color:#fff;text-align:center;line-height:1.3">Arbër<br>Krasniqi</div>
               <div style="font-size:3px;color:#93c5fd;letter-spacing:1px;margin-top:1px">ADMIN</div>
               <div style="font-size:3.5px;color:#93c5fd;letter-spacing:1px;margin-top:4px;border-bottom:1px solid #ffffff22;width:100%;text-align:center;padding-bottom:1px">KONTAKT</div>
               <div style="height:1.5px;width:26px;background:#334155;margin-top:2px"></div>
@@ -1734,7 +1823,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             <div class="template-check">✓</div>
             <div style="background:#f8f5f2;border-bottom:1px solid #ece7e1;padding:8px 9px;display:flex;justify-content:space-between;align-items:center">
               <div>
-                <div style="font-size:8px;font-weight:800;color:#111">Max Mustermann</div>
+                <div style="font-size:8px;font-weight:800;color:#111">Arber Krasniqi</div>
                 <div style="font-size:3.5px;font-weight:700;color:#7c2d12;letter-spacing:1.5px;text-transform:uppercase;margin-top:1px">IT-Administrator</div>
                 <div style="font-size:3.5px;color:#6b7280;margin-top:2px">geb. 1990 · Albanisch · verh.</div>
               </div>
@@ -1761,6 +1850,89 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
           <div class="template-desc">Kreativ me dy kolona</div>
         </div>
 
+        <!-- TPL TIMELINE BLUE -->
+        <div class="template-card" id="tpl_timelineblue" onclick="selectTemplate('timelineblue')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="background:#dcebf0;padding:8px 9px;display:flex;gap:7px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:4px;background:#fff;border:1px solid #6eb0c7;flex-shrink:0"></div>
+              <div>
+                <div style="font-size:8px;font-weight:700;color:#1a1a1a">Arber Krasniqi</div>
+                <div style="font-size:3.5px;color:#555;margin-top:2px">IT-Administrator</div>
+              </div>
+            </div>
+            <div style="padding:8px 9px">
+              <div style="font-size:4px;font-weight:700;color:#1a1a1a;margin-bottom:4px">BERUFSERFAHRUNG</div>
+              <div style="display:flex;gap:5px;margin-bottom:5px"><span style="width:6px;height:6px;border-radius:50%;background:#dcebf0;border:1px solid #6eb0c7;margin-top:2px;flex-shrink:0"></span><div><div style="font-size:4.2px;font-weight:700;color:#111">Senior Developer</div><div style="font-size:3.5px;color:#777">TechVision GmbH</div></div></div>
+              <div style="display:flex;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#dcebf0;border:1px solid #6eb0c7;margin-top:2px;flex-shrink:0"></span><div><div style="font-size:4.2px;font-weight:700;color:#111">Projektmanager</div><div style="font-size:3.5px;color:#777">Beispiel GmbH</div></div></div>
+            </div>
+          </div>
+          <div class="template-name">Shkodra</div>
+          <div class="template-desc">Timeline, blu i lehtë</div>
+        </div>
+
+        <!-- TPL EDITORIAL RED -->
+        <div class="template-card" id="tpl_editorial" onclick="selectTemplate('editorial')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="padding:9px 10px 6px;display:flex;justify-content:space-between;gap:6px">
+              <div>
+                <div style="font-size:10px;font-weight:800;border-bottom:1.5px solid #111;padding-bottom:2px;display:inline-block">Lebenslauf</div>
+                <div style="font-size:6px;font-weight:700;margin-top:4px;color:#111">Arber Krasniqi</div>
+                <div style="font-size:3.5px;color:#555">IT-Administrator</div>
+              </div>
+              <div style="width:20px;height:24px;background:#f4f4f4;border:1px solid #ddd;flex-shrink:0"></div>
+            </div>
+            <div style="padding:2px 10px">
+              <div style="font-size:4px;font-weight:700;letter-spacing:.5px;color:#111;margin-bottom:4px">BERUFSERFAHRUNG</div>
+              <div style="display:flex;gap:5px;margin-bottom:4px"><span style="width:6px;height:6px;border-radius:50%;background:#fff;border:1.2px solid #222;margin-top:2px;flex-shrink:0"></span><div><div style="font-size:4.2px;font-weight:700;color:#111">Senior Developer</div><div style="font-size:3.5px;color:#777">TechVision GmbH</div></div></div>
+            </div>
+          </div>
+          <div class="template-name">Struga</div>
+          <div class="template-desc">Editorial, i kuq/i zi</div>
+        </div>
+
+        <!-- TPL SIDEBAR ORANGE -->
+        <div class="template-card" id="tpl_sidebarorange" onclick="selectTemplate('sidebarorange')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff;display:flex">
+            <div class="template-check">✓</div>
+            <div style="flex:1;padding:9px 8px">
+              <div style="font-size:8px;font-weight:700;color:#34424a;margin-bottom:5px">Lebenslauf</div>
+              <div style="font-size:4px;font-weight:700;color:#34424a;margin-bottom:3px">BERUFSERFAHRUNG</div>
+              <div style="font-size:3.5px;color:#f59a1a;font-weight:700">seit 2016</div>
+              <div style="font-size:4.2px;font-weight:700;color:#111">Senior Developer</div>
+              <div style="font-size:3.5px;color:#6b7280;margin-bottom:4px">TechVision GmbH</div>
+            </div>
+            <div style="width:34px;background:#eef1f3;padding:8px 6px;position:relative">
+              <div style="width:24px;height:28px;background:linear-gradient(135deg,#34424a,#d7dde0);margin-left:auto"></div>
+              <div style="font-size:5.5px;font-weight:700;color:#34424a;margin-top:5px">Arber K.</div>
+              <div style="font-size:3.2px;color:#666">IT-Administrator</div>
+            </div>
+          </div>
+          <div class="template-name">Saranda</div>
+          <div class="template-desc">Sidebar, portokalli</div>
+        </div>
+
+        <!-- TPL TIMELINE CLEAN -->
+        <div class="template-card" id="tpl_timelineclean" onclick="selectTemplate('timelineclean')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="background:#d9e9ee;padding:8px 9px;display:flex;gap:7px;align-items:flex-start">
+              <div style="width:20px;height:24px;border-radius:4px;background:#fff;border:1px solid #6eb0c7;flex-shrink:0"></div>
+              <div>
+                <div style="font-size:8px;font-weight:700;color:#111">Arber Krasniqi</div>
+                <div style="font-size:3.5px;color:#666;margin-top:2px">IT-Administrator</div>
+              </div>
+            </div>
+            <div style="padding:8px 9px">
+              <div style="font-size:4px;font-weight:700;color:#111;margin-bottom:4px">BERUFSERFAHRUNG</div>
+              <div style="display:flex;gap:5px;margin-bottom:5px"><span style="width:6px;height:6px;border-radius:50%;background:#d9e9ee;border:1px solid #6eb0c7;margin-top:2px;flex-shrink:0"></span><div><div style="font-size:4.2px;font-weight:700;color:#111">Senior Developer</div><div style="font-size:3.5px;color:#777">TechVision GmbH</div></div></div>
+            </div>
+          </div>
+          <div class="template-name">Gjilani</div>
+          <div class="template-desc">Timeline, i pastër</div>
+        </div>
+
       </div>
     </div>
     <div class="actions no-print">
@@ -1773,49 +1945,38 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
   <div id="step5" class="hidden">
     <div class="card">
       <div class="card-title">Anschreiben / Motivationsschreiben</div>
-      <div class="card-sub">Hap opsional. Përgatit një letër për pozicionin ku aplikon dhe kontrolloje para dërgimit.</div>
+      <div class="card-sub">Hap opsional. Përgatit një letër profesionale për pozitën ku aplikon.</div>
 
-      <!-- INFO BOX - Çfarë është Anschreiben -->
-      <div style="background:linear-gradient(135deg,#0f172a 0%,#1e2d3d 100%);border-radius:var(--radius-sm);padding:20px 22px;margin-bottom:1.5rem;color:#f1f5f9">
-        <div style="display:flex;align-items:flex-start;gap:14px">
-          <div style="font-size:28px;flex-shrink:0">📄</div>
-          <div>
-            <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px">Çfarë është Anschreiben-i dhe pse duhet?</div>
-            <div style="font-size:13px;color:#94a3b8;line-height:1.85">
-              <strong style="color:#e2e8f0">Anschreiben-i është letra që shoqëron CV-në tuaj</strong> — është hapi i parë që lexon punëdhënësi para se të shikojë CV-në. Kontrollo shpalljen e punës për të parë nëse kërkohet. Ky hap është opsional.
-            </div>
-            <div class="two-col-grid" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px">
-                <div style="font-size:11px;font-weight:700;color:#fbbf24;margin-bottom:6px;letter-spacing:.5px">✅ ÇFARË TREGON</div>
-                <div style="font-size:12px;color:#cbd5e1;line-height:1.8">
-                  Pse dëshiron të punosh <em>pikërisht</em> tek ata<br>
-                  Çfarë sjell ti si punëtor<br>
-                  Që je serioz dhe i interesuar<br>
-                  Se di të komunikosh në gjermanisht
-                </div>
-              </div>
-              <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px">
-                <div style="font-size:11px;font-weight:700;color:#fbbf24;margin-bottom:6px;letter-spacing:.5px">ℹ️ PARA DËRGIMIT</div>
-                <div style="font-size:12px;color:#cbd5e1;line-height:1.8">
-                  Kontrollo kërkesat e shpalljes<br>
-                  Përshtate letrën me pozicionin<br>
-                  Verifiko faktet dhe gjuhën<br>
-                  Dërgo vetëm të dhëna të sakta
-                </div>
-              </div>
-            </div>
-            <div style="margin-top:12px;font-size:13px;color:#a3e635;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;font-weight:500">
-              ✨ <strong style="color:#a3e635">Anschreiben-i gjenerohet automatikisht!</strong> Plotëso vetëm emrin e firmës dhe pozicionin — sistemi shkruan vetë të gjithë letrën profesionale për ty në gjermanisht.
-            </div>
-            <div style="margin-top:10px;font-size:12px;color:#64748b;line-height:1.8">
-              Nëse nuk jeni të kënaqur me rezultatin, mund ta gjeneroni Anschreiben-in edhe përmes platformave të tjera të inteligjencës artificiale si
-              <a href="https://chat.openai.com" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">ChatGPT</a> ·
-              <a href="https://claude.ai" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">Claude</a> ·
-              <a href="https://gemini.google.com" target="_blank" style="color:#818cf8;text-decoration:none;font-weight:600">Gemini</a> —
-              <span style="color:#475569">kërkoni: <em>"Schreib mir ein professionelles Anschreiben für [pozicioni] bei [firma]"</em></span>
-            </div>
-          </div>
+      <!-- INFO: Çfarë është Anschreiben-i -->
+      <div class="letter-intro">
+        <h3>Çfarë është Anschreiben-i?</h3>
+        <p>Anschreiben-i është një letër e shkurtër që shoqëron CV-në dhe tregon pse po aplikon për atë pozicion dhe pse je i përshtatshëm për të.</p>
+      </div>
+
+      <div class="letter-info-grid">
+        <div class="letter-info-card">
+          <h3>Çfarë duhet të përmbajë?</h3>
+          <ul>
+            <li>Pse dëshiron të punosh në atë kompani</li>
+            <li>Përvoja ose aftësitë që lidhen me pozitën</li>
+            <li>Pse je i motivuar</li>
+            <li>Një përfundim profesional</li>
+          </ul>
         </div>
+        <div class="letter-info-card">
+          <h3>Para dërgimit</h3>
+          <ul>
+            <li>Kontrollo emrin e kompanisë</li>
+            <li>Kontrollo pozitën</li>
+            <li>Kontrollo drejtshkrimin</li>
+            <li>Sigurohu që të dhënat janë të sakta</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="letter-ai-highlight">
+        <h3>✨ Gjeneroje automatikisht me AI</h3>
+        <p>Shkruaj emrin e kompanisë dhe pozitën. Sistemi ta përgatit automatikisht një Anschreiben profesional në gjermanisht.</p>
       </div>
 
       <div class="ai-form">
@@ -1847,13 +2008,14 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
             </select>
           </div>
         </div>
+        <p class="letter-optional-hint">Vetëm Emri i Firmës dhe Pozicioni janë të nevojshme. Pjesën tjetër mund ta lësh bosh nëse s'e di.</p>
         <div class="field full" style="margin-top:4px">
           <label>Motivim personal <span>(Persönliche Motivation — optional)</span></label>
           <textarea id="a_motivation" rows="3" placeholder="p.sh. Pse dëshiron pikërisht këtë punë / këtë firmë? Çfarë të motivon? (lihet bosh nëse s'je i sigurt)" style="font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.7"></textarea>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
           <button class="btn btn-primary" onclick="generateAnschreibenAI()" id="genAiBtn">
-            Gjenero letrën me KI
+            Anschreiben erstellen
           </button>
           <button class="btn btn-ghost" onclick="generateAnschreiben()" id="genBtn">
             Përdor variantin pa KI
@@ -1880,12 +2042,12 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
       <div style="margin-top:1.5rem">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
           <div style="flex:1;height:1px;background:var(--gray2)"></div>
-          <span style="font-size:12px;color:var(--gray4);font-weight:600;white-space:normal">OSE ngjit Anschreiben-in nga platforma tjetër</span>
+          <span style="font-size:12px;color:var(--gray4);font-weight:600;white-space:normal">OSE ngjit një Anschreiben që e ke gati</span>
           <div style="flex:1;height:1px;background:var(--gray2)"></div>
         </div>
         <div class="field">
-          <label>Ngjit tekstin këtu <span>(nga ChatGPT, Claude, Gemini...)</span></label>
-          <textarea id="manualAnschreiben" rows="12" placeholder="Ngjit (Paste) këtu Anschreiben-in që ke gjeneruar nga platforma tjetër...&#10;&#10;Sehr geehrte Damen und Herren,&#10;..." style="font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.75"
+          <label>Ngjit tekstin këtu <span>(nëse e ke përgatitur më parë)</span></label>
+          <textarea id="manualAnschreiben" rows="12" placeholder="Ngjit (Paste) këtu Anschreiben-in që e ke gati...&#10;&#10;Sehr geehrte Damen und Herren,&#10;..." style="font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.75"
             oninput="
               var v=this.value.trim();
               var btn=document.getElementById('manualSaveBtn');
@@ -2397,12 +2559,71 @@ function applyEditedAnschreiben(txt){
   anschreibenContent=txt;
   document.getElementById('anschreibenText').textContent=txt;
   document.getElementById('anschreibenResult').classList.toggle('hidden',!txt.trim());
-  var html='<div style="font-family:\'Georgia\',\'Times New Roman\',serif;font-size:13px;line-height:1.9;color:#1a1a1a;white-space:pre-wrap">'+esc2(txt)+'</div>';
+  var html=formatEditedLetterHTML(txt);
   anschreibenHTMLFull=html;
   var printTxt=document.getElementById('anschreibenPrintText');
   var printSec=document.getElementById('anschreibenPrintSection');
   if(printTxt) printTxt.innerHTML=html;
   if(printSec) printSec.classList.toggle('hidden',!txt.trim());
+}
+// Rikthen pamjen profesionale të letrës edhe pasi përdoruesi e ka redaktuar tekstin e lirë
+// (më parë letra e redaktuar dilte krejt pa stilizim). Njeh blloqet sipas përmbajtjes
+// (Bewerbung/Sehr geehrte/Mit freundlichen) — jo pozicione fikse — kështu që çdo bllok
+// i panjohur bie mbrapa te paragraf normal, pa u prishur kurrë vizualisht.
+function formatEditedLetterHTML(txt){
+  var FONT="'Georgia','Times New Roman',serif";
+  var wrap=function(inner){return '<div style="font-family:'+FONT+';font-size:13px;line-height:1.9;color:#1a1a1a">'+inner+'</div>';};
+  var blocks=txt.split(/\n{2,}/).map(function(b){return b.trim();}).filter(Boolean);
+  if(!blocks.length) return wrap('');
+  function toLines(b){return esc2(b).split('\n').join('<br>');}
+
+  var subjectIdx=-1, greetIdx=-1, closingIdx=-1;
+  blocks.forEach(function(b,i){
+    if(subjectIdx===-1 && /^Bewerbung\b/i.test(b)) subjectIdx=i;
+    if(greetIdx===-1 && /^Sehr geehrte/i.test(b)) greetIdx=i;
+    if(closingIdx===-1 && /^Mit freundlichen/i.test(b)) closingIdx=i;
+  });
+
+  var parts=[];
+  var senderIdx=0, recipientIdx=(subjectIdx>1||(subjectIdx===-1&&blocks.length>1))?1:-1;
+  if(recipientIdx===1 && (recipientIdx===greetIdx||recipientIdx===closingIdx)) recipientIdx=-1;
+
+  function addBlockBold(i){
+    var lines=blocks[i].split('\n');
+    parts.push('<div style="margin-bottom:16px">'+
+      '<div style="font-weight:700;font-size:13.5px;margin-bottom:3px">'+esc2(lines[0])+'</div>'+
+      (lines.length>1?'<div style="color:#555;font-size:12.5px;line-height:1.6">'+lines.slice(1).map(esc2).join('<br>')+'</div>':'')+
+    '</div>');
+  }
+  if(blocks[senderIdx]!==undefined && senderIdx!==greetIdx && senderIdx!==closingIdx) addBlockBold(senderIdx);
+  if(recipientIdx>-1 && blocks[recipientIdx]!==undefined) addBlockBold(recipientIdx);
+
+  // Blloqe të shkurtra (p.sh. data "Stuttgart, 05.09.2026") mes dërguesit/marrësit dhe subjektit.
+  var scanFrom=Math.max(senderIdx,recipientIdx)+1;
+  var scanTo=subjectIdx>-1?subjectIdx:Math.min(blocks.length,scanFrom+2);
+  var dateIdxs=[];
+  for(var i=scanFrom;i<scanTo;i++){ if(blocks[i].indexOf('\n')===-1) dateIdxs.push(i); }
+  dateIdxs.forEach(function(i){ parts.push('<div style="color:#777;font-size:12px;margin-bottom:18px">'+esc2(blocks[i])+'</div>'); });
+
+  if(subjectIdx>-1){
+    parts.push('<div style="font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block">'+esc2(blocks[subjectIdx])+'</div><br>');
+  }
+
+  var bodyStart=greetIdx>-1?greetIdx:(subjectIdx>-1?subjectIdx+1:scanTo);
+  var bodyEnd=closingIdx>-1?closingIdx:blocks.length;
+  var handled={}; handled[senderIdx]=1; if(recipientIdx>-1)handled[recipientIdx]=1; dateIdxs.forEach(function(i){handled[i]=1;}); if(subjectIdx>-1)handled[subjectIdx]=1;
+  for(var i=Math.max(bodyStart,0);i<bodyEnd;i++){
+    if(handled[i])continue;
+    parts.push('<p style="margin:0 0 13px">'+toLines(blocks[i])+'</p>');
+  }
+
+  if(closingIdx>-1){
+    var cl=blocks[closingIdx].split('\n');
+    parts.push('<p style="margin-bottom:6px;margin-top:32px">'+esc2(cl[0])+'</p>');
+    if(cl.length>1) parts.push('<div style="font-weight:700">'+cl.slice(1).map(esc2).join('<br>')+'</div>');
+    for(var i=closingIdx+1;i<blocks.length;i++){ parts.push('<div style="font-weight:700">'+toLines(blocks[i])+'</div>'); }
+  }
+  return wrap(parts.join(''));
 }
 
 function esc2(s){return esc(s);}
@@ -2431,6 +2652,357 @@ function fmtDate(d){
 }
 
 
+// ===================================================================
+// TEMPLATE: "Malmö" (timeline, blu i lehtë) — bazuar te template1timelineblue.html
+// ===================================================================
+function renderTimelineBlue(d){
+  var ACC='#6eb0c7', ACC2='#dcebf0', INK='#1a1a1a', MUT='#555', TRACK='#85bfd4';
+  var profile=buildProfileItems(d);
+  var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
+
+  function contactRow(label,val){ return val ? '<div>'+label+'</div><div>'+esc(val)+'</div>' : ''; }
+
+  function tlRow(date,title,sub,desc,isLast){
+    return '<div class="cv-entry" style="display:grid;grid-template-columns:42mm 10mm 1fr;gap:0;min-height:16mm">'+
+      '<div style="font-size:9px;padding-top:1px;color:'+MUT+'">'+date+'</div>'+
+      '<div style="position:relative">'+
+        (!isLast?'<div style="position:absolute;left:50%;top:4px;bottom:0;width:1px;background:'+TRACK+'"></div>':'')+
+        '<span style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:'+ACC2+';border:1px solid '+ACC+'"></span>'+
+      '</div>'+
+      '<div style="padding-bottom:6px">'+
+        '<h4 style="margin:0 0 3px;font-size:10.5px;color:'+INK+'">'+title+'</h4>'+
+        (sub?'<p style="margin:2px 0;font-size:9.5px;color:'+MUT+'">'+sub+'</p>':'')+
+        (desc?'<p style="margin:2px 0;font-size:9.5px;line-height:1.5;color:'+MUT+'">'+desc+'</p>':'')+
+      '</div>'+
+    '</div>';
+  }
+
+  var expHtml = experiences.length ? '<section style="margin-top:9mm">'+
+    '<h2 style="font-size:13px;margin:0 0 10px;color:'+INK+'">Berufserfahrung</h2>'+
+    experiences.map(function(e,i){
+      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var eduHtml = educations.length ? '<section style="margin-top:9mm">'+
+    '<h2 style="font-size:13px;margin:0 0 10px;color:'+INK+'">Ausbildung</h2>'+
+    educations.map(function(e,i){
+      return tlRow(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'',i===educations.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var allLangs=langs.filter(function(l){return l.name;});
+  var skillsHtml = (skills.length||allLangs.length||d.fuehrerschein) ? '<section style="margin-top:9mm">'+
+    '<h2 style="font-size:13px;margin:0 0 10px;color:'+INK+'">Kenntnisse und Sprachen</h2>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9mm;font-size:9.5px">'+
+      (skills.length?'<div>'+skills.map(function(s){
+        var lv=skillLevel(s);
+        return '<div style="display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #eef3f5"><span style="font-weight:700;color:'+INK+'">'+esc(skillName(s))+'</span>'+(lv?'<span style="color:'+MUT+'">'+esc(lv)+'</span>':'')+'</div>';
+      }).join('')+'</div>':'<div></div>')+
+      '<div>'+
+        (allLangs.length?allLangs.map(function(l){
+          return '<div style="display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #eef3f5"><span style="font-weight:700;color:'+INK+'">'+esc(l.name)+'</span><span style="color:'+MUT+'">'+esc(l.level)+'</span></div>';
+        }).join(''):'')+
+        (d.fuehrerschein?'<div style="margin-top:8px;font-size:9.5px"><strong style="color:'+INK+'">Führerschein:</strong> <span style="color:'+MUT+'">'+esc(d.fuehrerschein)+'</span></div>':'')+
+      '</div>'+
+    '</div>'+
+  '</section>' : '';
+
+  var hobbyHtml = d.hobbies ? '<section style="margin-top:9mm">'+
+    '<h2 style="font-size:13px;margin:0 0 8px;color:'+INK+'">Interessen</h2>'+
+    '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</p>'+
+  '</section>' : '';
+
+  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:Arial,Helvetica,sans-serif;color:'+INK+';padding:18mm 17mm 16mm">'+
+    '<div style="position:relative">'+
+      '<div style="position:absolute;left:-17mm;top:-18mm;right:-17mm;bottom:0;background:'+ACC2+';z-index:0"></div>'+
+      '<header style="display:grid;grid-template-columns:42mm 1fr;gap:12mm;align-items:start;position:relative;z-index:1;padding-top:2mm">'+
+        (photoDataUrl?
+          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:42mm;height:42mm;object-fit:cover;object-position:top center;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.12)">':
+          '<div style="width:42mm;height:42mm;border-radius:6px;background:#fff;border:1px solid '+ACC+';display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:'+ACC+'">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+        )+
+        '<div>'+
+          '<h1 style="font-size:25px;font-weight:700;margin:0 0 2px">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
+          (d.job?'<div style="font-size:13px;margin-bottom:10px;color:'+MUT+'">'+esc(d.job)+'</div>':'')+
+          '<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:9px;max-width:100mm">'+
+            contactRow('▣ Geburtstag',profile.bdate)+
+            contactRow('⌖ Adresse',addrFull)+
+            contactRow('☎ Telefon',d.phone)+
+            contactRow('✉ E-Mail',d.email)+
+            contactRow('🌐 Web',d.web)+
+          '</div>'+
+        '</div>'+
+      '</header>'+
+    '</div>'+
+    expHtml+eduHtml+skillsHtml+hobbyHtml+
+  '</div>';
+}
+
+// ===================================================================
+// TEMPLATE: "Rigaer" (editorial, i kuq/i zi) — bazuar te template2editorialred.html
+// ===================================================================
+function renderEditorialRed(d){
+  var INK='#111', MUT='#555', LINE='#222';
+  var profile=buildProfileItems(d);
+  var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
+
+  function contactRow(label,val){ return val ? '<div style="background:#f2f2f2;padding:4px 6px">'+label+'</div><div style="background:#f2f2f2;padding:4px 6px">'+esc(val)+'</div>' : ''; }
+
+  function tlRow(date,title,sub,desc,isLast){
+    return '<div class="cv-entry" style="display:grid;grid-template-columns:44mm 12mm 1fr;min-height:16mm">'+
+      '<div style="font-size:9px;color:#777;padding-top:2px">'+date+'</div>'+
+      '<div style="position:relative">'+
+        (!isLast?'<div style="position:absolute;left:50%;top:5px;bottom:0;width:1px;background:'+LINE+'"></div>':'')+
+        '<span style="position:absolute;left:50%;top:1px;transform:translateX(-50%);width:10px;height:10px;background:#fff;border:1.5px solid '+LINE+';border-radius:50%"></span>'+
+      '</div>'+
+      '<div style="padding-bottom:6px">'+
+        '<h4 style="margin:0 0 2px;font-size:10.5px">'+title+'</h4>'+
+        (sub?'<p style="margin:2px 0;font-size:9.5px;color:'+MUT+'">'+sub+'</p>':'')+
+        (desc?'<p style="margin:2px 0;font-size:9.5px;line-height:1.5;color:'+MUT+'">'+desc+'</p>':'')+
+      '</div>'+
+    '</div>';
+  }
+
+  var expHtml = experiences.length ? '<section style="margin-top:10mm">'+
+    '<h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Berufserfahrung</h2>'+
+    experiences.map(function(e,i){
+      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var eduHtml = educations.length ? '<section style="margin-top:10mm">'+
+    '<h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Ausbildung</h2>'+
+    educations.map(function(e,i){
+      return tlRow(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'',i===educations.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var allLangs=langs.filter(function(l){return l.name;});
+  var skillsHtml = (skills.length||allLangs.length||d.fuehrerschein) ? '<section style="margin-top:10mm">'+
+    '<h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Kenntnisse und Interessen</h2>'+
+    (skills.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Kenntnisse:</strong> '+skills.map(function(s){var lv=skillLevel(s);return esc(skillName(s))+(lv?' ('+esc(lv)+')':'');}).join(', ')+'</div>':'')+
+    (allLangs.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Sprachen:</strong> '+allLangs.map(function(l){return esc(l.name)+(l.level?' ('+esc(l.level)+')':'');}).join(', ')+'</div>':'')+
+    (d.fuehrerschein?'<div style="font-size:9.5px"><strong>Führerschein:</strong> '+esc(d.fuehrerschein)+'</div>':'')+
+  '</section>' : '';
+
+  var hobbyHtml = d.hobbies ? '<section style="margin-top:10mm">'+
+    '<h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px">Interessen</h2>'+
+    '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</p>'+
+  '</section>' : '';
+
+  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:Arial,Helvetica,sans-serif;color:'+INK+';padding:11mm 16mm 14mm">'+
+    '<header style="display:grid;grid-template-columns:1fr 42mm;gap:10mm;align-items:start">'+
+      '<div>'+
+        '<h1 style="font-size:31px;font-weight:800;line-height:1;margin:0;border-bottom:2px solid '+LINE+';padding-bottom:4px">Lebenslauf</h1>'+
+        '<div style="font-size:13px;margin-top:2px">'+esc((d.fname+' '+d.lname).trim())+'</div>'+
+        (d.job?'<div style="font-size:11px;color:'+MUT+';margin-top:2px">'+esc(d.job)+'</div>':'')+
+        '<div style="display:grid;grid-template-columns:30mm 1fr;gap:2px;font-size:9px;margin-top:10px;max-width:98mm">'+
+          contactRow('▣ Geburtstag',profile.bdate)+
+          contactRow('⌖ Adresse',addrFull)+
+          contactRow('☎ Telefon',d.phone)+
+          contactRow('✉ E-Mail',d.email)+
+          contactRow('🌐 Web',d.web)+
+        '</div>'+
+      '</div>'+
+      (photoDataUrl?
+        '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:42mm;height:52mm;object-fit:cover;object-position:top center">':
+        '<div style="width:42mm;height:52mm;background:#f4f4f4;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#999">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+      )+
+    '</header>'+
+    expHtml+eduHtml+skillsHtml+hobbyHtml+
+  '</div>';
+}
+
+// ===================================================================
+// TEMPLATE: "Örebro" (sidebar, portokalli) — bazuar te template3sidebarorange.html
+// ===================================================================
+function renderSidebarOrange(d){
+  var DARK='#28343d', ORANGE='#f0a23a', LIGHT='#aebac1', HAIR='rgba(255,255,255,0.14)', INK='#1f2933', MUT='#6b7580';
+  var sans="'Manrope','DM Sans',Arial,sans-serif";
+  var serif="'Playfair Display',Georgia,serif";
+  var profile=buildProfileItems(d);
+  var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
+
+  function mainEntry(date,title,sub,desc,isLast){
+    return '<div class="cv-entry" style="'+(isLast?'':'margin-bottom:11px;')+'padding-bottom:11px;'+(isLast?'':'border-bottom:1px solid #eee;')+'font-size:9.5px;line-height:1.5">'+
+      '<div style="font-size:9px;font-weight:700;color:'+ORANGE+';letter-spacing:.3px;margin-bottom:2px">'+date+'</div>'+
+      '<strong style="display:block;color:'+INK+';font-size:11.5px;font-family:'+serif+'">'+title+'</strong>'+
+      (sub?'<span style="display:block;color:'+MUT+';font-weight:600;margin-top:1px">'+sub+'</span>':'')+
+      (desc?'<div style="color:'+MUT+';margin-top:4px">'+desc+'</div>':'')+
+    '</div>';
+  }
+  function sectionTitleMain(t){
+    return '<div style="display:flex;align-items:center;gap:9px;margin-bottom:10px">'+
+      '<span style="width:5px;height:5px;border-radius:50%;background:'+ORANGE+';flex-shrink:0"></span>'+
+      '<h2 style="font-size:13.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin:0;color:'+INK+'">'+t+'</h2>'+
+    '</div>';
+  }
+  function sideBlock(title,body){
+    return '<div style="margin-bottom:9mm">'+
+      '<div style="font-size:9.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:'+ORANGE+';margin-bottom:8px">'+title+'</div>'+
+      body+
+    '</div>';
+  }
+  function sideRow(icon,val){ return val ? '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:9.5px;color:#e7ebed;line-height:1.4"><span style="flex-shrink:0;opacity:.75">'+icon+'</span><span>'+esc(val)+'</span></div>' : ''; }
+
+  var expHtml = experiences.length ? '<section style="margin:0 0 9mm">'+
+    sectionTitleMain('Berufserfahrung')+
+    experiences.map(function(e,i){
+      return mainEntry(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var eduHtml = educations.length ? '<section style="margin:0 0 9mm">'+
+    sectionTitleMain('Ausbildung')+
+    educations.map(function(e,i){
+      return mainEntry(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'',i===educations.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var allLangs=langs.filter(function(l){return l.name;});
+
+  var skillsSide = skills.length ? sideBlock('Kenntnisse',
+    '<div style="display:flex;flex-wrap:wrap;gap:5px">'+skills.map(function(s){
+      return '<span style="font-size:9px;color:#e7ebed;background:rgba(255,255,255,0.08);border:1px solid '+HAIR+';border-radius:20px;padding:4px 10px">'+esc(skillName(s))+'</span>';
+    }).join('')+'</div>'
+  ) : '';
+
+  var langsSide = allLangs.length ? sideBlock('Sprachen',
+    allLangs.map(function(l){
+      return '<div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:9.5px"><span style="color:#e7ebed;font-weight:600">'+esc(l.name)+'</span><span style="color:'+LIGHT+'">'+esc(l.level)+'</span></div>';
+    }).join('')
+  ) : '';
+
+  var extrasSide = (d.fuehrerschein||d.hobbies) ? sideBlock('Weiteres',
+    (d.fuehrerschein?'<div style="font-size:9.5px;color:#e7ebed;margin-bottom:6px"><strong style="color:'+LIGHT+';font-weight:600">Führerschein:</strong> '+esc(d.fuehrerschein)+'</div>':'')+
+    (d.hobbies?'<div style="font-size:9.5px;color:#e7ebed;line-height:1.6">'+esc(d.hobbies)+'</div>':'')
+  ) : '';
+
+  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:'+sans+';color:'+INK+'">'+
+    '<div style="display:grid;grid-template-columns:1.62fr .82fr">'+
+      '<main style="padding:16mm 14mm">'+
+        '<div style="margin-bottom:12mm">'+
+          '<div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:'+ORANGE+';margin-bottom:4px">Lebenslauf</div>'+
+          '<h1 style="font-family:'+serif+';font-size:30px;font-weight:700;margin:0;color:'+INK+'">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
+          (d.job?'<div style="font-size:12.5px;color:'+MUT+';font-weight:600;margin-top:4px">'+esc(d.job)+'</div>':'')+
+        '</div>'+
+        expHtml+eduHtml+
+      '</main>'+
+      '<aside style="background:'+DARK+';color:#fff;padding:16mm 11mm">'+
+        (photoDataUrl?
+          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top center;border-radius:8px;display:block;margin-bottom:10mm;box-shadow:0 6px 18px rgba(0,0,0,0.25)">':
+          '<div style="width:100%;aspect-ratio:1/1;border-radius:8px;background:rgba(255,255,255,0.08);border:1px solid '+HAIR+';display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:'+ORANGE+';margin-bottom:10mm">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+        )+
+        sideBlock('Kontakt',
+          sideRow('▣',profile.bdate)+
+          sideRow('⌖',addrFull)+
+          sideRow('☎',d.phone)+
+          sideRow('✉',d.email)+
+          sideRow('🌐',d.web)
+        )+
+        (profile.nation||profile.civil?sideBlock('Persönliches',
+          (profile.nation?'<div style="font-size:9.5px;color:#e7ebed;margin-bottom:5px">'+profile.nation+'</div>':'')+
+          (profile.civil?'<div style="font-size:9.5px;color:#e7ebed">'+profile.civil+'</div>':'')
+        ):'')+
+        skillsSide+langsSide+extrasSide+
+      '</aside>'+
+    '</div>'+
+  '</div>';
+}
+
+// ===================================================================
+// TEMPLATE: "Umeå" (timeline, e pastër/teal) — bazuar te template4timelineclean.html
+// ===================================================================
+function renderTimelineClean(d){
+  var ACC='#4f95ab', ACC2='#e8f2f4', INK='#1c2a30', MUT='#647178', TRACK='#c3dee4';
+  var sans="'Manrope','DM Sans',Arial,sans-serif";
+  var serif="'Playfair Display',Georgia,serif";
+  var profile=buildProfileItems(d);
+  var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
+
+  function contactRow(icon,val){ return val ? '<div style="display:flex;align-items:flex-start;gap:7px;font-size:9.5px;color:'+MUT+'"><span style="flex-shrink:0;color:'+ACC+'">'+icon+'</span><span>'+esc(val)+'</span></div>' : ''; }
+
+  function sectionTitle(t){
+    return '<div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">'+
+      '<span style="width:20px;height:2px;background:'+ACC+';flex-shrink:0"></span>'+
+      '<h2 style="font-family:'+serif+';font-size:15px;font-weight:700;margin:0;color:'+INK+'">'+t+'</h2>'+
+    '</div>';
+  }
+
+  function tlRow(title,sub,desc,date,isLast){
+    return '<div class="cv-entry" style="display:grid;grid-template-columns:38mm 10mm 1fr;'+(isLast?'':'padding-bottom:14px;')+'min-height:16mm">'+
+      '<div style="font-size:9px;font-weight:600;color:'+MUT+';padding-top:1px">'+date+'</div>'+
+      '<div style="position:relative">'+
+        (!isLast?'<div style="position:absolute;left:50%;top:8px;bottom:-2px;width:1.5px;background:'+TRACK+'"></div>':'')+
+        '<span style="position:absolute;left:50%;top:2px;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:'+ACC2+';border:1.5px solid '+ACC+'"></span>'+
+      '</div>'+
+      '<div style="padding-bottom:2px">'+
+        '<h4 style="font-size:11px;font-weight:700;margin:0 0 2px;color:'+INK+'">'+title+'</h4>'+
+        (sub?'<p style="font-size:9.5px;margin:0 0 3px;color:'+ACC+';font-weight:600">'+sub+'</p>':'')+
+        (desc?'<p style="font-size:9.5px;margin:0;line-height:1.55;color:'+MUT+'">'+desc+'</p>':'')+
+      '</div>'+
+    '</div>';
+  }
+
+  var expHtml = experiences.length ? '<section style="margin-top:10mm">'+
+    sectionTitle('Berufserfahrung')+
+    experiences.map(function(e,i){
+      return tlRow(esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',formatRange(e.from,e.to),i===experiences.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var eduHtml = educations.length ? '<section style="margin-top:10mm">'+
+    sectionTitle('Ausbildung')+
+    educations.map(function(e,i){
+      return tlRow(esc(e.degree||''),esc(e.school||''),'',formatRange(e.from,e.to),i===educations.length-1);
+    }).join('')+
+  '</section>' : '';
+
+  var allLangs=langs.filter(function(l){return l.name;});
+  var skillsHtml = skills.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">'+skills.map(function(s){
+    var lv=skillLevel(s);
+    return '<span style="font-size:9.5px;color:'+INK+';background:'+ACC2+';border:1px solid '+TRACK+';border-radius:20px;padding:5px 11px">'+esc(skillName(s))+(lv?' <span style="color:'+MUT+'">· '+esc(lv)+'</span>':'')+'</span>';
+  }).join('')+'</div>' : '';
+  var langHtml = allLangs.length ? '<div style="display:flex;flex-wrap:wrap;gap:14px 20px;font-size:9.5px">'+allLangs.map(function(l){
+    return '<div><strong style="color:'+INK+'">'+esc(l.name)+'</strong> <span style="color:'+MUT+'">— '+esc(l.level)+'</span></div>';
+  }).join('')+'</div>' : '';
+  var infoHtml = (skills.length||allLangs.length||d.fuehrerschein) ? '<section style="margin-top:10mm">'+
+    sectionTitle('Kenntnisse und Sprachen')+
+    skillsHtml+langHtml+
+    (d.fuehrerschein?'<div style="margin-top:10px;font-size:9.5px;color:'+MUT+'"><strong style="color:'+INK+'">Führerschein:</strong> '+esc(d.fuehrerschein)+'</div>':'')+
+  '</section>' : '';
+
+  var hobbyHtml = d.hobbies ? '<section style="margin-top:10mm">'+
+    sectionTitle('Interessen')+
+    '<div style="font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</div>'+
+  '</section>' : '';
+
+  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:'+sans+';color:'+INK+'">'+
+    '<div style="position:relative;padding:15mm 16mm 12mm;background:'+ACC2+';border-bottom:3px solid '+ACC+'">'+
+      '<div style="display:grid;grid-template-columns:34mm 1fr;gap:14mm;align-items:center">'+
+        (photoDataUrl?
+          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:34mm;height:34mm;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,0.14)">':
+          '<div style="width:34mm;height:34mm;border-radius:50%;background:#fff;border:1.5px solid '+ACC+';display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:'+ACC+'">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+        )+
+        '<div>'+
+          '<h1 style="font-family:'+serif+';font-size:27px;font-weight:700;margin:0;color:'+INK+'">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
+          (d.job?'<div style="font-size:12px;font-weight:600;color:'+ACC+';margin-top:3px;letter-spacing:.3px">'+esc(d.job)+'</div>':'')+
+        '</div>'+
+      '</div>'+
+      '<div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:11px;padding-top:11px;border-top:1px solid '+TRACK+'">'+
+        contactRow('▣',profile.bdate)+
+        contactRow('⌖',addrFull)+
+        contactRow('☎',d.phone)+
+        contactRow('✉',d.email)+
+        contactRow('🌐',d.web)+
+      '</div>'+
+    '</div>'+
+    '<div style="padding:0 16mm 14mm">'+
+      expHtml+eduHtml+infoHtml+hobbyHtml+
+    '</div>'+
+  '</div>';
+}
+
 function renderCV(){
   var data={
     fname:g('p_fname'),lname:g('p_lname'),job:g('p_job'),
@@ -2450,6 +3022,10 @@ function renderCV(){
   else if(selectedTemplate==='tabellarisch') html=renderTabellarisch(data);
   else if(selectedTemplate==='dark_elegant') html=renderDarkElegant(data);
   else if(selectedTemplate==='cormorant') html=renderCormorant(data);
+  else if(selectedTemplate==='timelineblue') html=renderTimelineBlue(data);
+  else if(selectedTemplate==='editorial') html=renderEditorialRed(data);
+  else if(selectedTemplate==='sidebarorange') html=renderSidebarOrange(data);
+  else if(selectedTemplate==='timelineclean') html=renderTimelineClean(data);
   var preview=document.getElementById('cvPreview');
   preview.innerHTML=html;
 
@@ -2460,35 +3036,70 @@ function renderCV(){
 
 // Ngjeshje proporcionale: nëse përmbajtja kalon A4, zvogëlohet me CSS zoom derisa të futet.
 var A4_PAGE_PX=1122; // 297mm @ 96dpi
+// Nivelet e ngjeshjes progresive — vetëm aq sa duhet për të hyrë në 1 faqe A4.
+// zoom tkurr fontin+hapësirat bashkë (jo vetëm marzhe), dhe mbetet edhe në print/PDF
+// (ndryshe nga transform, që ndikon vetëm ekranin dhe anulohet me qëllim gjatë printimit).
+var CV_ZOOM_LEVELS=[1,0.97,0.94,0.91,0.88,0.85,0.82];
 function fitCvToPage(){
   var preview=document.getElementById('cvPreview'),el=preview&&preview.firstElementChild;
   if(!el)return;
-  el.style.width='210mm';el.style.zoom='';el.style.transform='';
-  el.style.minHeight=el.classList.contains('cv-twopage')?'':'296mm';
+  el.style.transform='';
   el.classList.add('cv-document');
+  el.style.minHeight=el.classList.contains('cv-twopage')?'':'296mm';
   // Never shrink the complete document to illegible type. Long content may use more pages.
   el.querySelectorAll('*').forEach(function(node){
     if(node.style.textOverflow==='ellipsis'){node.style.textOverflow='clip';node.style.whiteSpace='normal';node.style.overflow='visible';}
   });
-  // Compact only whitespace, once per render; preserve every font's readable size.
-  if(!el.dataset.compacted&&el.scrollHeight>1122&&!el.classList.contains('cv-twopage')){
-    el.querySelectorAll('[style]').forEach(function(node){
-      ['marginTop','marginBottom','paddingTop','paddingBottom'].forEach(function(key){
-        var value=node.style[key];
-        if(/^\d+(\.\d+)?px$/.test(value)&&parseFloat(value)>=14)node.style[key]=(parseFloat(value)*0.9)+'px';
+  if(el.classList.contains('cv-twopage')){
+    el.style.zoom=1;el.style.width='210mm';
+    return;
+  }
+  // e rëndësishme: scrollHeight/offsetHeight NUK e reflektojnë zoom (raportohen në
+  // koordinatat e brendshme të vetë elementit); getBoundingClientRect() jep madhësinë
+  // reale të shfaqur, prandaj përdoret këtu për të vendosur nëse hyn në një faqe.
+  function realH(){ return el.getBoundingClientRect().height; }
+  // Mat lartësinë reale dhe ngjesh me hapa derisa të hyjë në një faqe (ose të arrijë kufirin minimal të lexueshëm).
+  var chosen=1;
+  for(var i=0;i<CV_ZOOM_LEVELS.length;i++){
+    var z=CV_ZOOM_LEVELS[i];
+    el.style.zoom=z;
+    el.style.width=(210/z)+'mm';
+    chosen=z;
+    if(realH()<=A4_PAGE_PX) break;
+  }
+  el.dataset.fitZoom=chosen;
+  // Nëse edhe ngjeshja maksimale e zoom-it s'mjafton, ngushto edhe hapësirat më të mëdha
+  // mes seksioneve (marzhe/padding/gap) — disa hapa, para se të pranohet faqja 2.
+  if(realH()>A4_PAGE_PX){
+    for(var pass=0;pass<8&&realH()>A4_PAGE_PX;pass++){
+      var shrunkAny=false;
+      el.querySelectorAll('[style]').forEach(function(node){
+        ['marginTop','marginBottom','paddingTop','paddingBottom','gap','rowGap','columnGap'].forEach(function(key){
+          var value=node.style[key];
+          var m=/^(\d+(?:\.\d+)?)(mm|px)$/.exec(value||'');
+          if(!m)return;
+          var num=parseFloat(m[1]),unit=m[2];
+          var minThreshold=unit==='mm'?3:8;
+          if(num>=minThreshold){node.style[key]=(num*0.85)+unit;shrunkAny=true;}
+        });
       });
-    });
-    el.dataset.compacted='true';
+      if(!shrunkAny)break;
+    }
   }
 }
 function scaleCvPreview(){
   var preview=document.getElementById('cvPreview'),inner=preview&&preview.firstElementChild;
   if(!inner||!preview.offsetWidth)return;
-  inner.style.transform='';inner.style.width='210mm';
-  var contentW=inner.offsetWidth||794;
+  inner.style.transform='';
+  // getBoundingClientRect (jo offsetWidth/scrollHeight) — të vetmet që reflektojnë saktë
+  // zoom-in e vendosur nga fitCvToPage(); përndryshe kuadri i pamjes mbetet më i lartë
+  // se përmbajtja reale dhe lë shirit bosh poshtë CV-së.
+  var rect=inner.getBoundingClientRect();
+  var contentW=rect.width||794;
+  var contentH=rect.height||1122;
   var scale=Math.min(1,preview.clientWidth/contentW);
   inner.style.transformOrigin='top left';inner.style.transform='scale('+scale+')';
-  preview.style.height=Math.ceil(inner.scrollHeight*scale)+'px';
+  preview.style.height=Math.ceil(contentH*scale)+'px';
   preview.style.overflow='hidden';
 }
 
@@ -3157,7 +3768,7 @@ try{
 
   // Scroll-reveal për kartat dhe titujt — progressive enhancement:
   // pa JS ose me reduced-motion, gjithçka mbetet normale e dukshme.
-  var revealTargets = document.querySelectorAll('.why-card,.how-step,.stat-item,.why-kicker,.why-title,.why-sub,.how-cta');
+  var revealTargets = document.querySelectorAll('.why-card,.how-step,.stat-item,.why-kicker,.why-title,.why-sub,.jobm-kicker,.jobm-title,.how-cta');
   if (!reduceMotion && 'IntersectionObserver' in window && revealTargets.length) {
     document.documentElement.classList.add('anim-ready');
     var io = new IntersectionObserver(function(entries){
@@ -3271,17 +3882,17 @@ function renderTabellarisch(d){
   var goldLight='#f5eedc';
 
   // PAGE 1 — Deckblatt modern: ari vetëm si theks, hapësira të ekuilibruara
-  function pLabel(t){return '<div style="font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'Manrope\',sans-serif">'+t+'</div>';}
+  function pLabel(t){return '<div style="font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif">'+t+'</div>';}
   var page1 =
-    '<div style="page-break-after:always;font-family:\'Manrope\',\'DM Sans\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
+    '<div style="page-break-after:always;font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
 
         // ── LEFT COLUMN — shpërndarje vertikale që faqja të duket e mbushur
         '<div style="padding:72px 24px 56px 52px;display:flex;flex-direction:column;justify-content:space-between">'+
 
           // TOP — eyebrow + emri (Playfair)
           '<div>'+
-            '<div style="font-size:12px;font-weight:700;color:'+gold+';margin-bottom:18px;letter-spacing:6px;text-transform:uppercase;font-family:\'Manrope\',sans-serif">Lebenslauf</div>'+
-            '<div style="font-family:\'Playfair Display\',Georgia,serif;font-size:46px;font-weight:400;color:#1a1a1a;line-height:1.1;letter-spacing:0">'+esc(d.fname)+'<br><span style="font-weight:800">'+esc(d.lname)+'</span></div>'+
+            '<div style="font-size:12px;font-weight:700;color:'+gold+';margin-bottom:18px;letter-spacing:6px;text-transform:uppercase;font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif">Lebenslauf</div>'+
+            '<div style="font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif;font-size:46px;font-weight:400;color:#1a1a1a;line-height:1.1;letter-spacing:0">'+esc(d.fname)+'<br><span style="font-weight:800">'+esc(d.lname)+'</span></div>'+
             (d.job?'<div style="font-size:12.5px;font-weight:600;color:#8a8378;letter-spacing:3px;text-transform:uppercase;margin-top:14px">'+esc(d.job)+'</div>':'')+
             '<div style="width:64px;height:2px;background:'+gold+';margin-top:24px"></div>'+
           '</div>'+
@@ -3300,11 +3911,6 @@ function renderTabellarisch(d){
               '<div>'+pLabel('Familienstand')+
               '<div style="font-size:15px;color:#3d3d3d">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</div></div>'
             :'')+
-          '</div>'+
-
-          // BOTTOM — vijë ari diskrete që ankoron fundin (pa tekst që del jashtë faqes)
-          '<div style="border-top:1px solid #e7e0cf;padding-top:16px">'+
-            '<div style="font-size:10px;color:#a89a7a;letter-spacing:3px;text-transform:uppercase">Bewerbungsunterlagen</div>'+
           '</div>'+
 
         '</div>'+
@@ -3351,7 +3957,7 @@ function renderTabellarisch(d){
   }
   function tabSection(title){
     return '<tr><td colspan="2" style="padding-top:18px;padding-bottom:5px">'+
-      '<div style="font-size:14px;font-weight:800;color:'+gold+';letter-spacing:1px;font-family:\'Playfair Display\',Georgia,serif;text-transform:uppercase">'+title+'</div>'+
+      '<div style="font-size:14px;font-weight:800;color:'+gold+';letter-spacing:1px;font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif;text-transform:uppercase">'+title+'</div>'+
       '<div style="height:1.5px;background:'+gold+';margin-top:3px"></div>'+
     '</td></tr>';
   }
@@ -3405,7 +4011,7 @@ function renderTabellarisch(d){
   }
 
   var page2 =
-    '<div style="font-family:\'Manrope\',\'DM Sans\',Arial,sans-serif;background:#fff;color:#222;padding:44px 60px;font-size:13px;line-height:1.75;width:210mm;box-sizing:border-box">'+
+    '<div style="font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#222;padding:44px 60px;font-size:13px;line-height:1.75;width:210mm;box-sizing:border-box">'+
       '<table style="width:100%;border-collapse:collapse">'+
         '<tbody>'+expRows+eduRows+kennRows+hobbyRows+'</tbody>'+
       '</table>'+
@@ -4064,7 +4670,7 @@ checkPaymentAndPrint();
 
 </script>
 <script>
-var skillExamples={office:[['Microsoft Office','Word, Excel dhe Outlook'],['Datenpflege','Përditësimi i të dhënave'],['Kundenkommunikation','Komunikimi me klientët'],['Buchhaltung','Kontabilitet']],warehouse:[['Wareneingang','Pranimi i mallrave'],['Kommissionierung','Përgatitja e porosive'],['Lagerverwaltung','Administrimi i magazinës'],['Qualitätskontrolle','Kontrolli i cilësisë']],hospitality:[['Kassenführung','Puna me kasën'],['Gästebetreuung','Shërbimi ndaj klientëve'],['Reinigungsarbeiten','Punë pastrimi'],['Hygienevorschriften','Rregullat e higjienës']],construction:[['Maurerarbeiten','Punë muratorie'],['Betonarbeiten','Punime betoni'],['Fliesenarbeiten','Vendosja e pllakave'],['Trockenbau','Punime me gips']],care:[['Grundpflege','Kujdesi bazë'],['Pflegedokumentation','Dokumentimi i kujdesit'],['Mobilisation','Ndihma në lëvizje'],['Teamarbeit','Punë në ekip']],transport:[['Routenplanung','Planifikimi i rrugës'],['Ladungssicherung','Sigurimi i ngarkesës'],['Fahrzeugpflege','Mirëmbajtja e automjetit'],['Termintreue','Respektimi i orareve']]};
+var skillExamples={office:[['Microsoft Word','Shkrim dokumentesh'],['Microsoft Excel','Tabela dhe llogaritje'],['Outlook','Email dhe kalendar'],['Microsoft Office','Word, Excel dhe Outlook'],['E-Mail-Kommunikation','Komunikim me email'],['Datenpflege','Përditësim të dhënash'],['Kundenkommunikation','Komunikim me klientë'],['Terminplanung','Planifikim takimesh'],['Ablage','Organizim dokumentesh'],['Dokumentation','Dokumentim'],['Rechnungsbearbeitung','Përpunim faturash'],['Organisation','Organizim pune']],it:[['Windows','Përdorim Windows'],['Microsoft 365','Paketa Office online'],['Hardware-Support','Riparim pajisjesh'],['Softwareinstallation','Instalim programesh'],['Netzwerke','Rrjete kompjuterike'],['Drucker','Përdorim printerash'],['Benutzerverwaltung','Menaxhim përdoruesish'],['Active Directory','Administrim sistemi'],['Fehleranalyse','Zgjidhje problemesh'],['Ticketsysteme','Sisteme kërkesash'],['IT-Support','Mbështetje IT'],['Remote Support','Ndihmë në distancë']],sales:[['Kundenberatung','Këshillim klientësh'],['Kassieren','Punë me arkë'],['Warenverräumung','Vendosje mallrash'],['Regalpflege','Rregullim raftesh'],['Warenkontrolle','Kontroll mallrash'],['Bestellungen','Përpunim porosish'],['Inventur','Inventar'],['Reklamationen','Trajtim ankesash'],['Kundenservice','Shërbim ndaj klientit'],['Teamarbeit','Punë në ekip']],warehouse:[['Kommissionierung','Përgatitje porosish'],['Verpackung','Paketim'],['Scanner','Skanim mallrash'],['Warenannahme','Pranim mallrash'],['Warenausgang','Dërgim mallrash'],['Inventur','Inventar'],['Lagerorganisation','Organizim magazine'],['Versandvorbereitung','Përgatitje dërgese'],['Paletten','Punë me paleta'],['Stapler','Vozitje karroce ngritëse'],['Körperliche Belastbarkeit','Rezistencë fizike']],production:[['Maschinenbedienung','Përdorim makinerish'],['Qualitätskontrolle','Kontroll cilësie'],['Verpackung','Paketim'],['Montage','Montim'],['Produktionslinien','Punë në linjë prodhimi'],['Materialbereitstellung','Furnizim materialesh'],['Schichtarbeit','Punë me turne'],['Sicherheitsvorschriften','Njohuri rregullash sigurie'],['Sorgfältiges Arbeiten','Punë e kujdesshme']],construction:[['Baustellenarbeit','Punë në kantier'],['Materialtransport','Transport materialesh'],['Montage','Montim'],['Abbrucharbeiten','Punë shembjeje'],['Trockenbau','Punime me gips'],['Betonarbeiten','Punime betoni'],['Werkzeugkenntnisse','Njohuri veglash'],['Körperliche Belastbarkeit','Rezistencë fizike'],['Arbeitssicherheit','Siguri në punë']],painter:[['Innenanstrich','Bojatisje e brendshme'],['Außenanstrich','Bojatisje e jashtme'],['Spachtelarbeiten','Suvatim'],['Schleifarbeiten','Zdrukthim sipërfaqesh'],['Tapezieren','Vendosje letër-muri'],['Lackieren','Lyerje me llak'],['Untergrundvorbereitung','Përgatitje sipërfaqeje'],['Renovierungsarbeiten','Punë rinovimi'],['Fassadenarbeiten','Punë fasade'],['Umgang mit Werkzeugen','Përdorim veglash']],gardening:[['Rasenpflege','Kujdes lëndinash'],['Heckenschnitt','Prerje gardhesh'],['Baumschnitt','Krasitje pemësh'],['Pflanzen','Mbjellje'],['Bewässerung','Ujitje'],['Pflasterarbeiten','Vendosje kalldrëmi'],['Gartenpflege','Kujdes kopshtesh'],['Winterdienst','Shërbim dimëror'],['Körperliche Belastbarkeit','Rezistencë fizike']],gastronomy:[['Kundenservice','Shërbim ndaj klientit'],['Bestellungen aufnehmen','Marrje porosish'],['Servieren','Servirje'],['Kassieren','Punë me arkë'],['Tischservice','Shërbim në tavolinë'],['Getränke vorbereiten','Përgatitje pijesh'],['Hygiene','Higjienë'],['Stressresistenz','Rezistencë ndaj stresit'],['Freundlicher Umgang mit Gästen','Sjellje miqësore me mysafirët']],kitchen:[['Speisenvorbereitung','Përgatitje ushqimi'],['Schneiden / Vorbereiten','Prerje dhe përgatitje'],['Küchenreinigung','Pastrim kuzhine'],['Spülen','Larje enësh'],['Lebensmittelhygiene','Higjienë ushqimore'],['Unterstützung der Köche','Ndihmë kuzhinierëve'],['Warenkontrolle','Kontroll mallrash'],['Lagerung von Lebensmitteln','Ruajtje ushqimesh'],['Arbeiten unter Zeitdruck','Punë nën presion kohor']],cleaning:[['Büroreinigung','Pastrim zyrash'],['Unterhaltsreinigung','Pastrim i përditshëm'],['Treppenhausreinigung','Pastrim shkallësh'],['Sanitärreinigung','Pastrim sanitaresh'],['Fensterreinigung','Pastrim dritaresh'],['Umgang mit Reinigungsmitteln','Përdorim detergjentësh'],['Hygiene','Higjienë'],['Zuverlässigkeit','Përgjegjshmëri'],['Selbstständiges Arbeiten','Punë e pavarur']],care:[['Grundpflege','Kujdes bazë'],['Betreuung','Përkujdesje'],['Unterstützung im Alltag','Ndihmë në përditshmëri'],['Mobilitätshilfe','Ndihmë në lëvizje'],['Dokumentation','Dokumentim'],['Hygiene','Higjienë'],['Empathie','Ndjeshmëri'],['Zuverlässigkeit','Përgjegjshmëri'],['Teamarbeit','Punë në ekip']],driver:[['Auslieferung','Dërgesa'],['Routenplanung','Planifikim rrugësh'],['Navigation','Navigim'],['Be- und Entladen','Ngarkim dhe shkarkim'],['Kundenkontakt','Kontakt me klientë'],['Fahrzeugpflege','Kujdes për automjetin'],['Pünktlichkeit','Pikësi'],['Führerschein Klasse B','Patentë klasa B'],['Lieferscheine','Dokumente dërgese']],craft:[['Werkzeugkenntnisse','Njohuri veglash'],['Montage','Montim'],['Reparaturarbeiten','Punë riparimi'],['Materialbearbeitung','Përpunim materialesh'],['Handwerkliches Geschick','Aftësi manuale'],['Technisches Verständnis','Kuptim teknik'],['Sauberes Arbeiten','Punë e pastër'],['Selbstständiges Arbeiten','Punë e pavarur']],hairdresser:[['Haarschnitt','Prerje flokësh'],['Färben','Ngjyrosje'],['Styling','Modelim flokësh'],['Kundenberatung','Këshillim klientësh'],['Terminplanung','Planifikim takimesh'],['Hygiene','Higjienë'],['Pflegeprodukte','Njohuri produktesh kujdesi'],['Kundenservice','Shërbim ndaj klientit']],security:[['Zugangskontrolle','Kontroll hyrjesh'],['Objektschutz','Ruajtje objekti'],['Kontrollgänge','Xhiro kontrolli'],['Besucherregistrierung','Regjistrim vizitorësh'],['Deeskalation','Qetësim situatash'],['Dokumentation','Dokumentim'],['Aufmerksamkeit','Vëmendje'],['Zuverlässigkeit','Përgjegjshmëri']],bakery:[['Verkauf','Shitje'],['Kundenservice','Shërbim ndaj klientit'],['Kassieren','Punë me arkë'],['Warenpräsentation','Ekspozim produktesh'],['Lebensmittelhygiene','Higjienë ushqimore'],['Vorbereitung','Përgatitje'],['Reinigung','Pastrim'],['Teamarbeit','Punë në ekip']],other:[['Teamarbeit','Punë në ekip'],['Zuverlässigkeit','Përgjegjshmëri'],['Pünktlichkeit','Pikësi'],['Flexibilität','Fleksibilitet'],['Motivation','Motivim'],['Genauigkeit','Saktësi'],['Selbstständigkeit','Pavarësi në punë'],['Kommunikation','Komunikim'],['Belastbarkeit','Rezistencë ndaj presionit'],['Lernbereitschaft','Gatishmëri për të mësuar']]};
 function renderSuggestions(){var target=document.getElementById('skillSuggestions');if(!target||typeof skillExamples==='undefined')return;var group=skillExamples[document.getElementById('skillCategory').value]||[];target.innerHTML=group.map(function(item,i){var added=skills.some(function(s){return skillName(s).toLowerCase()===item[0].toLowerCase();});return '<button type="button" class="suggestion" onclick="addSuggestedSkill('+i+')" '+(added?'disabled':'')+'><span><strong>'+esc(item[0])+'</strong><small>'+esc(item[1])+'</small></span><span aria-hidden="true">'+(added?'✓':'+')+'</span></button>';}).join('');}
 function addSuggestedSkill(i){var item=skillExamples[document.getElementById('skillCategory').value][i];if(!item||skills.some(function(s){return skillName(s)===item[0];}))return;skills.push({name:item[0],level:''});renderSkillTags();document.getElementById('appStatus').textContent=item[0]+' u shtua. Mund të zgjedhësh nivelin më poshtë.';}
 renderSuggestions();

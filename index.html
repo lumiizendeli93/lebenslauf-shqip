@@ -2993,9 +2993,11 @@ function renderSidebarOrange(d){
     (d.hobbies?'<div style="font-size:9.5px;color:#e7ebed;line-height:1.6">'+esc(d.hobbies)+'</div>':'')
   ) : '';
 
-  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:'+sans+';color:'+INK+'">'+
-    '<div style="display:grid;grid-template-columns:1.62fr .82fr">'+
-      '<main style="padding:16mm 14mm">'+
+  // height:100% (jo vetëm grid stretch i nënkuptuar) — që anash-i i errët dhe fusha kryesore e
+  // bardhë të mbushin sigurisht faqen A4 nën printim/PDF, njësoj si Durrësi/Peja/Gjakova/Tetova/Tirana.
+  return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:'+DARK+';font-family:'+sans+';color:'+INK+'">'+
+    '<div style="display:grid;grid-template-columns:1.62fr .82fr;align-items:stretch">'+
+      '<main style="background:#fff;height:100%;box-sizing:border-box;padding:16mm 14mm">'+
         '<div style="margin-bottom:12mm">'+
           '<div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:'+ORANGE+';margin-bottom:4px">Lebenslauf</div>'+
           '<h1 style="font-family:'+serif+';font-size:30px;font-weight:700;margin:0;color:'+INK+'">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
@@ -3003,7 +3005,7 @@ function renderSidebarOrange(d){
         '</div>'+
         expHtml+eduHtml+
       '</main>'+
-      '<aside style="background:'+DARK+';color:#fff;padding:16mm 11mm">'+
+      '<aside style="background:'+DARK+';color:#fff;height:100%;box-sizing:border-box;padding:16mm 11mm">'+
         (photoDataUrl?
           '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top center;border-radius:8px;display:block;margin-bottom:10mm;box-shadow:0 6px 18px rgba(0,0,0,0.25)">':
           '<div style="width:100%;aspect-ratio:1/1;border-radius:8px;background:rgba(255,255,255,0.08);border:1px solid '+HAIR+';display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:'+ORANGE+';margin-bottom:10mm">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'

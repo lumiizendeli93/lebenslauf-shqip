@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="format-detection" content="telephone=no,date=no,address=no,email=no"/>
 <title>Lebenslauf erstellen auf Deutsch — für Albaner in Deutschland | lebenslauf-shqip.de</title>
-<meta name="description" content="Erstelle deinen professionellen deutschen Lebenslauf Schritt für Schritt — auf Albanisch erklärt. 10 Vorlagen, PDF-Download für nur 10€. Ohne Anmeldung. Vorschau kostenlos, PDF-Export für 10 €."/>
+<meta name="description" content="Erstelle deinen professionellen deutschen Lebenslauf Schritt für Schritt — auf Albanisch erklärt. 14 Vorlagen, PDF-Download für nur 10€. Ohne Anmeldung. Vorschau kostenlos, PDF-Export für 10 €."/>
 <meta name="keywords" content="Lebenslauf, CV, Albaner, Deutschland, Bewerbung, lebenslauf shqip, jetëshkrim, gjermanisht"/>
 <meta name="robots" content="index, follow"/>
 <meta name="author" content="lebenslauf-shqip.de"/>
@@ -14,7 +14,7 @@
 <!-- Open Graph / Social -->
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Lebenslauf erstellen auf Deutsch — für Albaner in Deutschland"/>
-<meta property="og:description" content="Ndërto CV-në tënde profesionale gjermane, hap pas hapi në shqip. 10 modele, PDF me 10€."/>
+<meta property="og:description" content="Ndërto CV-në tënde profesionale gjermane, hap pas hapi në shqip. 14 modele, PDF me 10€."/>
 <meta property="og:url" content="https://lebenslauf-shqip.de/"/>
 <meta property="og:locale" content="sq_AL"/>
 <meta property="og:site_name" content="lebenslauf-shqip.de"/>
@@ -84,7 +84,8 @@ input::placeholder,textarea::placeholder{font-weight:400;color:var(--gray4);opac
   background:linear-gradient(90deg,transparent,var(--red),transparent);
   border-radius:2px;
 }
-.brand-mark{display:flex;align-items:center;gap:12px}
+.brand-mark{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;border-radius:10px;cursor:pointer}
+.brand-mark:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
 .brand-emblem{
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   width:38px;height:38px;border-radius:10px;
@@ -97,6 +98,9 @@ input::placeholder,textarea::placeholder{font-weight:400;color:var(--gray4);opac
 .brand-name em{font-style:normal;color:var(--red)}
 .brand-tag{font-family:var(--font-ui);font-size:10.5px;font-weight:600;letter-spacing:.4px;color:var(--gray4)}
 @media(max-width:480px){.brand-emblem{width:32px;height:32px;font-size:17px;border-radius:8px}.brand-name{font-size:17px}}
+.dark-toggle-btn{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--gray2);background:var(--white);cursor:pointer;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.dark-toggle-btn:hover{border-color:var(--gray4)}
+@media(max-width:480px){.dark-toggle-btn{width:32px;height:32px;right:12px;font-size:15px}}
 
 .container{max-width:840px;margin:0 auto;padding:2.5rem 1.5rem}
 
@@ -293,6 +297,18 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 .ai-result .letter-subject{font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block}
 .ai-result p{margin-bottom:14px}
 .ai-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* Letra e motivimit — pamja në ekran (step 6, para pagesës) duhet të duket njësoj profesionale
+   si PDF-i i printuar; më parë kjo strukturë ekzistonte vetëm brenda @media print. */
+.anschreiben-print .letter-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid #e5e7eb}
+.anschreiben-print .letter-sender{flex:1}
+.anschreiben-print .letter-recipient{text-align:right;flex:1}
+.anschreiben-print .letter-date{text-align:right;margin:22px 0;color:#777;font-size:12px}
+.anschreiben-print .letter-subject{font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block}
+@media(max-width:600px){
+  .anschreiben-print .letter-header{flex-direction:column;gap:16px}
+  .anschreiben-print .letter-recipient{text-align:left;border-top:1px solid #eee;padding-top:14px}
+}
 
 @media(max-width:600px){
   .ai-result{
@@ -1073,21 +1089,89 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
 #testPdfBtn{border-style:dashed;color:#54657b;background:#e4eaf1}
 #step2>.card>div[style*="border-left:3px"]{background:#e6ebf1!important;border:1px solid #cbd4df!important;color:#46556b!important;font-size:14px!important;line-height:1.7;padding:16px!important}
 @media(max-width:600px){.steps-wrap{padding:8px 5px}.steps{gap:0}.step-label{font-size:9px;letter-spacing:0}.step-circle{width:27px;height:27px;font-size:11px}.step-btn{min-height:54px}.entry-card{padding:16px}.card-title{gap:8px}.card-title span{flex-basis:100%;padding-left:11px}.live-fab{bottom:calc(12px + env(safe-area-inset-bottom));right:12px}.upload-zone{flex-wrap:wrap}.upload-text{flex:1;min-width:180px}}
+
+/* ============ DARK MODE (opsionale, vetëm ndërfaqja e ndërtuesit) ============ */
+/* CV-ja e vetë (cv-preview/cv-document/live-frame) mbetet gjithmonë "letër e bardhë" — ngjyrat e saj kontrollohen nga çdo model dhe s'preken këtu. */
+body.dark-mode{
+  --bg:#12151c;--gray:#1b2029;--gray2:#333a4a;--gray3:#4a5468;--gray4:#8b93a3;--gray5:#c7cdd8;
+  --text:#eef0f4;--black:#eef0f4;--red-light:#3a1420;
+  color-scheme:dark;
+}
+body.dark-mode{background:var(--bg)}
+body.dark-mode .app-header{background:#171b24;border-bottom:1px solid #2a3040}
+body.dark-mode .dark-toggle-btn{background:#242938;border-color:#3a4152;color:#eef0f4}
+body.dark-mode .card{background:#1e2330;border-color:#2c3242;box-shadow:0 5px 20px rgba(0,0,0,0.3)}
+body.dark-mode .card-sub{color:#98a1b1}
+body.dark-mode .steps-wrap{background:#171b24;border-color:#2a3040}
+body.dark-mode .step-circle{background:#242938;border-color:#3a4152;color:#8b93a3}
+body.dark-mode .step-item.done .step-circle{color:#ff6f89!important}
+body.dark-mode .field label{color:#c7cdd8}
+body.dark-mode label span{color:#8b93a3}
+body.dark-mode input,body.dark-mode textarea,body.dark-mode select{background:#242938;border-color:#3a4152;color:#eef0f4}
+body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:#6b7385}
+body.dark-mode input:focus,body.dark-mode textarea:focus,body.dark-mode select:focus{background:#2a2430;border-color:#e0354f;box-shadow:0 0 0 3px rgba(224,53,79,0.18)}
+body.dark-mode .entry-card,body.dark-mode .ai-form,body.dark-mode .upload-zone{background:#202533;border-color:#333a4a}
+body.dark-mode .upload-zone:hover,body.dark-mode .entry-card:hover{background:#262c3c;border-color:#4a5468}
+body.dark-mode .btn-outline,body.dark-mode .btn-ghost,body.dark-mode .btn-ghost-sm{background:#232838;border-color:#3a4152;color:#d7dce4}
+body.dark-mode .btn-teal-light,body.dark-mode .add-entry-btn{background:#23283a;color:#cfd6e2;border-color:#3a4152}
+body.dark-mode .template-card{background:#202533;border-color:#333a4a}
+body.dark-mode .template-card.selected{background:#2a1f27;border-color:var(--red)}
+body.dark-mode .template-desc{color:#98a1b1}
+body.dark-mode .skills-guide{background:#1c212e;border-color:#333a4a}
+body.dark-mode .section-eyebrow{color:#8b93a3}
+body.dark-mode .skills-guide h3{color:#eef0f4}
+body.dark-mode .skills-guide p{color:#b7bfcc}
+body.dark-mode .skills-guide>select{background:#262b3a}
+body.dark-mode .skills-guide-note{color:#8b93a3}
+body.dark-mode .skills-guide-note strong{color:#cfd6e2}
+body.dark-mode .suggestion{background:#202533;border-color:#333a4a;color:#d7dce4}
+body.dark-mode .suggestion small,body.dark-mode .suggestion>span:last-child{color:#93a0b3}
+body.dark-mode .suggestion:hover{background:#262c3c;border-color:#4a5468}
+body.dark-mode .suggestion:disabled{background:#16301f;border-color:#2f6b46}
+body.dark-mode .suggestion:disabled strong,body.dark-mode .suggestion:disabled small,body.dark-mode .suggestion:disabled>span:last-child{color:#8fd8a8}
+body.dark-mode #step5 .letter-info-card{background:#202533;border-color:#333a4a}
+body.dark-mode #step5 .letter-ai-highlight{background:#2a1c22;border-color:#4a2c35}
+body.dark-mode #step5 .letter-ai-highlight h3{color:#ff9fb3}
+body.dark-mode #step5 .letter-ai-highlight p{color:#d8a9b2}
+body.dark-mode .skill-selected{background:#202533;border-color:#333a4a}
+body.dark-mode .skill-selected select{background:#262b3a}
+body.dark-mode .skill-selected button{color:#ff6f89}
+body.dark-mode .why-section,body.dark-mode .how-section{background:var(--bg)}
+body.dark-mode .why-title{color:#eef0f4}
+body.dark-mode .why-card,body.dark-mode .how-step{background:#1c212e;border-color:#333a4a}
+body.dark-mode .why-card h3,body.dark-mode .how-step h3{color:#eef0f4}
+body.dark-mode .why-sub,body.dark-mode .how-step p,body.dark-mode .why-card p{color:#98a1b1}
+body.dark-mode .stat-item .stat-label{color:#8b93a3}
+body.dark-mode .info-hint{background:#1c212e;border-color:#333a4a;color:#b7bfcc}
+body.dark-mode .info-hint strong{color:#eef0f4}
+body.dark-mode .entry-num{color:#98a1b1;border-color:#3a4152}
+body.dark-mode .live-panel-title{color:#98a1b1}
+body.dark-mode .live-panel-note{color:#8b93a3}
+body.dark-mode .live-frame{border-color:#333a4a}
+body.dark-mode #testPdfBtn{color:#98a1b1;background:#1c212e;border-color:#3a4152}
+body.dark-mode #step2>.card>div[style*="border-left:3px"]{background:#1c212e!important;border-color:#333a4a!important;color:#b7bfcc!important}
+body.dark-mode .card-title span{color:#93a0b3}
+body.dark-mode .section-divider{background:#2e3444}
+body.dark-mode .app-notice{background:#332a12;color:#f0c869;border:1px solid #5a4a1e}
+body.dark-mode .modal-box{background:#1b2029!important;color:#e3e7ee!important}
+body.dark-mode .modal-box a{color:#ff6b85!important}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"lebenslauf-shqip.de","url":"https://lebenslauf-shqip.de/","applicationCategory":"BusinessApplication","operatingSystem":"Web browser","inLanguage":["sq","de"],"offers":{"@type":"Offer","price":"10.00","priceCurrency":"EUR","description":"PDF-Export des Lebenslaufs"}}</script>
 </head>
 <body>
+<script>try{if(localStorage.getItem('darkMode')==='1')document.body.classList.add('dark-mode');}catch(ignore){}</script>
 <a class="skip-link" href="#mainContent" onclick="startCVBuilder()">Kalo te krijimi i CV-së</a>
 <noscript><p>Aktivizo JavaScript për të krijuar CV-në. Kontakt: info@lebenslauf-shqip.de.</p></noscript>
 <div id="appStatus" role="status" aria-live="polite" class="sr-only"></div>
 
 <header class="app-header">
-  <div class="brand-mark">
+  <a class="brand-mark" href="/" aria-label="Zur Startseite">
     <span class="brand-emblem" aria-hidden="true">L</span>
     <span class="brand-copy">
       <span class="brand-name">lebenslauf<em>shqip</em></span>
     </span>
-  </div>
+  </a>
+  <button type="button" id="darkToggle" class="dark-toggle-btn no-print" onclick="toggleDarkMode()" aria-pressed="false" aria-label="Kalo në pamje të errët">🌙</button>
 </header>
 
 
@@ -1165,7 +1249,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
       <div class="stat-label">Kohë orientuese</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">10</div>
+      <div class="stat-num">14</div>
       <div class="stat-label">Modele profesionale</div>
     </div>
     <div class="stat-item">
@@ -1211,7 +1295,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
     <div class="how-step">
       <div class="how-num">2</div>
       <h3>Zgjidh modelin</h3>
-      <p>10 modele profesionale sipas standardit gjerman — me pamje paraprake të menjëhershme</p>
+      <p>14 modele profesionale sipas standardit gjerman — me pamje paraprake të menjëhershme</p>
     </div>
     <div class="how-step">
       <div class="how-num">3</div>
@@ -3313,9 +3397,9 @@ function renderKlassisch(d, _fs, _mb){
     '</div>';
 
   var blocks='';
+  if(pHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Persönliche Daten')+pHtml+'</div>';
   if(expHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Berufserfahrung')+expHtml+'</div>';
   if(eduHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Ausbildung')+eduHtml+'</div>';
-  if(pHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Persönliche Daten')+pHtml+'</div>';
   if(skillHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Kenntnisse')+skillHtml+'</div>';
   if(langHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Sprachen')+langHtml+'</div>';
   if(d.hobbies) blocks+='<div>'+secLabel('Interessen')+'<div style="font-size:12.5px;font-weight:500;color:'+ink+'">'+esc(d.hobbies)+'</div></div>';
@@ -3334,9 +3418,12 @@ function renderModern(d){
   var disp="'Playfair Display',Georgia,serif";
   var profile=profileList(d);
   var allLangs=langs.filter(function(l){return l.name;});
-  return '<div style="font-family:'+ui+';background:#fff;color:'+ink+';font-size:13px;line-height:1.65;display:grid;grid-template-columns:220px 1fr;width:210mm;min-height:297mm;box-sizing:border-box">'+
-    // LEFT SIDEBAR — dark
-    '<div style="background:'+sideBg+';color:#f9fafb;padding:34px 24px;align-self:stretch">'+
+  return '<div style="font-family:'+ui+';background:'+sideBg+';color:'+ink+';font-size:13px;line-height:1.65;display:grid;grid-template-columns:220px 1fr;align-items:stretch;width:210mm;min-height:297mm;box-sizing:border-box">'+
+    // LEFT SIDEBAR — dark. height:100% (not just align-self:stretch) so the column reliably
+    // fills the row even where grid auto-row stretching against a min-height container is
+    // inconsistent (notably Chrome's print/PDF pipeline) — same fix already used by the
+    // Peja/Gjakova sidebar templates.
+    '<div style="background:'+sideBg+';color:#f9fafb;padding:34px 24px;height:100%;box-sizing:border-box">'+
       (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:124px;height:150px;object-fit:cover;object-position:top center;border-radius:5px;border:2px solid rgba(255,255,255,0.18);margin:0 auto 20px;display:block">':'<div style="width:124px;height:150px;border-radius:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);margin:0 auto 20px"></div>')+
       '<div style="text-align:center;margin-bottom:26px">'+
         '<div style="font-family:'+disp+';font-size:20px;font-weight:700;line-height:1.2;color:#fff">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
@@ -3348,8 +3435,9 @@ function renderModern(d){
       (allLangs.length?'<div style="margin-top:22px">'+sectionTitle('Sprachen','#cbd5e1')+allLangs.map(function(l){return '<div style="margin-bottom:11px"><div style="font-size:11.5px;color:#fff;font-weight:600">'+esc(l.name)+'</div>'+(l.level?'<div style="font-size:10px;color:#9fb3c8;margin-top:1px">'+esc(l.level)+'</div>':'')+'</div>';}).join('')+'</div>':'')+
       (d.fuehrerschein?'<div style="margin-top:22px">'+sectionTitle('Führerschein','#cbd5e1')+'<div style="font-size:11px;color:#cbd5e1">'+esc(d.fuehrerschein)+'</div></div>':'')+
     '</div>'+
-    // RIGHT MAIN AREA
-    '<div style="padding:40px 38px 34px;display:flex;flex-direction:column">'+
+    // RIGHT MAIN AREA — explicit background+height so it fills the row on its own,
+    // independent of the outer container's (now dark) fallback background.
+    '<div style="background:#fff;padding:40px 38px 34px;height:100%;box-sizing:border-box;display:flex;flex-direction:column">'+
       '<div style="margin-bottom:26px;border-bottom:2px solid '+accent+';padding-bottom:14px">'+
         '<div style="font-family:'+disp+';font-size:32px;font-weight:800;letter-spacing:-0.3px;color:'+accent+';line-height:1.05">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
         (d.job?'<div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:'+muted+';margin-top:6px">'+esc(d.job)+'</div>':'')+
@@ -3507,8 +3595,30 @@ function renderBlue(d){
 function renderDark(d){
   var accent='#93c5fd';
   var profile=profileList(d);
-  return '<div style="font-family:Inter,Arial,sans-serif;background:#fff;color:#111827;font-size:12px;line-height:1.62;display:grid;grid-template-columns:220px 1fr;min-height:297mm">'+
-    '<div style="background:#0f172a;color:#e5e7eb;padding:30px 20px">'+
+
+  // Kenntnisse — kolona e vetme kur janë pak, dy kolona kur janë mjaft (për kolonën kryesore, më të gjerë)
+  var mainSkillHtml='';
+  if(skills.length){
+    function skillRow(s){
+      var lv=skillLevel(s);
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:5px 0;border-bottom:1px solid #e5e7eb">'+
+        '<span style="font-size:12px;font-weight:700;color:#1f2937">'+esc(skillName(s))+'</span>'+
+        (lv?'<span style="font-size:10px;font-weight:500;color:#6b7280;flex-shrink:0;white-space:nowrap">'+esc(lv)+'</span>':'')+
+      '</div>';
+    }
+    if(skills.length>3){
+      var half=Math.ceil(skills.length/2);
+      mainSkillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">'+
+        '<div>'+skills.slice(0,half).map(skillRow).join('')+'</div>'+
+        '<div>'+skills.slice(half).map(skillRow).join('')+'</div>'+
+      '</div>';
+    } else {
+      mainSkillHtml='<div>'+skills.map(skillRow).join('')+'</div>';
+    }
+  }
+
+  return '<div style="font-family:Inter,Arial,sans-serif;background:#0f172a;color:#111827;font-size:12px;line-height:1.62;display:grid;grid-template-columns:220px 1fr;align-items:stretch;min-height:297mm">'+
+    '<div style="background:#0f172a;color:#e5e7eb;padding:30px 20px;height:100%;box-sizing:border-box">'+
       (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:112px;height:134px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,0.14);margin:0 auto 16px;display:block">':'<div style="width:112px;height:134px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);margin:0 auto 16px"></div>')+
       '<div style="text-align:center">'+
         '<div style="font-size:16px;font-weight:800;color:#fff;line-height:1.25">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
@@ -3517,14 +3627,14 @@ function renderDark(d){
       '<div style="margin-top:18px">'+sectionTitle('Kontakt','#ffffff')+[d.phone,d.email,((d.plz||d.city)?(d.plz?d.plz+' ':'')+d.city:''),d.addr].filter(Boolean).map(function(i){return '<div style="font-size:10.4px;color:#cbd5e1;margin-bottom:6px;word-break:break-word">'+esc(i)+'</div>';}).join('')+'</div>'+
       (profile.length?'<div style="margin-top:18px">'+sectionTitle('Persönlich','#ffffff')+profile.map(function(i){return '<div style="font-size:10.2px;color:#cbd5e1;margin-bottom:6px">'+i+'</div>';}).join('')+'</div>':'')+
       (langs.filter(function(l){return l.name;}).length?'<div style="margin-top:18px">'+sectionTitle('Sprachen','#ffffff')+langs.filter(function(l){return l.name;}).map(function(l){return '<div style="margin-bottom:8px"><div style="font-size:10.8px;color:#fff;font-weight:600">'+esc(l.name)+'</div><div style="font-size:10px;color:#93c5fd">'+esc(l.level)+'</div></div>';}).join('')+'</div>':'')+
-      (skills.length?'<div style="margin-top:18px">'+sectionTitle('Kenntnisse','#ffffff')+skills.map(function(s){var lv=skillLevel(s);return '<div style="display:flex;justify-content:space-between;gap:6px;font-size:10.2px;color:#e2e8f0;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><span>'+esc(skillName(s))+'</span>'+(lv?'<span style="color:#93c5fd;font-size:9.2px;text-align:right;flex-shrink:0">'+esc(lv)+'</span>':'')+'</div>';}).join('')+'</div>':'')+
       (d.fuehrerschein?'<div style="margin-top:18px">'+sectionTitle('Führerschein','#ffffff')+'<div style="font-size:10.2px;color:#e2e8f0">'+esc(d.fuehrerschein)+'</div></div>':'')+
     '</div>'+
-    '<div style="padding:34px 30px 28px;background:#fff">'+
+    '<div style="padding:34px 30px 28px;background:#fff;height:100%;box-sizing:border-box">'+
       '<div style="font-size:28px;font-weight:800;letter-spacing:-0.4px;color:#0f172a;margin-bottom:4px">Lebenslauf</div>'+
       '<div style="font-size:11px;color:#1d4ed8;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:20px">Berufliches Profil</div>'+
       (experiences.length?'<div style="margin-bottom:22px">'+sectionTitle('Berufserfahrung','#1e3a8a')+renderExperienceItems('#1e40af')+'</div>':'')+
       (educations.length?'<div style="margin-bottom:22px">'+sectionTitle('Ausbildung','#1e3a8a')+renderEducationItems('#1e40af')+'</div>':'')+
+      (mainSkillHtml?'<div style="margin-bottom:22px">'+sectionTitle('Kenntnisse','#1e3a8a')+mainSkillHtml+'</div>':'')+
       (d.hobbies?'<div>'+sectionTitle('Interessen','#1e3a8a')+'<div style="font-size:12px;font-weight:700;color:#1f2937">'+esc(d.hobbies)+'</div></div>':'')+
     '</div>'+
   '</div>';
@@ -4137,23 +4247,37 @@ function renderDarkElegant(d,sp){
           '</div>';
         }).join('')+
       '</div>':'')+
-      (skills.length?'<div style="margin-bottom:'+px(24)+'">'+sLabel('Kenntnisse')+
-        skills.map(function(sk){
-          var lv=skillLevel(sk);
-          return '<div style="display:flex;justify-content:space-between;gap:6px;font-size:11px;color:'+sideText+';padding:'+px(4)+' 0;border-bottom:1px solid rgba(255,255,255,0.07)"><span>'+esc(skillName(sk))+'</span>'+(lv?'<span style="color:'+gold+';font-size:9.5px;text-align:right;flex-shrink:0">'+esc(lv)+'</span>':'')+'</div>';
-        }).join('')+
-      '</div>':'')+
       (d.fuehrerschein?'<div>'+sLabel('Führerschein')+
         '<div style="font-size:11px;color:'+sideText+';line-height:1.6">'+esc(d.fuehrerschein)+'</div>'+
       '</div>':'')+
       '</div>'+
     '</div>';
 
-  /* ── MAIN (weiss) ── */
+  /* ── MAIN (weiss): Kenntnisse — kolona e vetme kur janë pak, dy kolona kur janë mjaft ── */
+  var mainSkillHtml='';
+  if(skills.length){
+    function skillRow(sk){
+      var lv=skillLevel(sk);
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:'+px(6)+' 0;border-bottom:1px solid '+hairline+'">'+
+        '<span style="font-size:12px;font-weight:700;color:'+ink+'">'+esc(skillName(sk))+'</span>'+
+        (lv?'<span style="font-size:10px;font-weight:500;color:'+inkMuted+';flex-shrink:0;white-space:nowrap">'+esc(lv)+'</span>':'')+
+      '</div>';
+    }
+    if(skills.length>3){
+      var half=Math.ceil(skills.length/2);
+      mainSkillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">'+
+        '<div>'+skills.slice(0,half).map(skillRow).join('')+'</div>'+
+        '<div>'+skills.slice(half).map(skillRow).join('')+'</div>'+
+      '</div>';
+    } else {
+      mainSkillHtml='<div>'+skills.map(skillRow).join('')+'</div>';
+    }
+  }
+
   var today=new Date();
   var dateStr=('0'+today.getDate()).slice(-2)+'.'+('0'+(today.getMonth()+1)).slice(-2)+'.'+today.getFullYear();
   var mainHTML=
-    '<div style="padding:'+px(38)+' 38px '+px(32)+';background:#fff;display:flex;flex-direction:column">'+
+    '<div style="padding:'+px(38)+' 38px '+px(32)+';background:#fff;height:100%;box-sizing:border-box;display:flex;flex-direction:column">'+
       '<div data-fit="main">'+
       '<div style="font-size:9px;font-weight:600;color:'+inkMuted+';letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Lebenslauf</div>'+
       '<div style="font-family:Georgia,serif;font-size:30px;font-weight:700;color:'+ink+';line-height:1.12;letter-spacing:-.3px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
@@ -4169,6 +4293,7 @@ function renderDarkElegant(d,sp){
           return entry(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'');
         }).join('')+
       '</div>':'')+
+      (mainSkillHtml?'<div style="margin-bottom:'+px(24)+'">'+mLabel('Kenntnisse')+mainSkillHtml+'</div>':'')+
       (d.hobbies?'<div>'+mLabel('Interessen')+
         '<div style="font-size:11.5px;color:'+inkSoft+';line-height:1.7">'+esc(d.hobbies)+'</div>'+
       '</div>':'')+
@@ -4186,19 +4311,25 @@ function renderCormorant(d){
   var accent2='#a87c38';
   var sidebar='#1d2b35';
 
-  // Skills — me shtylla përqindjeje (ari)
+  // Kenntnisse — tani në kolonën kryesore (më e gjerë): kolonë e vetme kur janë pak, dy kolona kur janë mjaft
   var skillHtml='';
   if(skills.length){
-    skillHtml=skills.map(function(s){
-      var p=skillPercent(s);
-      return '<div style="margin-bottom:10px">'+
-        '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11.5px;font-weight:400;color:rgba(255,255,255,0.85);margin-bottom:4px">'+
-        '<span>'+esc(skillName(s))+'</span>'+
-        (skillLevel(s)?'<span style="color:'+accent+';font-size:9.8px;font-weight:700;text-align:right;flex-shrink:0">'+esc(skillLevel(s))+'</span>':'')+
-        '</div>'+
-        (p?'<div style="height:3px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:linear-gradient(90deg,'+accent+',#e8b060);border-radius:2px"></div></div>':'')+
+    function skillRow(s){
+      var lv=skillLevel(s);
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid #ede9e2">'+
+        '<span style="font-size:12px;font-weight:600;color:#1a1a1a">'+esc(skillName(s))+'</span>'+
+        (lv?'<span style="font-size:10px;font-weight:400;color:#8a8a8a;letter-spacing:.3px;flex-shrink:0;white-space:nowrap">'+esc(lv)+'</span>':'')+
       '</div>';
-    }).join('');
+    }
+    if(skills.length>3){
+      var half=Math.ceil(skills.length/2);
+      skillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">'+
+        '<div>'+skills.slice(0,half).map(skillRow).join('')+'</div>'+
+        '<div>'+skills.slice(half).map(skillRow).join('')+'</div>'+
+      '</div>';
+    } else {
+      skillHtml='<div>'+skills.map(skillRow).join('')+'</div>';
+    }
   }
 
   // Languages
@@ -4266,7 +4397,7 @@ function renderCormorant(d){
   }
 
   var sidebarHTML=
-    '<div style="background:'+sidebar+';padding:40px 26px;position:relative;overflow:hidden">'+
+    '<div style="background:'+sidebar+';padding:40px 26px;position:relative;overflow:hidden;height:100%;box-sizing:border-box">'+
       '<div style="position:absolute;bottom:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:rgba(200,152,74,0.06);pointer-events:none"></div>'+
       // Photo
       '<div style="width:120px;height:120px;border-radius:50%;border:3px solid '+accent+';padding:4px;margin:0 auto 20px">'+
@@ -4296,8 +4427,6 @@ function renderCormorant(d){
           (d.fuehrerschein?pRow('Führerschein',esc(d.fuehrerschein)):'')+
         '</div>'
       :'')+
-      // Skills
-      (skillHtml?'<div style="margin-bottom:24px">'+sLabel('Kenntnisse')+skillHtml+'</div>':'')+
       // Languages
       (langHtml?'<div style="margin-bottom:24px">'+sLabel('Sprachen')+langHtml+'</div>':'')+
       // Hobbies
@@ -4305,7 +4434,7 @@ function renderCormorant(d){
     '</div>';
 
   var mainHTML=
-    '<div style="padding:40px 40px 40px 38px;background:#faf8f4">'+
+    '<div style="padding:40px 40px 40px 38px;background:#faf8f4;height:100%;box-sizing:border-box">'+
       '<div style="margin-bottom:26px">'+
         '<div style="font-family:Georgia,serif;font-size:42px;font-weight:300;color:#1a1a1a;line-height:0.95;letter-spacing:-1px;margin-bottom:5px">'+esc(d.fname)+'<br><strong style="font-weight:600">'+esc(d.lname)+'</strong></div>'+
         '<div style="font-size:10.5px;font-weight:400;color:#8a8a8a;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px">'+esc(d.job||'')+'</div>'+
@@ -4314,10 +4443,12 @@ function renderCormorant(d){
       // Experience
       (expHtml?'<div style="margin-bottom:28px">'+mLabel('Berufserfahrung')+expHtml+'</div>':'')+
       // Education
-      (eduHtml?'<div>'+mLabel('Ausbildung')+eduHtml+'</div>':'')+
+      (eduHtml?'<div style="margin-bottom:'+(skillHtml?'28px':'0')+'">'+mLabel('Ausbildung')+eduHtml+'</div>':'')+
+      // Kenntnisse — zhvendosur nga sidebar-i në kolonën kryesore, më të gjerë
+      (skillHtml?'<div>'+mLabel('Kenntnisse')+skillHtml+'</div>':'')+
     '</div>';
 
-  return '<div style="width:210mm;min-height:297mm;display:grid;grid-template-columns:240px 1fr;box-sizing:border-box;font-family:\'Outfit\',Arial,sans-serif">'+
+  return '<div style="width:210mm;min-height:297mm;display:grid;grid-template-columns:240px 1fr;align-items:stretch;background:'+sidebar+';box-sizing:border-box;font-family:\'Outfit\',Arial,sans-serif">'+
     sidebarHTML+mainHTML+
   '</div>';
 }
@@ -4333,30 +4464,23 @@ function renderRedClassic(d){
   var serif="'Playfair Display','Georgia',serif";
   var sans="'DM Sans','Lato',Arial,sans-serif";
 
-  // ---------- Sidebar: Kenntnisse — me shtylla kur janë pak, rreshta kompakte kur janë shumë ----------
+  // ---------- Main: Kenntnisse — kolona e vetme kur janë pak, dy kolona kompakte kur janë mjaft ----------
   var skillHtml='';
   if(skills.length){
-    var manySkills = skills.length>8;
-    if(manySkills){
-      // rreshta kompakte (emër + %), pa shtylla — kursen hapësirë vertikale
-      skillHtml=skills.map(function(s){
-        var p=skillPercent(s);
-        return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:3.5px 12px 3.5px 0;border-bottom:1px solid '+hair+'">'+
-          '<span style="font-size:10.5px;font-weight:600;color:'+ink+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">'+esc(skillName(s))+'</span>'+
-          (skillLevel(s)?'<span style="font-size:9px;font-weight:700;color:'+red+';flex-shrink:0;min-width:30px;text-align:right">'+esc(skillLevel(s))+'</span>':'')+
-        '</div>';
-      }).join('');
+    function skillRow(s){
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid '+hair+'">'+
+        '<span style="font-size:12.5px;font-weight:600;color:'+ink+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(skillName(s))+'</span>'+
+        (skillLevel(s)?'<span style="font-size:10px;font-weight:500;color:'+muted+';flex-shrink:0;white-space:nowrap">'+esc(skillLevel(s))+'</span>':'')+
+      '</div>';
+    }
+    if(skills.length>3){
+      var half=Math.ceil(skills.length/2);
+      skillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px">'+
+        '<div>'+skills.slice(0,half).map(skillRow).join('')+'</div>'+
+        '<div>'+skills.slice(half).map(skillRow).join('')+'</div>'+
+      '</div>';
     } else {
-      skillHtml=skills.map(function(s){
-        var p=skillPercent(s);
-        return '<div style="margin-bottom:12px;padding-right:12px">'+
-          '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;gap:6px">'+
-            '<span style="font-size:11.5px;font-weight:600;color:'+ink+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(skillName(s))+'</span>'+
-            (skillLevel(s)?'<span style="font-size:9.5px;font-weight:700;color:'+red+';flex-shrink:0;min-width:30px;text-align:right">'+esc(skillLevel(s))+'</span>':'')+
-          '</div>'+
-          (p?'<div style="height:4px;background:'+hair+';border-radius:3px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:linear-gradient(90deg,'+red+','+redSoft+');border-radius:3px"></div></div>':'')+
-        '</div>';
-      }).join('');
+      skillHtml='<div>'+skills.map(skillRow).join('')+'</div>';
     }
   }
 
@@ -4472,15 +4596,17 @@ function renderRedClassic(d){
     '<div style="padding:40px 40px 44px 50px;display:flex;flex-direction:column;gap:34px">'+
       (expHtml?'<div>'+secLabel('Berufserfahrung')+expHtml+'</div>':'')+
       (eduHtml?'<div>'+secLabel('Ausbildung')+eduHtml+'</div>':'')+
+      (skillHtml?'<div>'+secLabel('Kenntnisse')+skillHtml+'</div>':'')+
     '</div>';
 
-  // Hapësira mes seksioneve përshtatet me ngarkesën (që Sprachen/Interessen të mos dalin jashtë)
-  var secMb = skills.length>9 ? 16 : (skills.length>6 ? 22 : 30);
-  var sidePad = skills.length>9 ? '30px 30px 32px' : '38px 30px 40px';
+  // Hapësira mes seksioneve të sidebar-it përshtatet me sasinë e vet përmbajtjes (Persönliches/Sprachen/Interessen),
+  // që tani s'varet më nga numri i aftësive (Kenntnisse është zhvendosur në kolonën kryesore).
+  var sideLineCount = (d.bdate?1:0)+(d.nation?1:0)+(d.civil?1:0)+(d.einreise?1:0)+(d.fuehrerschein?1:0)+allLangs.length+(d.hobbies?d.hobbies.split(',').length:0);
+  var secMb = sideLineCount>14 ? 16 : (sideLineCount>9 ? 22 : 30);
+  var sidePad = sideLineCount>14 ? '30px 30px 32px' : '38px 30px 40px';
   var sidebarHTML=
     '<div style="background:#faf7f4;padding:'+sidePad+';border-left:1px solid '+hair+'">'+
       (personalHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Persönliches')+personalHtml+'</div>':'')+
-      (skillHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Kenntnisse')+skillHtml+'</div>':'')+
       (langHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Sprachen')+langHtml+'</div>':'')+
       (hobbyHtml?'<div>'+sideLabel('Interessen')+hobbyHtml+'</div>':'')+
     '</div>';
@@ -4575,7 +4701,7 @@ function renderRedClassic(d){
     <p><strong>4. Zahlungsabwicklung (Stripe)</strong><br>Für die Zahlungsabwicklung nutzen wir Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Dublin, Irland. Bei der Zahlung werden die von dir eingegebenen Zahlungsdaten (z.&nbsp;B. Name, E-Mail-Adresse, Kartendaten) direkt von Stripe verarbeitet; wir selbst erhalten und speichern keine Kartendaten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung). Weitere Informationen: <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener" style="color:#C8102E">stripe.com/de/privacy</a>. Stripe kann Daten in die USA übermitteln; Stripe ist nach dem EU-US Data Privacy Framework zertifiziert. Deine Zustimmung zum vorzeitigen Beginn der Vertragsausführung (Widerrufsverzicht, siehe AGB und Widerrufsbelehrung) wird zusammen mit Zeitstempel als Metadatum der Zahlungssitzung bei Stripe hinterlegt, damit wir sie im Streitfall nachweisen können. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Nachweis erteilter Einwilligungen).</p>
     <p><strong>5. Hosting und Server-Logfiles</strong><br>Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Beim Aufruf der Seite verarbeitet Vercel technisch notwendige Daten (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser-Typ) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb der Website). Vercel ist nach dem EU-US Data Privacy Framework zertifiziert. Details: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:#C8102E">vercel.com/legal/privacy-policy</a>.</p>
     <p><strong>6. Schriftarten</strong><br>Alle Schriftarten sind <strong>lokal eingebunden</strong>. Es findet keine Verbindung zu Servern von Google (Google Fonts) oder anderen Drittanbietern statt.</p>
-    <p><strong>7. Cookies</strong><br>Diese Website verwendet keine Tracking- oder Analyse-Cookies. Im Rahmen des Bezahlvorgangs kann Stripe technisch notwendige Cookies setzen (Art. 6 Abs. 1 lit. b DSGVO).</p>
+    <p><strong>7. Cookies und lokaler Speicher</strong><br>Diese Website verwendet keine Tracking- oder Analyse-Cookies. Im Rahmen des Bezahlvorgangs kann Stripe technisch notwendige Cookies setzen (Art. 6 Abs. 1 lit. b DSGVO). Deine Wahl zwischen hellem und dunklem Design (Dark Mode) wird rein technisch im localStorage deines Browsers gespeichert, um sie bei deinem nächsten Besuch beizubehalten; diese Angabe enthält keine personenbezogenen Daten und wird nicht an uns oder Dritte übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer nutzerfreundlichen Darstellung).</p>
     <p><strong>8. Speicherdauer</strong><br>Für lokale Entwürfe gilt die unter Ziffer 2 beschriebene Verarbeitung. Die optionale KI-Verarbeitung ist davon zu unterscheiden. Zahlungsbezogene Daten werden von Stripe gemäß den gesetzlichen Aufbewahrungsfristen gespeichert.</p>
     <p><strong>9. Deine Rechte</strong><br>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Soweit eine Verarbeitung auf deiner Einwilligung beruht (z.&nbsp;B. die optionale KI-Funktion), kannst du diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3 DSGVO), ohne dass die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung berührt wird; nutze dafür einfach die KI-Funktion nicht (erneut). Außerdem hast du das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), z.&nbsp;B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
     <p style="font-size:12px;color:#888;margin-top:16px">Stand: September 2026</p>
@@ -4620,6 +4746,21 @@ function closeLegalModal(id){
   var modal=document.getElementById(id);
   if(modal)modal.style.display='none';
 }
+function applyDarkMode(on){
+  document.body.classList.toggle('dark-mode',on);
+  var btn=document.getElementById('darkToggle');
+  if(btn){
+    btn.textContent=on?'☀️':'🌙';
+    btn.setAttribute('aria-label',on?'Kalo në pamje të çelët':'Kalo në pamje të errët');
+    btn.setAttribute('aria-pressed',String(on));
+  }
+}
+function toggleDarkMode(){
+  var on=!document.body.classList.contains('dark-mode');
+  try{localStorage.setItem('darkMode',on?'1':'0');}catch(ignore){}
+  applyDarkMode(on);
+}
+applyDarkMode(document.body.classList.contains('dark-mode'));
 function announce(message){
   document.getElementById('appStatus').textContent=message;
   var main=document.getElementById('mainContent'),notice=document.getElementById('visibleNotice');

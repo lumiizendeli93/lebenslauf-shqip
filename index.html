@@ -926,7 +926,6 @@ footer a{text-underline-offset:3px}
 .cv-document img{object-position:top center}
 body.payment-verified label[for="widerrufCheck"]{display:none!important}
 .cv-document [style*="white-space:nowrap"]{white-space:normal!important}
-.cv-preview,.cv-preview *{user-select:text!important;-webkit-user-select:text!important;-webkit-touch-callout:default}
 .cv-preview::before{font-size:clamp(16px,4vw,34px);letter-spacing:3px;padding:10px 14px}
 .live-frame{max-height:calc(100dvh - 190px);overflow:auto}
 .live-overlay{padding-bottom:calc(16px + env(safe-area-inset-bottom))}
@@ -1935,7 +1934,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
     </div>
 
     <!-- ANSCHREIBEN PRINT - faqe e dytë -->
-    <div lang="de" class="anschreiben-print hidden" id="anschreibenPrintSection" style="background:#fff;margin-top:1.25rem;border-radius:var(--radius);box-shadow:var(--shadow)">
+    <div lang="de" class="anschreiben-print cv-preview hidden" id="anschreibenPrintSection" style="background:#fff;margin-top:1.25rem;border-radius:var(--radius);box-shadow:var(--shadow)">
       <div style="font-family:'Inter',Arial,sans-serif;font-size:12px;line-height:1.8;color:#222;white-space:pre-wrap" id="anschreibenPrintText"></div>
     </div>
   </div>

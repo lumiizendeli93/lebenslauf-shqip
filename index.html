@@ -3167,6 +3167,42 @@ var A4_FIT_TARGET_PX=A4_PAGE_PX-A4_SAFETY_PX;
 // zoom tkurr fontin+hapësirat bashkë (jo vetëm marzhe), dhe mbetet edhe në print/PDF
 // (ndryshe nga transform, që ndikon vetëm ekranin dhe anulohet me qëllim gjatë printimit).
 var CV_ZOOM_LEVELS=[1,0.97,0.94,0.91,0.88,0.85,0.82];
+// Disa motorë printimi/PDF-je (raportuar nga përdoruesi, Windows "Microsoft Print to PDF")
+// e shfaqin hapësirën e papikturuar nën përmbajtjen e CV-së si TË ZEZË, jo të bardhë, kur
+// CV-ja s'e mbush plotësisht faqen A4 — pavarësisht se min-height+background janë të sakta
+// teorikisht. Në vend që të mbështetemi te kjo (e paqëndrueshme mes motorësh), plotësojmë
+// vetë hapësirën e mbetur me një element eksplicit, të pikturuar — vetëm në momentin final
+// të printimit (finalPrint), ku #cvPreview ka overflow:visible nga CSS-ja e @media print.
+function removeA4Filler(preview){
+  var old=preview&&preview.querySelector(':scope > .a4-fill-gap');
+  if(old)old.remove();
+}
+function fillA4Gap(preview,el){
+  removeA4Filler(preview);
+  var elRect=el.getBoundingClientRect();
+  var gap=A4_PAGE_PX-elRect.height;
+  if(gap<=2)return; // pa hapësirë kuptimplote, ose përmbajtja tashmë kalon faqen
+  var filler=document.createElement('div');
+  filler.className='a4-fill-gap';
+  filler.setAttribute('aria-hidden','true');
+  filler.style.cssText='width:'+elRect.width+'px;height:'+gap+'px;flex-shrink:0;pointer-events:none;display:flex';
+  var row=null;
+  Array.from(el.children).forEach(function(child){
+    var cs=getComputedStyle(child);
+    if(!row&&(cs.display==='grid'||cs.display==='flex')&&child.children.length===2)row=child;
+  });
+  if(row){
+    Array.from(row.children).forEach(function(kid){
+      var kidRect=kid.getBoundingClientRect();
+      var part=document.createElement('div');
+      part.style.cssText='width:'+kidRect.width+'px;height:100%;flex-shrink:0;background:'+getComputedStyle(kid).backgroundColor;
+      filler.appendChild(part);
+    });
+  }else{
+    filler.style.background=getComputedStyle(el).backgroundColor;
+  }
+  preview.appendChild(filler);
+}
 function fitCvToPage(finalPrint){
   // Rezerva e sigurisë (A4_FIT_TARGET_PX) duhet të veprojë VETËM në momentin e printimit real
   // (finalPrint===true, thirrur nga printCV() para window.print()) — jo te pamja e zakonshme
@@ -3174,6 +3210,7 @@ function fitCvToPage(finalPrint){
   var target=finalPrint?A4_FIT_TARGET_PX:A4_PAGE_PX;
   var preview=document.getElementById('cvPreview'),el=preview&&preview.firstElementChild;
   if(!el)return;
+  removeA4Filler(preview);
   el.style.transform='';
   el.classList.add('cv-document');
   el.style.minHeight=el.classList.contains('cv-twopage')?'':'296mm';
@@ -3217,6 +3254,10 @@ function fitCvToPage(finalPrint){
       if(!shrunkAny)break;
     }
   }
+  // Mbush hapësirën e mbetur me sfond eksplicit — vetëm në printim final, ku #cvPreview lejon
+  // overflow:visible (shih @media print). Në ekran s'nevojitet (dhe #cvPreview atje ka
+  // overflow:hidden për shkallëzimin mobile, ku një shtesë e tillë do të pritej/fshihej).
+  if(finalPrint&&!el.classList.contains('cv-twopage'))fillA4Gap(preview,el);
 }
 function scaleCvPreview(){
   var preview=document.getElementById('cvPreview'),inner=preview&&preview.firstElementChild;

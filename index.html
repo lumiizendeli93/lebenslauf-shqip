@@ -4639,8 +4639,11 @@ function renderRedClassic(d){
     '</div>';
 
   // ---------- Main + Sidebar ----------
+  // height:100% (jo vetëm align-items:stretch) — grid auto-row që zgjatet mbi min-height
+  // sillet i paqëndrueshëm nën disa motorë printimi/PDF-je; kjo e siguron që të dyja kolonat
+  // të mbushin plotësisht faqen A4, pa lënë hapësirë të papikturuar poshtë (shih Durrësi/Peja/etj.).
   var mainHTML=
-    '<div style="padding:40px 40px 44px 50px;display:flex;flex-direction:column;gap:34px">'+
+    '<div style="background:#fff;padding:40px 40px 44px 50px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:34px">'+
       (expHtml?'<div>'+secLabel('Berufserfahrung')+expHtml+'</div>':'')+
       (eduHtml?'<div>'+secLabel('Ausbildung')+eduHtml+'</div>':'')+
       (skillHtml?'<div>'+secLabel('Kenntnisse')+skillHtml+'</div>':'')+
@@ -4652,13 +4655,13 @@ function renderRedClassic(d){
   var secMb = sideLineCount>14 ? 16 : (sideLineCount>9 ? 22 : 30);
   var sidePad = sideLineCount>14 ? '30px 30px 32px' : '38px 30px 40px';
   var sidebarHTML=
-    '<div style="background:#faf7f4;padding:'+sidePad+';border-left:1px solid '+hair+'">'+
+    '<div style="background:#faf7f4;padding:'+sidePad+';height:100%;box-sizing:border-box;border-left:1px solid '+hair+'">'+
       (personalHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Persönliches')+personalHtml+'</div>':'')+
       (langHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Sprachen')+langHtml+'</div>':'')+
       (hobbyHtml?'<div>'+sideLabel('Interessen')+hobbyHtml+'</div>':'')+
     '</div>';
 
-  return '<div style="width:210mm;min-height:297mm;background:#fff;box-sizing:border-box;font-family:'+sans+';color:'+ink+';display:flex;flex-direction:column">'+
+  return '<div style="width:210mm;min-height:297mm;background:#faf7f4;box-sizing:border-box;font-family:'+sans+';color:'+ink+';display:flex;flex-direction:column">'+
     headerHTML+
     '<div style="display:grid;grid-template-columns:1fr 244px;flex:1;align-items:stretch">'+
       mainHTML+

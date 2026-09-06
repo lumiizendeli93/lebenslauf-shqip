@@ -1330,6 +1330,11 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
           <input id="p_nation" placeholder="p.sh. Albanisch, Kosovarisch, Nordmazedonisch"/>
         </div>
         <div class="field">
+          <label>Hyrja në Gjermani <span>(Einreise nach Deutschland · optional)</span></label>
+          <input id="p_einreise" type="text" placeholder="MM/JJJJ" pattern="(0[1-9]|1[0-2])/(19|20)\d{2}" inputmode="numeric" maxlength="7" title="Format: MM/JJJJ (p.sh. 09/2019)"/>
+          <span style="font-size:11px;color:var(--gray4);font-weight:400;line-height:1.5">Plotësoje vetëm nëse dëshiron që kjo të shfaqet në CV. Kjo e dhënë nuk është e detyrueshme.<br>Nur ausfüllen, wenn diese Angabe im Lebenslauf erscheinen soll. Diese Angabe ist freiwillig.</span>
+        </div>
+        <div class="field">
           <label>Gjendja civile <span>(Familienstand · opsionale)</span></label>
           <select id="p_civil">
             <option value="">Zgjidhni (Bitte auswählen)</option>
@@ -2090,6 +2095,7 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
           <span style="color:var(--gray4)">🇦🇱 Pajtohem shprehimisht që PDF-i të më jepet menjëherë pas pagesës dhe e di që me këtë humbas të drejtën e revokimit prej 14 ditësh.</span>
         </span>
       </label>
+      <div id="orderConfirmation" class="hidden no-print" style="margin-top:14px;padding:14px 16px;background:#e8f4e8;border:1px solid #bcdcbc;border-radius:var(--radius-xs);font-size:12.5px;line-height:1.8;color:#1b5e20"></div>
     </div>
     <div class="cv-wrap">
       <div class="cv-preview" id="cvPreview" lang="de"></div>
@@ -2726,6 +2732,7 @@ function renderTimelineBlue(d){
           (d.job?'<div style="font-size:13px;margin-bottom:10px;color:'+MUT+'">'+esc(d.job)+'</div>':'')+
           '<div style="display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:9px;max-width:100mm">'+
             contactRow('▣ Geburtstag',profile.bdate)+
+            contactRow('✈ In Deutschland seit',profile.inDe)+
             contactRow('⌖ Adresse',addrFull)+
             contactRow('☎ Telefon',d.phone)+
             contactRow('✉ E-Mail',d.email)+
@@ -2798,6 +2805,7 @@ function renderEditorialRed(d){
         (d.job?'<div style="font-size:11px;color:'+MUT+';margin-top:2px">'+esc(d.job)+'</div>':'')+
         '<div style="display:grid;grid-template-columns:30mm 1fr;gap:2px;font-size:9px;margin-top:10px;max-width:98mm">'+
           contactRow('▣ Geburtstag',profile.bdate)+
+          contactRow('✈ In Deutschland seit',profile.inDe)+
           contactRow('⌖ Adresse',addrFull)+
           contactRow('☎ Telefon',d.phone)+
           contactRow('✉ E-Mail',d.email)+
@@ -2900,9 +2908,10 @@ function renderSidebarOrange(d){
           sideRow('✉',d.email)+
           sideRow('🌐',d.web)
         )+
-        (profile.nation||profile.civil?sideBlock('Persönliches',
+        (profile.nation||profile.civil||profile.inDe?sideBlock('Persönliches',
           (profile.nation?'<div style="font-size:9.5px;color:#e7ebed;margin-bottom:5px">'+profile.nation+'</div>':'')+
-          (profile.civil?'<div style="font-size:9.5px;color:#e7ebed">'+profile.civil+'</div>':'')
+          (profile.civil?'<div style="font-size:9.5px;color:#e7ebed;margin-bottom:5px">'+profile.civil+'</div>':'')+
+          (profile.inDe?'<div style="font-size:9.5px;color:#e7ebed"><strong style="color:#fff;font-weight:600">In Deutschland seit:</strong> '+profile.inDe+'</div>':'')
         ):'')+
         skillsSide+langsSide+extrasSide+
       '</aside>'+
@@ -2991,6 +3000,7 @@ function renderTimelineClean(d){
       '</div>'+
       '<div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:11px;padding-top:11px;border-top:1px solid '+TRACK+'">'+
         contactRow('▣',profile.bdate)+
+        (profile.inDe?contactRow('✈','In Deutschland seit: '+profile.inDe):'')+
         contactRow('⌖',addrFull)+
         contactRow('☎',d.phone)+
         contactRow('✉',d.email)+
@@ -3009,7 +3019,8 @@ function renderCV(){
     bdate:fmtDate(g('p_bdate')),bplace:g('p_bplace'),nation:g('p_nation'),
     civil:g('p_civil'),addr:g('p_addr'),plz:g('p_plz'),city:g('p_city'),
     phone:g('p_phone'),email:g('p_email'),web:g('p_web'),
-    hobbies:g('s_hobbies'),fuehrerschein:g('fuehrerschein'),kinder:g('p_kinder')
+    hobbies:g('s_hobbies'),fuehrerschein:g('fuehrerschein'),kinder:g('p_kinder'),
+    einreise:g('p_einreise')
   };
   var html='';
   if(selectedTemplate==='redclassic') html=renderRedClassic(data);
@@ -3134,6 +3145,7 @@ function profileList(d){
   if(p.bdate) out.push('geb. '+p.bdate);
   if(p.nation) out.push('<strong>Staatsangehörigkeit:</strong> '+p.nation);
   if(p.civil) out.push('<strong>Familienstand:</strong> '+p.civil);
+  if(p.inDe) out.push('<strong>In Deutschland seit:</strong> '+p.inDe);
   return out;
 }
 function buildProfileItems(d){
@@ -3141,7 +3153,8 @@ function buildProfileItems(d){
   return {
     bdate: d.bdate ? esc(d.bdate)+(d.bplace?' in '+esc(d.bplace):'') : '',
     nation: d.nation ? esc(d.nation) : '',
-    civil: civil
+    civil: civil,
+    inDe: d.einreise ? esc(d.einreise) : ''
   };
 }
 
@@ -3270,6 +3283,7 @@ function renderKlassisch(d, _fs, _mb){
   if(d.bdate) pData.push(['Geboren', esc(d.bdate)+(d.bplace?', '+esc(d.bplace):'')]);
   if(d.nation) pData.push(['Staatsangehörigkeit', esc(d.nation)]);
   if(d.civil) pData.push(['Familienstand', esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')]);
+  if(d.einreise) pData.push(['In Deutschland seit', esc(d.einreise)]);
   if(d.fuehrerschein) pData.push(['Führerschein', esc(d.fuehrerschein)]);
   var pHtml='';
   if(pData.length){
@@ -3427,12 +3441,13 @@ function renderBlue(d){
 
     '<div style="padding:10px 60px 52px">'+
 
-      (profile.bdate||profile.nation||profile.civil?
+      (profile.bdate||profile.nation||profile.civil||profile.inDe?
         '<div style="text-align:center;margin-top:16px;margin-bottom:0">'+
           '<div style="display:inline-flex;flex-wrap:wrap;gap:4px 20px;justify-content:center">'+
             (profile.bdate?'<span style="font-size:10.5px;color:'+MUTED+'">geb. '+profile.bdate+'</span>':'')+
             (profile.nation?'<span style="font-size:10.5px;color:'+MUTED+'">'+profile.nation+'</span>':'')+
             (profile.civil?'<span style="font-size:10.5px;color:'+MUTED+'">'+profile.civil+'</span>':'')+
+            (profile.inDe?'<span style="font-size:10.5px;color:'+MUTED+'">in Deutschland seit '+profile.inDe+'</span>':'')+
           '</div>'+
         '</div>'
       :'')+
@@ -3702,6 +3717,18 @@ async function startPayment(){
     alert('Pagesa nuk mund të hapet. Të dhënat janë ende në këtë faqe. Provo përsëri ose kontakto info@lebenslauf-shqip.de.');
   }
 }
+function renderOrderConfirmation(order){
+  var box=document.getElementById('orderConfirmation');
+  if(!box||!order)return;
+  var amount=typeof order.amount_total==='number'?(order.amount_total/100).toFixed(2).replace('.',',')+' €':'10,00 €';
+  var date=order.created?new Date(order.created*1000).toLocaleString('de-DE'):'';
+  box.innerHTML='<strong>Bestellbestätigung</strong><br>'+
+    'Produkt: Lebenslauf-PDF (digitaler Inhalt) · Preis: '+amount+' · Gemäß § 19 UStG keine Umsatzsteuer ausgewiesen<br>'+
+    (date?'Datum: '+esc(date)+'<br>':'')+
+    (order.session_id?'Bestellreferenz: '+esc(order.session_id)+'<br>':'')+
+    'Zustimmung zum Widerrufsverzicht (§ 356 Abs. 5 BGB) wurde erfasst'+(order.consent_timestamp?' am '+esc(order.consent_timestamp):'')+'.';
+  box.classList.remove('hidden');
+}
 async function checkPaymentAndPrint(){
   var params=new URLSearchParams(window.location.search),id=params.get('session_id');
   var restored=restoreCheckoutDraft();
@@ -3716,6 +3743,7 @@ async function checkPaymentAndPrint(){
     document.body.classList.add('payment-verified');
     btn.textContent='Shkarko PDF';btn.disabled=false;btn.onclick=startPayment;
     announce(restored?'Pagesa u konfirmua. Kliko Shkarko PDF.':'Pagesa u konfirmua, por drafti nuk u gjet. Plotëso të dhënat ose kontakto mbështetjen; mos paguaj përsëri.');
+    renderOrderConfirmation(data.order);
     // Keep the return token until the user explicitly clears the session, so refresh can reverify.
   }catch(error){
     btn.disabled=false;btn.textContent='Riprovo verifikimin';btn.onclick=checkPaymentAndPrint;
@@ -3911,6 +3939,10 @@ function renderTabellarisch(d){
               '<div>'+pLabel('Familienstand')+
               '<div style="font-size:15px;color:#3d3d3d">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</div></div>'
             :'')+
+            (d.einreise?
+              '<div>'+pLabel('In Deutschland seit')+
+              '<div style="font-size:15px;color:#3d3d3d">'+esc(d.einreise)+'</div></div>'
+            :'')+
           '</div>'+
 
         '</div>'+
@@ -4043,6 +4075,7 @@ function renderDarkElegant(d,sp){
   if(profile.bdate) profileRows.push(['Geboren',profile.bdate]);
   if(profile.nation) profileRows.push(['Staatsangehörigkeit',profile.nation]);
   if(profile.civil) profileRows.push(['Familienstand',profile.civil]);
+  if(profile.inDe) profileRows.push(['In Deutschland seit',profile.inDe]);
   var allLangs=langs.filter(function(l){return l.name;});
 
   function sLabel(t){
@@ -4254,11 +4287,12 @@ function renderCormorant(d){
         ((d.addr||d.city)?'<div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:8px;font-size:11.5px;font-weight:300;color:rgba(255,255,255,0.75)"><span style="width:16px;height:16px;background:rgba(200,152,74,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;margin-top:1px">⌂</span>'+(d.addr?esc(d.addr)+'<br>':'')+(d.plz?esc(d.plz)+' ':'')+esc(d.city||'')+'</div>':'')+
       '</div>'+
       // Persönliche Daten
-      ((d.bdate||d.nation||d.civil||d.fuehrerschein)?
+      ((d.bdate||d.nation||d.civil||d.einreise||d.fuehrerschein)?
         '<div style="margin-bottom:24px">'+sLabel('Persönliche Daten')+
           (d.bdate?pRow('Geburtsdatum'+(d.bplace?', -ort':''),esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')):'')+
           (d.nation?pRow('Staatsangehörigkeit',esc(d.nation)):'')+
           (d.civil?pRow('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')):'')+
+          (d.einreise?pRow('In Deutschland seit',esc(d.einreise)):'')+
           (d.fuehrerschein?pRow('Führerschein',esc(d.fuehrerschein)):'')+
         '</div>'
       :'')+
@@ -4349,6 +4383,7 @@ function renderRedClassic(d){
   if(d.bdate) personalHtml+=pRow('Geboren', esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):''));
   if(d.nation) personalHtml+=pRow('Nationalität', esc(d.nation));
   if(d.civil) personalHtml+=pRow('Familienstand', esc(d.civil)+(d.kinder?', '+esc(d.kinder):''));
+  if(d.einreise) personalHtml+=pRow('In Deutschland seit', esc(d.einreise));
   if(d.fuehrerschein) personalHtml+=pRow('Führerschein', esc(d.fuehrerschein));
 
   // ---------- Sidebar: Interessen ----------
@@ -4492,9 +4527,10 @@ function renderRedClassic(d){
       <div>
         <div style="font-size:13px;font-weight:700;color:#ddd;margin-bottom:10px;letter-spacing:.5px">Rechtliches</div>
         <div style="font-size:12px;line-height:2;color:#666">
-          <a href="#impressum" onclick="document.getElementById('impressumModal').style.display='flex'" style="color:#888;text-decoration:none;display:block;cursor:pointer">Impressum</a>
-          <a href="#datenschutz" onclick="document.getElementById('datenschutzModal').style.display='flex'" style="color:#888;text-decoration:none;display:block;cursor:pointer">Datenschutzerklärung</a>
-          <a href="#agb" onclick="document.getElementById('agbModal').style.display='flex'" style="color:#888;text-decoration:none;display:block;cursor:pointer">AGB</a>
+          <a href="#impressum" onclick="event.preventDefault();openLegalModal('impressumModal',this)" style="color:#888;text-decoration:none;display:block;cursor:pointer">Impressum</a>
+          <a href="#datenschutz" onclick="event.preventDefault();openLegalModal('datenschutzModal',this)" style="color:#888;text-decoration:none;display:block;cursor:pointer">Datenschutzerklärung</a>
+          <a href="#agb" onclick="event.preventDefault();openLegalModal('agbModal',this)" style="color:#888;text-decoration:none;display:block;cursor:pointer">AGB</a>
+          <a href="#widerruf" onclick="event.preventDefault();openLegalModal('widerrufModal',this)" style="color:#888;text-decoration:none;display:block;cursor:pointer">Widerrufsbelehrung</a>
         </div>
       </div>
 
@@ -4515,54 +4551,75 @@ function renderRedClassic(d){
 </footer>
 
 <!-- IMPRESSUM MODAL -->
-<div id="impressumModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+<div id="impressumModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeLegalModal('impressumModal')">
   <div class="modal-box" style="background:#fff;border-radius:16px;padding:36px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;color:#1a1a1a;position:relative">
-    <button onclick="document.getElementById('impressumModal').style.display='none'" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
+    <button onclick="closeLegalModal('impressumModal')" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
     <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;font-family:'DM Serif Display',serif">Impressum</h2>
     <p><strong>Angaben gemäß § 5 DDG</strong></p>
     <p>Fatlum Zendeli<br>Makenhofstr. 4<br>71672 Marbach am Neckar<br>Deutschland</p>
     <p><strong>Kontakt:</strong><br>E-Mail: info@lebenslauf-shqip.de</p>
-    <p><strong>Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV):</strong><br>Fatlum Zendeli, Makenhofstr. 4, 71672 Marbach am Neckar</p>
     <p><strong>Umsatzsteuer:</strong><br>Gemäß § 19 UStG wird keine Umsatzsteuer ausgewiesen (Kleinunternehmerregelung).</p>
     <p><strong>Verbraucherstreitbeilegung:</strong><br>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
   </div>
 </div>
 
 <!-- DATENSCHUTZ MODAL -->
-<div id="datenschutzModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+<div id="datenschutzModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeLegalModal('datenschutzModal')">
   <div class="modal-box" style="background:#fff;border-radius:16px;padding:36px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;color:#1a1a1a;position:relative">
-    <button onclick="document.getElementById('datenschutzModal').style.display='none'" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
+    <button onclick="closeLegalModal('datenschutzModal')" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
     <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;font-family:'DM Serif Display',serif">Datenschutzerklärung</h2>
     <p><strong>1. Verantwortlicher</strong><br>Fatlum Zendeli<br>Makenhofstr. 4, 71672 Marbach am Neckar, Deutschland<br>E-Mail: info@lebenslauf-shqip.de</p>
     <p><strong>2. Verarbeitung der Lebenslauf-Daten</strong><br>Die CV-Vorschau und die Anschreiben-Variante ohne KI werden lokal im Browser erzeugt. Vor dem Wechsel zu Stripe wird der Entwurf vorübergehend im Sitzungsspeicher dieses Tabs gespeichert. Er wird bei der Rückkehr wiederhergestellt und die gespeicherte Kopie entfernt; nicht abgeholte Entwürfe werden nach zwei Stunden bei der nächsten Nutzung verworfen. Browser können Sitzungen beim Neustart wiederherstellen. Mit „Fshi të dhënat“ kannst du den lokalen Entwurf löschen. Ein PDF-Export löscht die Eingaben nicht.</p>
     <p><strong>Optionale KI-Funktion</strong><br>Bei bestätigter KI-Nutzung werden berufliche Angaben, Stellenangaben und Freitext zur Verarbeitung an den Server gesendet. Name, Anschrift, Kontaktdaten und Foto werden nicht automatisch mitgesendet. Freitext kann dennoch personenbezogene Angaben enthalten. Die lokale Variante benötigt diese Übertragung nicht.</p>
     <p><strong>3. KI-Funktion (Anthropic)</strong><br>Bei bestätigter Nutzung der optionalen KI-Funktion werden die in Ziffer 2 genannten beruflichen Angaben zur Erstellung des Anschreiben-Textes an Anthropic PBC, 548 Market Street, PMB 90375, San Francisco, CA 94104, USA übermittelt und dort verarbeitet. Anthropic nutzt über die API übermittelte Daten nach eigenen Angaben nicht zum Training eigener Modelle und speichert sie nur vorübergehend zur Missbrauchserkennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO (Einwilligung durch Bestätigung der Checkbox). Die Übermittlung in die USA erfolgt auf Grundlage der EU-Standardvertragsklauseln (Art. 46 DSGVO). Weitere Informationen: <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener" style="color:#C8102E">anthropic.com/legal/privacy</a>.</p>
-    <p><strong>4. Zahlungsabwicklung (Stripe)</strong><br>Für die Zahlungsabwicklung nutzen wir Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Dublin, Irland. Bei der Zahlung werden die von dir eingegebenen Zahlungsdaten (z.&nbsp;B. Name, E-Mail-Adresse, Kartendaten) direkt von Stripe verarbeitet; wir selbst erhalten und speichern keine Kartendaten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung). Weitere Informationen: <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener" style="color:#C8102E">stripe.com/de/privacy</a>. Stripe kann Daten in die USA übermitteln; Stripe ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+    <p><strong>4. Zahlungsabwicklung (Stripe)</strong><br>Für die Zahlungsabwicklung nutzen wir Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Dublin, Irland. Bei der Zahlung werden die von dir eingegebenen Zahlungsdaten (z.&nbsp;B. Name, E-Mail-Adresse, Kartendaten) direkt von Stripe verarbeitet; wir selbst erhalten und speichern keine Kartendaten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung). Weitere Informationen: <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener" style="color:#C8102E">stripe.com/de/privacy</a>. Stripe kann Daten in die USA übermitteln; Stripe ist nach dem EU-US Data Privacy Framework zertifiziert. Deine Zustimmung zum vorzeitigen Beginn der Vertragsausführung (Widerrufsverzicht, siehe AGB und Widerrufsbelehrung) wird zusammen mit Zeitstempel als Metadatum der Zahlungssitzung bei Stripe hinterlegt, damit wir sie im Streitfall nachweisen können. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Nachweis erteilter Einwilligungen).</p>
     <p><strong>5. Hosting und Server-Logfiles</strong><br>Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Beim Aufruf der Seite verarbeitet Vercel technisch notwendige Daten (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser-Typ) in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb der Website). Vercel ist nach dem EU-US Data Privacy Framework zertifiziert. Details: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:#C8102E">vercel.com/legal/privacy-policy</a>.</p>
     <p><strong>6. Schriftarten</strong><br>Alle Schriftarten sind <strong>lokal eingebunden</strong>. Es findet keine Verbindung zu Servern von Google (Google Fonts) oder anderen Drittanbietern statt.</p>
     <p><strong>7. Cookies</strong><br>Diese Website verwendet keine Tracking- oder Analyse-Cookies. Im Rahmen des Bezahlvorgangs kann Stripe technisch notwendige Cookies setzen (Art. 6 Abs. 1 lit. b DSGVO).</p>
     <p><strong>8. Speicherdauer</strong><br>Für lokale Entwürfe gilt die unter Ziffer 2 beschriebene Verarbeitung. Die optionale KI-Verarbeitung ist davon zu unterscheiden. Zahlungsbezogene Daten werden von Stripe gemäß den gesetzlichen Aufbewahrungsfristen gespeichert.</p>
-    <p><strong>9. Deine Rechte</strong><br>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Außerdem hast du das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), z.&nbsp;B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
-    <p style="font-size:12px;color:#888;margin-top:16px">Stand: Juni 2026</p>
+    <p><strong>9. Deine Rechte</strong><br>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Soweit eine Verarbeitung auf deiner Einwilligung beruht (z.&nbsp;B. die optionale KI-Funktion), kannst du diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3 DSGVO), ohne dass die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung berührt wird; nutze dafür einfach die KI-Funktion nicht (erneut). Außerdem hast du das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), z.&nbsp;B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
+    <p style="font-size:12px;color:#888;margin-top:16px">Stand: September 2026</p>
   </div>
 </div>
 
 <!-- AGB MODAL -->
-<div id="agbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+<div id="agbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeLegalModal('agbModal')">
   <div class="modal-box" style="background:#fff;border-radius:16px;padding:36px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;color:#1a1a1a;position:relative">
-    <button onclick="document.getElementById('agbModal').style.display='none'" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
+    <button onclick="closeLegalModal('agbModal')" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
     <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;font-family:'DM Serif Display',serif">AGB</h2>
     <p><strong>§1 Geltungsbereich</strong><br>Diese AGB gelten für alle Leistungen von lebenslauf-shqip.de (Betreiber: Fatlum Zendeli, Makenhofstr. 4, 71672 Marbach am Neckar).</p>
     <p><strong>§2 Leistung</strong><br>Der Dienst ermöglicht die Erstellung eines deutschen Lebenslaufs im Browser. Nach Zahlung wird der Lebenslauf als PDF zum Download bereitgestellt. Es handelt sich um digitalen Inhalt, der nicht auf einem körperlichen Datenträger geliefert wird.</p>
     <p><strong>§3 Preis und Zahlung</strong><br>Der Gesamtpreis beträgt <strong>10,00&nbsp;€</strong>. Gemäß § 19 UStG wird keine Umsatzsteuer ausgewiesen (Kleinunternehmerregelung). Die Zahlung erfolgt über den Zahlungsdienstleister Stripe.</p>
-    <p><strong>§4 Widerrufsrecht und dessen Erlöschen</strong><br>Verbrauchern steht grundsätzlich ein 14-tägiges Widerrufsrecht zu. Bei digitalen Inhalten erlischt das Widerrufsrecht gemäß § 356 Abs. 5 BGB, wenn der Verbraucher <strong>vor der Zahlung ausdrücklich zugestimmt hat</strong>, dass mit der Ausführung des Vertrags vor Ablauf der Widerrufsfrist begonnen wird, und seine Kenntnis davon bestätigt hat, dass er durch seine Zustimmung sein Widerrufsrecht verliert. Diese Zustimmung erfolgt über die entsprechende Checkbox vor dem Bezahlvorgang.</p>
-    <p><strong>§5 Haftung</strong><br>lebenslauf-shqip.de haftet nicht für den Erfolg von Bewerbungen. Für die Richtigkeit der eingegebenen Daten ist der Nutzer selbst verantwortlich. Im Übrigen haften wir nur für Vorsatz und grobe Fahrlässigkeit sowie bei Verletzung wesentlicher Vertragspflichten.</p>
+    <p><strong>§4 Widerrufsrecht und dessen Erlöschen</strong><br>Verbrauchern steht grundsätzlich ein 14-tägiges Widerrufsrecht zu. Bei digitalen Inhalten erlischt das Widerrufsrecht gemäß § 356 Abs. 5 BGB, wenn der Verbraucher <strong>vor der Zahlung ausdrücklich zugestimmt hat</strong>, dass mit der Ausführung des Vertrags vor Ablauf der Widerrufsfrist begonnen wird, und seine Kenntnis davon bestätigt hat, dass er durch seine Zustimmung sein Widerrufsrecht verliert. Diese Zustimmung erfolgt über die entsprechende Checkbox vor dem Bezahlvorgang. Einzelheiten enthält die gesonderte <a href="#widerruf" onclick="openLegalModal('widerrufModal',this)" style="color:#C8102E;cursor:pointer">Widerrufsbelehrung</a>.</p>
+    <p><strong>§5 Haftung</strong><br>lebenslauf-shqip.de haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach Maßgabe des Produkthaftungsgesetzes. Für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit haften wir auch bei einfacher Fahrlässigkeit unbeschränkt. Bei einfacher Fahrlässigkeit haften wir außerdem für die Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Nutzer regelmäßig vertrauen darf; in diesem Fall ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt. Eine weitergehende Haftung ist ausgeschlossen. Für den Erfolg von Bewerbungen und für die Richtigkeit der vom Nutzer eingegebenen Daten wird keine Haftung übernommen.</p>
     <p><strong>§6 Verbraucherstreitbeilegung</strong><br>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
     <p><strong>§7 Anwendbares Recht</strong><br>Es gilt deutsches Recht. Gegenüber Verbrauchern gilt diese Rechtswahl nur, soweit dadurch keine zwingenden Verbraucherschutzvorschriften des Staates entzogen werden, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat.</p>
-    <p style="font-size:12px;color:#888;margin-top:16px">Stand: Juni 2026</p>
+    <p style="font-size:12px;color:#888;margin-top:16px">Stand: September 2026</p>
+  </div>
+</div>
+
+<!-- WIDERRUFSBELEHRUNG MODAL -->
+<div id="widerrufModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeLegalModal('widerrufModal')">
+  <div class="modal-box" style="background:#fff;border-radius:16px;padding:36px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.8;color:#1a1a1a;position:relative">
+    <button onclick="closeLegalModal('widerrufModal')" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#666">✕</button>
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;font-family:'DM Serif Display',serif">Widerrufsbelehrung</h2>
+    <p><strong>Widerrufsrecht</strong><br>Verbrauchern steht grundsätzlich ein Recht zu, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsschlusses.</p>
+    <p>Um dein Widerrufsrecht auszuüben, musst du uns (Fatlum Zendeli, Makenhofstr. 4, 71672 Marbach am Neckar, Deutschland, E-Mail: info@lebenslauf-shqip.de) mittels einer eindeutigen Erklärung (z.&nbsp;B. per E-Mail) über deinen Entschluss, diesen Vertrag zu widerrufen, informieren. Zur Wahrung der Widerrufsfrist reicht es aus, die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist abzusenden.</p>
+    <p><strong>Vorzeitiges Erlöschen bei digitalen Inhalten</strong><br>Dein Widerrufsrecht erlischt jedoch vorzeitig, wenn wir mit der Ausführung des Vertrags — also der Bereitstellung des PDF-Downloads — begonnen haben, nachdem du (1) ausdrücklich zugestimmt hast, dass wir vor Ablauf der Widerrufsfrist mit der Vertragsausführung beginnen, und (2) deine Kenntnis davon bestätigt hast, dass du durch diese Zustimmung dein Widerrufsrecht verlierst (§ 356 Abs. 5 BGB). Diese Zustimmung gibst du aktiv über die nicht vorausgewählte Checkbox unmittelbar vor dem Bezahlvorgang ab; ohne dieses aktive Anhaken kann der Bezahlvorgang nicht gestartet werden.</p>
+    <p><strong>Folgen des Widerrufs</strong><br>Solltest du wirksam widerrufen, bevor die Ausführung begonnen hat bzw. bevor dein Widerrufsrecht auf die vorstehend beschriebene Weise erloschen ist, erstatten wir dir alle Zahlungen, die wir von dir erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurück, an dem uns deine Widerrufserklärung zugegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das du bei der ursprünglichen Transaktion eingesetzt hast.</p>
+    <p style="font-size:12px;color:#888;margin-top:16px;font-style:italic">Muster-Widerrufsformular<br>(Wenn du den Vertrag widerrufen willst, kannst du dieses Formular ausfüllen und per E-Mail an info@lebenslauf-shqip.de senden.)<br><br>An lebenslauf-shqip.de, Fatlum Zendeli, Makenhofstr. 4, 71672 Marbach am Neckar, Deutschland, info@lebenslauf-shqip.de:<br>Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über den Erwerb des digitalen Lebenslauf-PDF.<br>— Bestellt am / erhalten am: _____<br>— Name des/der Verbraucher(s): _____<br>— Anschrift des/der Verbraucher(s): _____<br>— Datum: _____</p>
+    <p style="font-size:12px;color:#888;margin-top:16px">Stand: September 2026</p>
   </div>
 </div>
 <script>
+function openLegalModal(id){
+  var modal=document.getElementById(id);
+  if(modal)modal.style.display='flex';
+}
+function closeLegalModal(id){
+  var modal=document.getElementById(id);
+  if(modal)modal.style.display='none';
+}
 function announce(message){
   document.getElementById('appStatus').textContent=message;
   var main=document.getElementById('mainContent'),notice=document.getElementById('visibleNotice');

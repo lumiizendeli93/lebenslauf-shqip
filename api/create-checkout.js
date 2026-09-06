@@ -25,7 +25,9 @@ export default async function handler(req, res) {
       legal_version: 'agb-2026-09'
     };
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'paypal'],
+      // Payment methods are controlled by the Dashboard (Settings > Payment methods),
+      // not hardcoded here — this avoids breaking checkout when a method (e.g. PayPal)
+      // isn't yet activated for the account.
       line_items: [{ price: process.env.STRIPE_PRICE_ID, quantity: 1 }],
       mode: 'payment',
       success_url: process.env.NEXT_PUBLIC_URL + '/?session_id={CHECKOUT_SESSION_ID}',

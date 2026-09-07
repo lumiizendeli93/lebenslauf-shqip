@@ -1024,7 +1024,6 @@ body.payment-verified label[for="widerrufCheck"]{display:none!important}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.hero-bg-img{transform:none!important}}
 
 
-@media print{body.pdf-test-mode .cv-preview::before,body.pdf-test-mode .cv-preview::after{display:none!important;content:none!important}}
 /* Softer editor palette. Document colors remain controlled by each CV template. */
 :root{--bg:#e7e9ed;--gray:#eceef2;--gray2:#d8dde4;--gray3:#bcc4ce;--gray4:#616b79;--gray5:#465160;--text:#202a37;--font-ui:system-ui,-apple-system,'Segoe UI',sans-serif;--font-display:system-ui,-apple-system,'Segoe UI',sans-serif}
 body{background:var(--bg);letter-spacing:0}
@@ -2210,14 +2209,6 @@ body.dark-mode .modal-box a{color:#ff6b85!important}
 </main><!-- /container -->
 
 <script>
-// Preview-only testing: does not mark a payment as verified.
-function downloadHTMLTest(){
-  document.body.classList.add('pdf-test-mode');
-  window.addEventListener('afterprint',function(){document.body.classList.remove('pdf-test-mode');},{once:true});
-  renderCV();
-  printCV();
-}
-
 function startCVBuilder() {
   document.querySelectorAll('.landing-only').forEach(function(el){el.style.display='none';});
   document.body.classList.add('builder-active');
@@ -3953,7 +3944,7 @@ async function checkPaymentAndPrint(){
 }
 
 function printCV(){
-  if(!document.body.classList.contains('payment-verified')&&!document.body.classList.contains('pdf-test-mode')){startPayment();return;}
+  if(!document.body.classList.contains('payment-verified')){startPayment();return;}
 
   var ansPrint=document.getElementById('anschreibenPrintSection');
   var ansPrintText=document.getElementById('anschreibenPrintText');

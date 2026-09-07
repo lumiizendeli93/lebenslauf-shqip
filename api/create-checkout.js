@@ -1,12 +1,17 @@
 import Stripe from 'stripe';
 
+// Kjo faqe i thërret endpoint-et vetëm nga vetja (same-origin), prandaj nuk i duhet CORS i hapur.
+// Pa këtë, çdo faqe tjetër mund t'i drejtonte këto endpoint-e nga shfletuesi i vizitorit.
+const ALLOWED_HOST = /(^|\.)lebenslauf-shqip\.de$|^lebenslauf-shqip[a-z0-9-]*\.vercel\.app$/;
+function foreignOrigin(req) {
+  const src = req.headers.origin || req.headers.referer;
+  if (!src) return false;
+  try { return !ALLOWED_HOST.test(new URL(src).hostname); } catch (e) { return true; }
+}
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
-  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (foreignOrigin(req)) return res.status(403).json({ error: 'Forbidden' });
 
   const body = req.body || {};
   const consentTimestamp = typeof body.consent_timestamp === 'string' ? body.consent_timestamp.slice(0, 100) : '';

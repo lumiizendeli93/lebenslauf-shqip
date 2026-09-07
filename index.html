@@ -1151,6 +1151,9 @@ body.dark-mode #step5 .letter-ai-highlight p{color:#d8a9b2}
 body.dark-mode .skill-selected{background:#202533;border-color:#333a4a}
 body.dark-mode .skill-selected select{background:#262b3a}
 body.dark-mode .skill-selected button{color:#ff6f89}
+/* Kutia e pëlqimit § 356 Abs. 5 BGB e ka sfondin e ndezur inline, ndërsa teksti vjen nga
+   var(--text)/var(--gray4/5) — pa këtë, në dark-mode del tekst i çelët mbi sfond të çelët. */
+body.dark-mode label[for="widerrufCheck"]{background:#202533!important;border-color:#333a4a!important}
 body.dark-mode .why-section,body.dark-mode .how-section{background:var(--bg)}
 body.dark-mode .why-title{color:#eef0f4}
 body.dark-mode .why-card,body.dark-mode .how-step{background:#1c212e;border-color:#333a4a}

@@ -53,6 +53,28 @@
   font-weight:100 900;font-style:normal;font-display:swap;
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
+/* Alias neutral mbi TE NJEJTET skedare: modelet e reja s'duhet te trashegojne emrin
+   'Tirana …'. Nuk shtohet asnje shkarkim — URL-ja eshte e njejta, pra edhe kerkesa. */
+@font-face{
+  font-family:'CV Display';src:url('/fonts/montserrat-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'CV Display';src:url('/fonts/montserrat-latin-ext.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'CV Text';src:url('/fonts/inter-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'CV Text';src:url('/fonts/inter-latin-ext.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#C8102E;--red2:#e01535;--red-light:#fff0f3;--red-dark:#9e0d24;
@@ -3633,30 +3655,131 @@ function renderModern(d){
 
 function renderKreativ(d){
   var accent='#7c2d12';
-  var profile=profileList(d);
-  return '<div style="font-family:Inter,Arial,sans-serif;background:#fff;color:#111827;font-size:12px;line-height:1.62;padding:0;width:210mm;min-height:297mm;box-sizing:border-box">'+
-    '<div style="padding:36px 42px 24px;background:#f8f5f2;border-bottom:1px solid #ece7e1">'+
-      '<div style="display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center">'+
-        '<div>'+
-          '<div style="font-size:31px;font-weight:800;letter-spacing:-0.5px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
-          (d.job?'<div style="font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:'+accent+';font-weight:700;margin-top:6px">'+esc(d.job)+'</div>':'')+
-          '<div style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:11px;color:#4b5563">'+[d.phone,d.email,((d.plz||d.city)?(d.plz?d.plz+' ':'')+d.city:''),d.addr].filter(Boolean).map(function(c){return '<span>'+esc(c)+'</span>';}).join('')+'</div>'+
+  var ink='#1f2937';
+  var muted='#6b7280';
+  var hair='#e7e2dc';
+  // Montserrat për tituj, Inter për tekstin — nga /fonts, jo nga CDN i jashtëm.
+  var disp="'CV Display','Montserrat',Arial,sans-serif";
+  var sans="'CV Text','Inter',Arial,sans-serif";
+
+  // Ndihmëset janë lokale me qëllim: sectionTitle/renderSkillsList/renderLanguages ndahen me
+  // modele të tjera dhe ndryshimi i tyre do t'i prishte ato. Ky model i ka të vetat.
+  function secTitle(t){
+    // Një vijë e hollë neutrale, jo 2px bordo si te ndihmësja e përbashkët — kërkesa ishte
+    // të pakësoheshin vijat bordo, duke e mbajtur bordo vetëm te teksti i titullit.
+    return '<div style="font-family:'+disp+';font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:'+accent+';margin-bottom:13px;padding-bottom:6px;border-bottom:1px solid '+hair+'">'+t+'</div>';
+  }
+  function entry(date,title,org,desc,last){
+    return '<div class="cv-entry" style="display:grid;grid-template-columns:92px 1fr;gap:0 16px;'+(last?'':'margin-bottom:19px')+'">'+
+      '<div style="font-size:10.8px;font-weight:500;color:'+muted+';line-height:1.5;padding-top:1px">'+date+'</div>'+
+      '<div style="min-width:0">'+
+        '<div style="font-size:13px;font-weight:600;color:'+ink+';line-height:1.35;overflow-wrap:break-word">'+title+'</div>'+
+        (org?'<div style="font-size:11.8px;font-weight:500;color:'+accent+';margin-top:2px;overflow-wrap:break-word">'+org+'</div>':'')+
+        (desc?'<div style="font-size:11.5px;font-weight:400;color:#4b5563;line-height:1.6;margin-top:5px">'+desc+'</div>':'')+
+      '</div>'+
+    '</div>';
+  }
+  // Rreshta teksti, jo "flluska": emri majtas, niveli djathtas, një vijë e lehtë ndarëse.
+  function skillRows(){
+    return skills.map(function(s,i){
+      var lv=skillLevel(s);
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:5.5px 0;'+(i===skills.length-1?'':'border-bottom:1px solid #f0ece7')+'">'+
+        '<span style="font-size:11.8px;font-weight:500;color:'+ink+';line-height:1.4;overflow-wrap:break-word;min-width:0">'+esc(skillName(s))+'</span>'+
+        (lv?'<span style="font-size:10.8px;font-weight:400;color:'+muted+';flex-shrink:0;white-space:nowrap">'+esc(lv)+'</span>':'')+
+      '</div>';
+    }).join('');
+  }
+  function bullets(arr){
+    return arr.map(function(t){
+      return '<div style="font-size:11.5px;font-weight:400;color:'+ink+';line-height:1.5;padding:2.5px 0;display:flex;align-items:baseline;gap:8px">'+
+        '<span style="width:3px;height:3px;border-radius:50%;background:'+accent+';flex-shrink:0;transform:translateY(-2px)"></span>'+
+        '<span style="min-width:0;overflow-wrap:break-word">'+esc(t)+'</span>'+
+      '</div>';
+    }).join('');
+  }
+  function langRows(){
+    return langs.filter(function(l){return l.name;}).map(function(l){
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:4px 0">'+
+        '<span style="font-size:11.8px;font-weight:500;color:'+ink+'">'+esc(l.name)+'</span>'+
+        (l.level?'<span style="font-size:10.8px;font-weight:400;color:'+muted+';text-align:right;flex-shrink:0">'+esc(l.level)+'</span>':'')+
+      '</div>';
+    }).join('');
+  }
+  function sideRow(label,val){
+    return '<div style="margin-bottom:9px">'+
+      '<div style="font-family:'+disp+';font-size:8.8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:'+muted+';margin-bottom:2px">'+label+'</div>'+
+      '<div style="font-size:11.5px;font-weight:400;color:'+ink+';line-height:1.45;overflow-wrap:break-word">'+val+'</div>'+
+    '</div>';
+  }
+
+  // ---------- Përmbajtja ----------
+  var expHtml = experiences.length ? experiences.map(function(e,i){
+    return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.role||''),
+      esc(e.company||'')+(e.location?' · '+esc(e.location):''), e.desc?esc(e.desc):'', i===experiences.length-1);
+  }).join('') : '';
+
+  var eduHtml = educations.length ? educations.map(function(e,i){
+    return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.degree||''), esc(e.school||''), '', i===educations.length-1);
+  }).join('') : '';
+
+  // Të dhënat personale zbresin nga koka në kolonën e djathtë: koka mban vetëm identitetin
+  // dhe kontaktin. Fusha pa vlerë nuk nxjerr etiketë bosh.
+  var personalHtml='';
+  if(d.bdate) personalHtml+=sideRow('Geboren', esc(d.bdate)+(d.bplace?', '+esc(d.bplace):''));
+  if(d.nation) personalHtml+=sideRow('Staatsangehörigkeit', esc(d.nation));
+  if(d.civil||d.kinder) personalHtml+=sideRow('Familienstand', esc(d.civil||'')+(d.kinder?(d.civil?', ':'')+esc(d.kinder):''));
+  if(d.einreise) personalHtml+=sideRow('In Deutschland seit', esc(d.einreise));
+
+  var hobbies = d.hobbies ? d.hobbies.split(',').map(function(h){return h.trim();}).filter(Boolean) : [];
+
+  // ---------- Koka ----------
+  var initials=((d.fname||'').charAt(0)+(d.lname||'').charAt(0)).toUpperCase();
+  var portrait = photoDataUrl
+    ? '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:84px;height:102px;object-fit:cover;object-position:top center;border-radius:7px;border:1px solid #ddd6ce;flex-shrink:0">'
+    : (initials.trim() ? '<div aria-hidden="true" style="width:84px;height:102px;border-radius:7px;border:1px solid #e0d8cf;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'+disp+';font-size:29px;font-weight:600;letter-spacing:.5px;color:'+accent+'">'+esc(initials)+'</div>' : '');
+
+  var contacts=[d.phone,d.email,((d.plz||d.city)?((d.plz?d.plz+' ':'')+(d.city||'')):''),d.addr].filter(Boolean);
+
+  var headerHTML=
+    '<div style="padding:34px 42px 26px;background:#f8f5f2;border-bottom:1px solid '+hair+'">'+
+      '<div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center">'+
+        '<div style="min-width:0">'+
+          '<div style="font-family:'+disp+';font-size:29px;font-weight:700;letter-spacing:-.4px;color:'+ink+';line-height:1.16;overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+          (d.job?'<div style="font-family:'+disp+';font-size:10.5px;font-weight:500;letter-spacing:1.9px;text-transform:uppercase;color:'+accent+';margin-top:8px;overflow-wrap:break-word">'+esc(d.job)+'</div>':'')+
+          (contacts.length?'<div style="display:flex;flex-wrap:wrap;gap:5px 15px;margin-top:14px;font-size:11px;font-weight:400;color:#4b5563">'+
+            contacts.map(function(c){return '<span style="overflow-wrap:break-word">'+esc(c)+'</span>';}).join('')+'</div>':'')+
         '</div>'+
-        (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:94px;height:114px;object-fit:cover;border-radius:8px;border:1px solid #ddd">':'')+
+        portrait+
       '</div>'+
-      (profile.length?'<div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:10.8px;color:#6b7280">'+profile.map(function(i){return '<span>'+i+'</span>';}).join('')+'</div>':'')+
-    '</div>'+
-    '<div style="padding:28px 42px 34px;display:grid;grid-template-columns:1.3fr 0.9fr;gap:28px">'+
-      '<div>'+
-        (experiences.length?'<div style="margin-bottom:22px">'+sectionTitle('Berufserfahrung',accent)+renderExperienceItems(accent)+'</div>':'')+
-        (educations.length?'<div style="margin-bottom:22px">'+sectionTitle('Ausbildung',accent)+renderEducationItems(accent)+'</div>':'')+
-      '</div>'+
-      '<div>'+
-        (skills.length?'<div style="margin-bottom:20px">'+sectionTitle('Kenntnisse',accent)+renderSkillsList()+'</div>':'')+
-        (langs.filter(function(l){return l.name;}).length?'<div style="margin-bottom:20px">'+sectionTitle('Sprachen',accent)+renderLanguages(accent)+'</div>':'')+
-        (d.fuehrerschein?'<div style="margin-bottom:20px">'+sectionTitle('Führerschein',accent)+'<div style="font-size:12px;font-weight:700;color:#1f2937">'+esc(d.fuehrerschein)+'</div></div>':'')+
-        (d.hobbies?'<div>'+sectionTitle('Interessen',accent)+'<div style="font-size:12px;font-weight:700;color:#1f2937">'+esc(d.hobbies)+'</div></div>':'')+
-      '</div>'+
+    '</div>';
+
+  // ---------- Kolonat ----------
+  // 1.65fr / 1fr ≈ 62% / 38%: përvoja profesionale është pjesa më e rëndësishme e CV-së.
+  var mainSections=[
+    [expHtml,'Berufserfahrung'],
+    [eduHtml,'Ausbildung'],
+    [skills.length?skillRows():'','Fachkenntnisse']
+  ].filter(function(x){return x[0];});
+
+  var sideSections=[
+    [personalHtml,'Persönliches'],
+    [langRows(),'Sprachen'],
+    [d.fuehrerschein?'<div style="font-size:11.8px;font-weight:500;color:'+ink+'">'+esc(d.fuehrerschein)+'</div>':'','Führerschein'],
+    [skills2.length?bullets(skills2):'','Persönliche Stärken'],
+    [hobbies.length?'<div style="font-size:11.5px;font-weight:400;color:'+ink+';line-height:1.55;overflow-wrap:break-word">'+hobbies.map(esc).join(' · ')+'</div>':'','Interessen']
+  ].filter(function(x){return x[0];});
+
+  function column(parts,gap){
+    return parts.map(function(p,i){
+      return '<div'+(i===parts.length-1?'':' style="margin-bottom:'+gap+'px"')+'>'+secTitle(p[1])+p[0]+'</div>';
+    }).join('');
+  }
+
+  return '<div style="font-family:'+sans+';background:#fff;color:'+ink+';font-size:12px;line-height:1.6;width:210mm;min-height:297mm;box-sizing:border-box;display:flex;flex-direction:column">'+
+    headerHTML+
+    '<div style="padding:30px 42px 36px;display:grid;grid-template-columns:1.65fr 1fr;gap:0 34px;flex:1;align-items:start">'+
+      '<div style="min-width:0">'+column(mainSections,26)+'</div>'+
+      '<div style="min-width:0">'+column(sideSections,22)+'</div>'+
     '</div>'+
   '</div>';
 }

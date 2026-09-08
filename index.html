@@ -1613,8 +1613,9 @@ html.theme-dark{background:#12151c;color-scheme:dark}
         <label for="skill2Input">Cilësi personale <span>(Persönliche Stärken — optional)</span></label>
         <div style="font-size:12px;color:var(--gray4);line-height:1.6;margin:-2px 0 9px">
           Këto shfaqen veçmas në CV, pa nivel — sepse pikësia ose puna në ekip nuk maten si njohuri teknike.
-          Shkruaji në gjermanisht, p.sh. Teamfähigkeit, Zuverlässigkeit, Pünktlichkeit, Belastbarkeit.
+          Kliko një nga më poshtët: fjala shkon në gjermanisht në CV, ndersa poshte saj shihet kuptimi në shqip.
         </div>
+        <div id="strengthSuggestions" class="skill-suggestions" style="margin-bottom:12px"></div>
         <div style="display:flex;gap:8px">
           <input id="skill2Input" placeholder="p.sh. Zuverlässigkeit" style="flex:1" onkeydown="if(event.key==='Enter'){addSkill2();event.preventDefault()}"/>
           <button class="btn btn-teal-light btn-sm" onclick="addSkill2()">+ Shto</button>
@@ -2460,6 +2461,7 @@ function renderSkill2Tags(){
   document.getElementById('skill2Tags').innerHTML=skills2.map(function(s,i){
     return '<div class="skill-tag">'+esc(s)+'<button onclick="removeSkill2('+i+')">×</button></div>';
   }).join('');
+  if(typeof renderStrengthSuggestions==='function') renderStrengthSuggestions();
 }
 
 
@@ -5105,5 +5107,39 @@ var skillExamples={office:[['Microsoft Word','Shkrim dokumentesh'],['Microsoft E
 function renderSuggestions(){var target=document.getElementById('skillSuggestions');if(!target||typeof skillExamples==='undefined')return;var group=skillExamples[document.getElementById('skillCategory').value]||[];target.innerHTML=group.map(function(item,i){var added=skills.some(function(s){return skillName(s).toLowerCase()===item[0].toLowerCase();});return '<button type="button" class="suggestion" onclick="addSuggestedSkill('+i+')" '+(added?'disabled':'')+'><span><strong>'+esc(item[0])+'</strong><small>'+esc(item[1])+'</small></span><span aria-hidden="true">'+(added?'✓':'+')+'</span></button>';}).join('');}
 function addSuggestedSkill(i){var item=skillExamples[document.getElementById('skillCategory').value][i];if(!item||skills.some(function(s){return skillName(s)===item[0];}))return;skills.push({name:item[0],level:''});renderSkillTags();document.getElementById('appStatus').textContent=item[0]+' u shtua. Mund të zgjedhësh nivelin më poshtë.';}
 renderSuggestions();
+// Cilësitë personale në gjermanisht me kuptimin në shqip — përdoruesi duhet ta kuptojë
+// fjalën para se ta vendosë në CV. Njëjtë si sugjerimet e aftësive profesionale.
+var strengthExamples=[
+  ['Teamfähigkeit','Punë e mirë në ekip'],
+  ['Zuverlässigkeit','I besueshëm, mbaj fjalën'],
+  ['Pünktlichkeit','Përpikmëri, vij në kohë'],
+  ['Belastbarkeit','Duroj presion dhe ngarkesë'],
+  ['Sorgfältige Arbeitsweise','Punoj me kujdes e saktësi'],
+  ['Selbstständigkeit','Punoj vetë, pa mbikëqyrje'],
+  ['Lernbereitschaft','Gatishmëri për të mësuar'],
+  ['Flexibilität','Përshtatem lehtë me ndryshime'],
+  ['Kommunikationsfähigkeit','Komunikoj mirë me të tjerët'],
+  ['Organisationsfähigkeit','Di ta organizoj punën'],
+  ['Freundlichkeit','Sjellje e mirë me njerëz'],
+  ['Motivation','Vullnet dhe dëshirë për punë']
+];
+function renderStrengthSuggestions(){
+  var target=document.getElementById('strengthSuggestions');
+  if(!target)return;
+  target.innerHTML=strengthExamples.map(function(item,i){
+    var added=skills2.some(function(s){return String(s).toLowerCase()===item[0].toLowerCase();});
+    return '<button type="button" class="suggestion" onclick="addSuggestedStrength('+i+')" '+(added?'disabled':'')+'>'+
+      '<span><strong>'+esc(item[0])+'</strong><small>'+esc(item[1])+'</small></span>'+
+      '<span aria-hidden="true">'+(added?'✓':'+')+'</span></button>';
+  }).join('');
+}
+function addSuggestedStrength(i){
+  var item=strengthExamples[i];
+  if(!item||skills2.some(function(s){return String(s).toLowerCase()===item[0].toLowerCase();}))return;
+  skills2.push(item[0]);
+  renderSkill2Tags();
+  announce(item[0]+' u shtua te cilësitë personale.');
+}
+renderStrengthSuggestions();
 </script></body>
 </html>

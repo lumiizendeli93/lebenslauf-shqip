@@ -1079,6 +1079,31 @@ input:focus,textarea:focus,select:focus{background:#f5f7fa;border-color:#9e263f;
 .live-panel-title{color:#536277;font-size:11px;letter-spacing:1px}.live-panel-note{font-size:12px;color:#5d6b7f}.live-frame{border-color:#c6cfdb;box-shadow:0 6px 20px #2333480a}
 .live-fab{background:#34455e;font-size:13px;padding:12px 17px;box-shadow:0 4px 16px #263c5b26}
 #step2>.card>div[style*="border-left:3px"]{background:#e6ebf1!important;border:1px solid #cbd4df!important;color:#46556b!important;font-size:14px!important;line-height:1.7;padding:16px!important}
+/* ============ NDIHMA TE PERVOJA PROFESIONALE (hapi 2) ============ */
+/* Vetem kutia informative e hapit 2. Kutia e jashtme e ruan `border-left:3px` ne inline-style,
+   sepse dy rregullat e temes se celet/errët varen prej tij. */
+.exp-help-format{margin:10px 0 0;padding:8px 11px;border-radius:8px;background:rgba(0,0,0,0.05);font-size:12.5px;line-height:1.6}
+.exp-help-format span{font-weight:700;overflow-wrap:break-word}
+.exp-help-head{margin:12px 0 6px;font-weight:700;font-size:12.5px}
+.exp-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 20px}
+.exp-help-item{font-size:12.5px;line-height:1.45;overflow-wrap:break-word}
+.exp-help-role{font-weight:700}
+.exp-help-meta{opacity:.85}
+.exp-help-tip{margin:14px 0 12px;padding:11px 13px;border-radius:8px;font-size:12.5px;line-height:1.6;background:#fff8e6;border:1px solid #e6d5a3;color:#5b4a1c}
+.exp-help-tip strong{display:block;margin-bottom:5px}
+.exp-help-tip-ex{margin-top:8px;padding:7px 10px;border-radius:6px;background:rgba(0,0,0,0.05);font-weight:700;overflow-wrap:break-word}
+/* minmax(0,1fr) me nje kolone: titujt e gjate si "Garten- und Landschaftsbauhelfer" thyhen
+   brenda kutise ne vend qe ta zgjerojne rrjeten. */
+@media(max-width:640px){
+  /* Ne telefon 15 shembuj ne nje kolone e bejne kutine ~1.5 ekrane te gjate dhe e shtyjne
+     formularin poshte. Lista merr lartesi te kufizuar me levizje te vetën: te gjithe shembujt
+     mbeten aty, por kutia nuk e mbyt faqen. */
+  .exp-help-grid{grid-template-columns:minmax(0,1fr);gap:8px;max-height:270px;overflow-y:auto;
+    padding:8px 10px;border:1px solid rgba(0,0,0,0.12);border-radius:8px;-webkit-overflow-scrolling:touch}
+}
+body.dark-mode .exp-help-grid{border-color:rgba(255,255,255,0.14)}
+body.dark-mode .exp-help-format,body.dark-mode .exp-help-tip-ex{background:rgba(255,255,255,0.06)}
+body.dark-mode .exp-help-tip{background:#2a2416;border-color:#4a3f22;color:#e2d2a4}
 @media(max-width:600px){.steps-wrap{padding:8px 5px}.steps{gap:0}.step-label{font-size:9px;letter-spacing:0}.step-circle{width:27px;height:27px;font-size:11px}.step-btn{min-height:54px}.entry-card{padding:16px}.card-title{gap:8px}.card-title span{flex-basis:100%;padding-left:11px}.live-fab{bottom:calc(12px + env(safe-area-inset-bottom));right:12px}.upload-zone{flex-wrap:wrap}.upload-text{flex:1;min-width:180px}}
 
 /* ============ DARK MODE (opsionale, vetëm ndërfaqja e ndërtuesit) ============ */
@@ -1493,14 +1518,34 @@ html.theme-dark{background:#12151c;color-scheme:dark}
       <div class="card-sub">Trego ku ke punuar dhe çfarë ke arritur. Fillo nga puna më e fundit.</div>
       <div style="background:var(--red-light);border-left:3px solid var(--red);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:1.25rem;font-size:12.5px;color:var(--red-dark)">
         <strong style="display:block;margin-bottom:4px">ℹ️ Çfarë shkruhet këtu?</strong>
-        Këtu përshkruani përvojën tuaj të punës. Për secilin pozicion, tregoni kompaninë, rolin dhe periudhën e punësimit.<br><br>
-        Për shembull:<br>
-        • Lagerist, Bosch GmbH – Stuttgart (01/2022 – 12/2023)<br>
-        • Verkäufer, Lidl – Frankfurt (06/2020 – 12/2021)<br>
-        • Reinigungskraft, ISS Facility Services – München (03/2018 – 05/2020)<br>
-        • Produktionsmitarbeiter, Mercedes-Benz – Stuttgart (01/2015 – 02/2018)<br>
-        • Aushilfe / Minijob, Rewe – Berlin (09/2014 – 12/2014)<br><br>
-        <span style="color:var(--red);font-weight:600">👉 Renditni nga më i fundit tek më i vjetri.</span>
+        Këtu përshkruani përvojën tuaj të punës. Për secilin pozicion, tregoni kompaninë, rolin dhe periudhën e punësimit.
+        <div class="exp-help-format">Shkruaj kështu:<br><span>Pozicioni – Kompania, Qyteti (Muaji/Viti – Muaji/Viti)</span></div>
+        <div class="exp-help-head">Shembuj nga profesione të ndryshme:</div>
+        <div class="exp-help-grid">
+          <div class="exp-help-item"><span class="exp-help-role">Lagerist</span><span class="exp-help-meta"> – Bosch GmbH, Stuttgart (01/2022 – 12/2023)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Produktionsmitarbeiter</span><span class="exp-help-meta"> – Mercedes-Benz, Stuttgart (03/2020 – 12/2021)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Bauhelfer</span><span class="exp-help-meta"> – Muster Bau GmbH, Stuttgart (05/2019 – 02/2020)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Maler und Lackierer</span><span class="exp-help-meta"> – Muster Malerbetrieb, Stuttgart (01/2018 – 04/2019)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Garten- und Landschaftsbauhelfer</span><span class="exp-help-meta"> – Muster Gartenbau GmbH, Stuttgart (04/2017 – 12/2017)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Gärtner</span><span class="exp-help-meta"> – Gartenbau Müller GmbH, Stuttgart (03/2016 – 03/2017)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Servicemitarbeiter / Gastronomie</span><span class="exp-help-meta"> – McDonald’s, Stuttgart (06/2015 – 02/2016)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Küchenhilfe</span><span class="exp-help-meta"> – Restaurant Muster, Stuttgart (01/2015 – 05/2015)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Paketzusteller / Fahrer</span><span class="exp-help-meta"> – DPD, Stuttgart (03/2014 – 12/2014)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Reinigungskraft</span><span class="exp-help-meta"> – ISS Facility Services, Stuttgart (01/2013 – 02/2014)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Verkäufer</span><span class="exp-help-meta"> – Lidl, Stuttgart (05/2012 – 12/2012)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Kfz-Helfer</span><span class="exp-help-meta"> – Muster Auto Service GmbH, Stuttgart (01/2012 – 04/2012)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Schweißer</span><span class="exp-help-meta"> – Muster Metallbau GmbH, Stuttgart (06/2011 – 12/2011)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Elektriker</span><span class="exp-help-meta"> – Muster Elektrotechnik GmbH, Stuttgart (01/2010 – 05/2011)</span></div>
+          <div class="exp-help-item"><span class="exp-help-role">Hausmeister</span><span class="exp-help-meta"> – Muster Facility Management GmbH, Stuttgart (04/2009 – 12/2009)</span></div>
+        </div>
+        <div class="exp-help-tip">
+          <strong>💡 E rëndësishme:</strong>
+          Mund të shtoni edhe punët që keni bërë në vendlindje. Përvoja juaj profesionale nuk duhet të jetë vetëm nga Gjermania, Austria ose Zvicra.
+          <br><br>
+          Për shembull, nëse keni punuar si Elektriker në Kosovë, Maler në Shqipëri ose Bauarbeiter në Maqedoninë e Veriut, mund ta shtoni këtë përvojë në CV-në tuaj.
+          <div class="exp-help-tip-ex">Elektriker – Elektro Company, Prishtinë, Kosovë (05/2018 – 12/2021)</div>
+        </div>
+        <span style="color:var(--red);font-weight:600">👉 Renditni punët nga më e fundit tek më e vjetra.</span>
       </div>
       <div id="expList"></div>
       <button class="add-entry-btn" onclick="addExp()">+ Shto pozicion (Position hinzufügen)</button>

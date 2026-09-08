@@ -1175,11 +1175,15 @@ body.dark-mode .section-divider{background:#2e3444}
 body.dark-mode .app-notice{background:#332a12;color:#f0c869;border:1px solid #5a4a1e}
 body.dark-mode .modal-box{background:#1b2029!important;color:#e3e7ee!important}
 body.dark-mode .modal-box a{color:#ff6b85!important}
+/* Vendoset ne <html> nga skripti ne <head>, para se te vizatohet faqja — pa te, pamja e erret
+   hyn vetem pasi hapet <body> dhe ne telefon shihet nje pulsim i bardhe. */
+html.theme-dark{background:#12151c;color-scheme:dark}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"lebenslauf-shqip.de","url":"https://lebenslauf-shqip.de/","applicationCategory":"BusinessApplication","operatingSystem":"Web browser","inLanguage":["sq","de"],"offers":{"@type":"Offer","price":"10.00","priceCurrency":"EUR","description":"PDF-Export des Lebenslaufs"}}</script>
+<script>try{if(localStorage.getItem('darkMode')!=='0')document.documentElement.classList.add('theme-dark');}catch(ignore){document.documentElement.classList.add('theme-dark');}</script>
 </head>
 <body>
-<script>try{if(localStorage.getItem('darkMode')==='1')document.body.classList.add('dark-mode');}catch(ignore){}</script>
+<script>try{if(localStorage.getItem('darkMode')!=='0')document.body.classList.add('dark-mode');}catch(ignore){document.body.classList.add('dark-mode');}</script>
 <a class="skip-link" href="#mainContent" onclick="startCVBuilder()">Kalo te krijimi i CV-së</a>
 <noscript><p>Aktivizo JavaScript për të krijuar CV-në. Kontakt: info@lebenslauf-shqip.de.</p></noscript>
 <div id="appStatus" role="status" aria-live="polite" class="sr-only"></div>

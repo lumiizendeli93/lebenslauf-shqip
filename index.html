@@ -3373,6 +3373,17 @@ function fitCvToPage(finalPrint){
   });
   if(el.classList.contains('cv-twopage')){
     el.style.zoom=1;el.style.width='210mm';
+    // Secila nga dy faqet duhet të hyjë te i njëjti kufi i sigurt si modelet njëfaqëshe.
+    // Safari e iOS-it vendos marzhe të vetat pavarësisht @page{margin:0}, prandaj 296mm
+    // derdhej pak dhe nxirrte një copëz në një faqe shtesë thuajse bosh pas secilës.
+    if(finalPrint){
+      var tallest=0;
+      Array.from(el.children).forEach(function(c){ tallest=Math.max(tallest,c.getBoundingClientRect().height); });
+      if(tallest>target){
+        var z=Math.max(0.82,target/tallest);
+        el.style.zoom=z; el.style.width=(210/z)+'mm';
+      }
+    }
     return;
   }
   // e rëndësishme: scrollHeight/offsetHeight NUK e reflektojnë zoom (raportohen në
@@ -4412,7 +4423,7 @@ function renderTabellarisch(d){
     '<div style="page-break-after:always;font-family:\'Bahnschrift\',\'Segoe UI\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
 
         // ── LEFT COLUMN — shpërndarje vertikale që faqja të duket e mbushur
-        '<div style="padding:72px 24px 56px 52px;display:flex;flex-direction:column;justify-content:space-between">'+
+        '<div style="padding:72px 24px 56px 52px;display:flex;flex-direction:column;justify-content:flex-start">'+
 
           // TOP — eyebrow + emri (Playfair)
           '<div>'+
@@ -4423,7 +4434,7 @@ function renderTabellarisch(d){
           '</div>'+
 
           // MIDDLE — të dhënat personale, me hapësirë gjeneroze
-          '<div style="display:flex;flex-direction:column;gap:28px;margin:40px 0">'+
+          '<div style="display:flex;flex-direction:column;gap:22px;margin:44px 0 0">'+
             (d.bdate?
               '<div>'+pLabel('Geburtsdatum, -ort')+
               '<div style="font-size:15px;color:#3d3d3d;line-height:1.6">'+esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')+'</div></div>'

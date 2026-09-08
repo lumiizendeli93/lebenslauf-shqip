@@ -26,6 +26,33 @@
 <!-- Schriftarten lokal eingebunden (DSGVO-konform, kein Google-Fonts-Abruf) -->
 <!-- Original fonts/fonts.css was not supplied. System fallbacks keep this file standalone. Reconnect licensed self-hosted fonts when available. -->
 <style>
+/* ============ FONTET E VORLAGE TIRANA ============ */
+/* Montserrat + Inter, të strehuara LOKALisht në /fonts — jo nga Google Fonts. Datenschutz-i
+   pika 6 premton "keine Verbindung zu Servern von Google", dhe në Gjermani hotlinking-u i
+   Google Fonts është gjykuar shkelje e DSGVO-së (LG München, 2022).
+   Emrat janë të veçantë ("Tirana Display/Text") me qëllim: template-t e tjera përmendin
+   'Inter' në stack-un e tyre dhe do të ndryshonin pamje nëse do të regjistronim atë emër.
+   Skedarët janë variabël (një file mbulon 100–900), prandaj mjaftojnë katër. */
+@font-face{
+  font-family:'Tirana Display';src:url('/fonts/montserrat-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Tirana Display';src:url('/fonts/montserrat-latin-ext.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'Tirana Text';src:url('/fonts/inter-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Tirana Text';src:url('/fonts/inter-latin-ext.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#C8102E;--red2:#e01535;--red-light:#fff0f3;--red-dark:#9e0d24;
@@ -1578,6 +1605,21 @@ html.theme-dark{background:#12151c;color-scheme:dark}
         </div>
         <div class="skill-tags mt-1" id="skillTags"></div>
         <div id="skillCountHint" style="display:none;margin-top:9px;font-size:11.5px;line-height:1.5;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px"></div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="field">
+        <label for="skill2Input">Cilësi personale <span>(Persönliche Stärken — optional)</span></label>
+        <div style="font-size:12px;color:var(--gray4);line-height:1.6;margin:-2px 0 9px">
+          Këto shfaqen veçmas në CV, pa nivel — sepse pikësia ose puna në ekip nuk maten si njohuri teknike.
+          Shkruaji në gjermanisht, p.sh. Teamfähigkeit, Zuverlässigkeit, Pünktlichkeit, Belastbarkeit.
+        </div>
+        <div style="display:flex;gap:8px">
+          <input id="skill2Input" placeholder="p.sh. Zuverlässigkeit" style="flex:1" onkeydown="if(event.key==='Enter'){addSkill2();event.preventDefault()}"/>
+          <button class="btn btn-teal-light btn-sm" onclick="addSkill2()">+ Shto</button>
+        </div>
+        <div class="skill-tags mt-1" id="skill2Tags"></div>
       </div>
 
       <div class="section-divider"></div>
@@ -3938,7 +3980,7 @@ function restoreCheckoutDraft(){
     langs=d.langs.map(function(l,i){return Object.assign({},l,{id:'lang_'+i});});langCount=langs.length;
     photoDataUrl=typeof d.photo==='string'&&/^data:image\/(png|jpeg);base64,[A-Za-z0-9+/=]+$/.test(d.photo)?d.photo:null;
     if(photoDataUrl){var img=new Image();img.src=photoDataUrl;img.alt='Bewerbungsfoto';img.style.cssText='width:100%;height:100%;object-fit:cover';document.getElementById('photoPreview').replaceChildren(img);document.getElementById('uploadActions').style.display='flex';document.getElementById('uploadCard').classList.add('has-photo');}
-    renderEduList();renderExpList();renderLangList();renderSkillTags();
+    renderEduList();renderExpList();renderLangList();renderSkillTags();renderSkill2Tags();
     if(document.getElementById('tpl_'+d.selectedTemplate))selectTemplate(d.selectedTemplate);
     if(typeof d.letter==='string'&&d.letter.trim()){applyEditedAnschreiben(d.letter);document.getElementById('anschreibenEdit').value=d.letter;}
     sessionStorage.removeItem(CHECKOUT_DRAFT_KEY);
@@ -4036,10 +4078,18 @@ function printCV(){
     window.removeEventListener('afterprint',restoreUrl);
     if(hasSessionParam){try{history.replaceState(null,'',urlBeforePrint);}catch(ignore){}}
   },{once:true});
-  setTimeout(function(){
-    window.print();
-    if(msg) setTimeout(function(){msg.style.display='none';},3000);
-  },300);
+  // Prit fontet lokale para printimit. Pa kete, nje print i nisur para se te mberrijne skedaret
+  // do te matej dhe do te dilte me font zevendesues — PDF-ja s'do t'i ngjante pamjes paraprake.
+  // Rimatja pas ngarkimit eshte e nevojshme: metrikat e fontit ndryshojne lartesine reale.
+  var startPrint=function(){
+    setTimeout(function(){
+      if(typeof fitCvToPage==='function') fitCvToPage(true);
+      window.print();
+      if(msg) setTimeout(function(){msg.style.display='none';},3000);
+    },300);
+  };
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(startPrint,startPrint);
+  else startPrint();
 }
 
 
@@ -4609,23 +4659,30 @@ function renderRedClassic(d){
   var red='#7d1626';        // weinrot i thellë, më elegant
   var redSoft='#9c2436';
   var ink='#26201f';
-  var muted='#7a716c';
+  var muted='#6f6660';      // pak më i errët se më parë: metadata duhej të lexohej më mirë
   var hair='#ece5df';
-  var serif="'Playfair Display','Georgia',serif";
-  var sans="'DM Sans','Lato',Arial,sans-serif";
+  // Montserrat për tituj/emër, Inter për çdo tekst normal. Emrat lokalë ('Tirana …') janë
+  // të qëllimshëm — shih @font-face: template-t e tjera s'duhet të preken.
+  var disp="'Tirana Display','Montserrat',Arial,sans-serif";
+  var sans="'Tirana Text','Inter',Arial,sans-serif";
 
-  // ---------- Main: Kenntnisse — kolona e vetme kur janë pak, dy kolona kompakte kur janë mjaft ----------
+  // ---------- Main: Fachkenntnisse ----------
+  // Niveli rri djathtas; emri lejohet të mbështillet. Dy kolona vetëm kur çdo emër është i
+  // shkurtër — përndryshe fjalë si "Lagerverwaltungssysteme" thyheshin shëmtuar
+  // ("Lagerverwaltungssys / tem"), sepse kolonës i mbetej ~110px pas etiketës së nivelit.
   var skillHtml='';
   if(skills.length){
-    function skillRow(s){
-      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid '+hair+'">'+
-        '<span style="font-size:12.5px;font-weight:600;color:'+ink+';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(skillName(s))+'</span>'+
-        (skillLevel(s)?'<span style="font-size:10px;font-weight:500;color:'+muted+';flex-shrink:0;white-space:nowrap">'+esc(skillLevel(s))+'</span>':'')+
+    var skillRow=function(s){
+      return '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6.5px 0;border-bottom:1px solid '+hair+'">'+
+        '<span style="font-size:12.5px;font-weight:500;color:'+ink+';line-height:1.4;overflow-wrap:break-word;min-width:0">'+esc(skillName(s))+'</span>'+
+        (skillLevel(s)?'<span style="font-size:10.5px;font-weight:500;color:'+muted+';flex-shrink:0;white-space:nowrap">'+esc(skillLevel(s))+'</span>':'')+
       '</div>';
-    }
-    if(skills.length>3){
+    };
+    var longest=0;
+    skills.forEach(function(s){ longest=Math.max(longest,String(skillName(s)).length); });
+    if(skills.length>5 && longest<=18){
       var half=Math.ceil(skills.length/2);
-      skillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px">'+
+      skillHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">'+
         '<div>'+skills.slice(0,half).map(skillRow).join('')+'</div>'+
         '<div>'+skills.slice(half).map(skillRow).join('')+'</div>'+
       '</div>';
@@ -4640,17 +4697,27 @@ function renderRedClassic(d){
   if(allLangs.length){
     langHtml=allLangs.map(function(l){
       return '<div style="margin-bottom:13px">'+
-        '<div style="font-size:12px;font-weight:600;color:'+ink+';line-height:1.4">'+esc(l.name)+'</div>'+
-        (l.level?'<div style="font-size:10px;font-weight:500;color:'+red+';letter-spacing:.4px;margin-top:2px;text-transform:uppercase">'+esc(l.level)+'</div>':'')+
+        '<div style="font-size:12.5px;font-weight:600;color:'+ink+';line-height:1.4">'+esc(l.name)+'</div>'+
+        (l.level?'<div style="font-size:10.5px;font-weight:500;color:'+red+';letter-spacing:.3px;margin-top:2px;text-transform:uppercase">'+esc(l.level)+'</div>':'')+
       '</div>';
     }).join('');
   }
 
+  // ---------- Sidebar: Persönliche Stärken ----------
+  // Cilësitë personale s'janë nivele teknike: pa "Gute Kenntnisse" pas tyre.
+  var bullet=function(txt){
+    return '<div style="font-size:12px;font-weight:400;color:'+ink+';line-height:1.5;padding:3px 0;display:flex;align-items:baseline;gap:9px">'+
+      '<span style="width:4px;height:4px;border-radius:50%;background:'+red+';flex-shrink:0;transform:translateY(-2px)"></span>'+
+      '<span style="min-width:0;overflow-wrap:break-word">'+esc(txt)+'</span>'+
+    '</div>';
+  };
+  var strengthHtml = skills2.length ? skills2.map(bullet).join('') : '';
+
   // ---------- Sidebar: Persönliches ----------
   function pRow(label,val){
     return '<div style="margin-bottom:13px">'+
-      '<div style="font-size:9px;font-weight:700;color:'+muted+';letter-spacing:1.3px;text-transform:uppercase;margin-bottom:3px">'+label+'</div>'+
-      '<div style="font-size:12px;font-weight:400;color:'+ink+';line-height:1.45">'+val+'</div>'+
+      '<div style="font-family:'+disp+';font-size:9.5px;font-weight:500;color:'+muted+';letter-spacing:1.1px;text-transform:uppercase;margin-bottom:3px">'+label+'</div>'+
+      '<div style="font-size:12.5px;font-weight:400;color:'+ink+';line-height:1.45;overflow-wrap:break-word">'+val+'</div>'+
     '</div>';
   }
   var personalHtml='';
@@ -4658,41 +4725,39 @@ function renderRedClassic(d){
   if(d.nation) personalHtml+=pRow('Nationalität', esc(d.nation));
   if(d.civil) personalHtml+=pRow('Familienstand', esc(d.civil)+(d.kinder?', '+esc(d.kinder):''));
   if(d.einreise) personalHtml+=pRow('In Deutschland seit', esc(d.einreise));
-  if(d.fuehrerschein) personalHtml+=pRow('Führerschein', esc(d.fuehrerschein));
+
+  // Führerschein si seksion i vetin — fshihet krejt kur s'ka patentë.
+  var licenceHtml = d.fuehrerschein ? '<div style="font-size:12.5px;font-weight:400;color:'+ink+';line-height:1.45">'+esc(d.fuehrerschein)+'</div>' : '';
 
   // ---------- Sidebar: Interessen ----------
   var hobbyHtml='';
   if(d.hobbies){
-    hobbyHtml=d.hobbies.split(',').map(function(h){
-      return '<div style="font-size:12px;font-weight:400;color:'+ink+';line-height:1.5;padding:3px 0;display:flex;align-items:baseline;gap:9px">'+
-        '<span style="width:4px;height:4px;border-radius:50%;background:'+red+';flex-shrink:0;transform:translateY(-2px)"></span>'+esc(h.trim())+
-      '</div>';
-    }).join('');
+    hobbyHtml=d.hobbies.split(',').map(function(h){return h.trim();}).filter(Boolean).map(bullet).join('');
   }
 
   // ---------- Labels ----------
   function secLabel(t){
     return '<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">'+
-      '<span style="font-family:'+serif+';font-size:16px;font-weight:700;color:'+red+';letter-spacing:.3px;white-space:nowrap">'+t+'</span>'+
+      '<span style="font-family:'+disp+';font-size:15px;font-weight:600;color:'+red+';letter-spacing:.2px;white-space:nowrap">'+t+'</span>'+
       '<span style="flex:1;height:1px;background:'+hair+'"></span>'+
     '</div>';
   }
   function sideLabel(t){
-    return '<div style="font-family:'+serif+';font-size:13px;font-weight:700;color:'+red+';letter-spacing:.3px;margin-bottom:3px">'+t+'</div>'+
+    return '<div style="font-family:'+disp+';font-size:12px;font-weight:600;color:'+red+';letter-spacing:.4px;margin-bottom:3px;text-transform:uppercase">'+t+'</div>'+
            '<div style="width:26px;height:2px;background:'+red+';margin-bottom:13px"></div>';
   }
 
   // ---------- Timeline entry ----------
   function makeEntry(date, title, org, desc, last){
-    return '<div class="cv-entry" style="display:grid;grid-template-columns:78px 1fr;gap:0 20px;'+(last?'':'margin-bottom:20px')+'">'+
+    return '<div class="cv-entry" style="display:grid;grid-template-columns:80px 1fr;gap:0 20px;'+(last?'':'margin-bottom:22px')+'">'+
       '<div style="text-align:right;padding-top:1px">'+
-        '<div style="font-size:10.5px;font-weight:600;color:'+muted+';line-height:1.55;letter-spacing:.2px">'+date+'</div>'+
+        '<div style="font-size:11px;font-weight:500;color:'+muted+';line-height:1.5;letter-spacing:.1px">'+date+'</div>'+
       '</div>'+
       '<div style="border-left:1.5px solid '+hair+';padding-left:22px;position:relative;padding-bottom:'+(last?'0':'2px')+'">'+
         '<div style="position:absolute;left:-5.25px;top:3px;width:9px;height:9px;border-radius:50%;background:'+red+';box-shadow:0 0 0 3px #fff,0 0 0 4px '+hair+'"></div>'+
-        '<div style="font-size:13px;font-weight:700;color:'+ink+';line-height:1.35;margin-bottom:2px">'+title+'</div>'+
-        (org?'<div style="font-size:11.5px;font-weight:500;color:'+redSoft+';margin-bottom:'+(desc?'6px':'0')+'">'+org+'</div>':'')+
-        (desc?'<div style="font-size:11.5px;font-weight:400;color:#5a524e;line-height:1.62">'+desc+'</div>':'')+
+        '<div style="font-size:13.5px;font-weight:600;color:'+ink+';line-height:1.35;margin-bottom:3px;overflow-wrap:break-word">'+title+'</div>'+
+        (org?'<div style="font-size:12px;font-weight:500;color:'+redSoft+';margin-bottom:'+(desc?'6px':'0')+';overflow-wrap:break-word">'+org+'</div>':'')+
+        (desc?'<div style="font-size:12px;font-weight:400;color:#544c48;line-height:1.6">'+desc+'</div>':'')+
       '</div>'+
     '</div>';
   }
@@ -4715,25 +4780,32 @@ function renderRedClassic(d){
 
   // ---------- Header ----------
   function cItem(txt){
-    return '<div style="display:flex;align-items:center;gap:9px;font-size:12px;font-weight:400;color:rgba(255,255,255,0.92);line-height:1.5">'+
+    return '<div style="display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:400;color:rgba(255,255,255,0.94);line-height:1.5;overflow-wrap:break-word">'+
       '<span style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.55);flex-shrink:0"></span>'+txt+'</div>';
   }
   var contactLine=
-    '<div style="display:flex;flex-direction:column;gap:7px;margin-top:18px">'+
+    '<div style="display:flex;flex-direction:column;gap:7px;margin-top:20px">'+
       (d.email?cItem(esc(d.email)):'')+
       (d.phone?cItem(esc(d.phone)):'')+
       ((d.addr||d.city)?cItem((d.addr?esc(d.addr)+', ':'')+esc((d.plz?d.plz+' ':'')+(d.city||''))):'')+
     '</div>';
 
   var nameBlock=
-    '<div style="font-family:'+serif+';font-size:36px;font-weight:800;color:#fff;line-height:1.08;letter-spacing:.2px">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
-    (d.job?'<div style="font-size:11.5px;font-weight:500;color:rgba(255,255,255,0.82);letter-spacing:3px;text-transform:uppercase;margin-top:9px">'+esc(d.job)+'</div>':'');
+    '<div style="font-family:'+disp+';font-size:33px;font-weight:700;color:#fff;line-height:1.14;letter-spacing:-.3px;overflow-wrap:break-word">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
+    (d.job?'<div style="font-family:'+disp+';font-size:11px;font-weight:500;color:rgba(255,255,255,0.84);letter-spacing:2.4px;text-transform:uppercase;margin-top:11px;overflow-wrap:break-word">'+esc(d.job)+'</div>':'');
+
+  // Kur s'ka foto, vendi i saj mbahet nga inicialet — kështu koka ruan të njëjtin ritëm
+  // vizual me ose pa fotografi, dhe s'ka nevojë për dy faqosje të ndryshme.
+  var initials=((d.fname||'').charAt(0)+(d.lname||'').charAt(0)).toUpperCase();
+  var portraitHTML = photoDataUrl
+    ? '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:112px;height:140px;object-fit:cover;object-position:top center;border-radius:5px;border:3px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(0,0,0,0.28);flex-shrink:0"/>'
+    : (initials.trim() ? '<div aria-hidden="true" style="width:112px;height:140px;border-radius:5px;border:3px solid rgba(255,255,255,0.9);background:rgba(255,255,255,0.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'+disp+';font-size:44px;font-weight:700;letter-spacing:1px;color:#fff">'+esc(initials)+'</div>' : '');
 
   var headerHTML=
-    '<div style="background:linear-gradient(135deg,'+red+' 0%,#691320 100%);padding:40px 52px">'+
-      (photoDataUrl?
+    '<div style="background:linear-gradient(135deg,'+red+' 0%,#691320 100%);padding:38px 52px 40px">'+
+      (portraitHTML?
         '<div style="display:flex;align-items:center;gap:34px">'+
-          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:112px;height:140px;object-fit:cover;object-position:top center;border-radius:5px;border:3px solid rgba(255,255,255,0.9);box-shadow:0 8px 24px rgba(0,0,0,0.28);flex-shrink:0"/>'+
+          portraitHTML+
           '<div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center">'+nameBlock+contactLine+'</div>'+
         '</div>'
         :
@@ -4744,24 +4816,32 @@ function renderRedClassic(d){
   // ---------- Main + Sidebar ----------
   // height:100% (jo vetëm align-items:stretch) — grid auto-row që zgjatet mbi min-height
   // sillet i paqëndrueshëm nën disa motorë printimi/PDF-je; kjo e siguron që të dyja kolonat
-  // të mbushin plotësisht faqen A4, pa lënë hapësirë të papikturuar poshtë (shih Durrësi/Peja/etj.).
+  // të mbushin plotësisht faqen A4, pa lënë hapësirë të papikturuar poshtë.
   var mainHTML=
     '<div style="background:#fff;padding:40px 40px 44px 50px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:34px">'+
       (expHtml?'<div>'+secLabel('Berufserfahrung')+expHtml+'</div>':'')+
       (eduHtml?'<div>'+secLabel('Ausbildung')+eduHtml+'</div>':'')+
-      (skillHtml?'<div>'+secLabel('Kenntnisse')+skillHtml+'</div>':'')+
+      (skillHtml?'<div>'+secLabel('Fachkenntnisse')+skillHtml+'</div>':'')+
     '</div>';
 
-  // Hapësira mes seksioneve të sidebar-it përshtatet me sasinë e vet përmbajtjes (Persönliches/Sprachen/Interessen),
-  // që tani s'varet më nga numri i aftësive (Kenntnisse është zhvendosur në kolonën kryesore).
-  var sideLineCount = (d.bdate?1:0)+(d.nation?1:0)+(d.civil?1:0)+(d.einreise?1:0)+(d.fuehrerschein?1:0)+allLangs.length+(d.hobbies?d.hobbies.split(',').length:0);
+  // Hapësira mes seksioneve të sidebar-it përshtatet me sasinë e vet përmbajtjes.
+  var sideLineCount = (d.bdate?1:0)+(d.nation?1:0)+(d.civil?1:0)+(d.einreise?1:0)+(d.fuehrerschein?1:0)+
+    allLangs.length+skills2.length+(d.hobbies?d.hobbies.split(',').length:0);
   var secMb = sideLineCount>14 ? 16 : (sideLineCount>9 ? 22 : 30);
   var sidePad = sideLineCount>14 ? '30px 30px 32px' : '38px 30px 40px';
+  // Seksionet bosh nuk dalin fare — asnjë titull pa përmbajtje nën të.
+  var sideParts=[
+    ['Persönliches',personalHtml],
+    ['Sprachen',langHtml],
+    ['Führerschein',licenceHtml],
+    ['Persönliche Stärken',strengthHtml],
+    ['Interessen',hobbyHtml]
+  ].filter(function(p){return p[1];});
   var sidebarHTML=
     '<div style="background:#faf7f4;padding:'+sidePad+';height:100%;box-sizing:border-box;border-left:1px solid '+hair+'">'+
-      (personalHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Persönliches')+personalHtml+'</div>':'')+
-      (langHtml?'<div style="margin-bottom:'+secMb+'px">'+sideLabel('Sprachen')+langHtml+'</div>':'')+
-      (hobbyHtml?'<div>'+sideLabel('Interessen')+hobbyHtml+'</div>':'')+
+      sideParts.map(function(p,i){
+        return '<div'+(i===sideParts.length-1?'':' style="margin-bottom:'+secMb+'px"')+'>'+sideLabel(p[0])+p[1]+'</div>';
+      }).join('')+
     '</div>';
 
   return '<div style="width:210mm;min-height:297mm;background:#faf7f4;box-sizing:border-box;font-family:'+sans+';color:'+ink+';display:flex;flex-direction:column">'+
@@ -4933,7 +5013,7 @@ function clearPersonalData(){
     if(el.type==='checkbox')el.checked=false;else if(el.type==='range')el.value=80;else el.value='';
   });
   educations=[];experiences=[];skills=[];skills2=[];langs=[];langCount=0;
-  removePhoto();applyEditedAnschreiben('');renderEduList();renderExpList();renderLangList();renderSkillTags();
+  removePhoto();applyEditedAnschreiben('');renderEduList();renderExpList();renderLangList();renderSkillTags();renderSkill2Tags();
   document.getElementById('skillPercentVal').textContent='';
   document.getElementById('cvPreview').replaceChildren();
   document.getElementById('livePreviewInner').replaceChildren();document.getElementById('liveOverlayInner').replaceChildren();

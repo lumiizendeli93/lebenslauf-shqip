@@ -3283,20 +3283,32 @@ function removeA4Filler(preview){
 function fillA4Gap(preview,el){
   removeA4Filler(preview);
   var elRect=el.getBoundingClientRect();
-  // Mbushja ndalon te i njëjti kufi si vetë CV-ja (me rezervën A4_SAFETY_PX), jo te 1122px.
-  // Po e mbushëm deri te kufiri absolut i faqes, mbushësi e ha vetë rezervën dhe mjafton një
-  // rrumbullakim i motorit të printimit që të derdhet në një faqe të dytë pothuajse bosh.
-  var gap=A4_FIT_TARGET_PX-elRect.height;
+  // Mbushësi vendoset ABSOLUT: nuk numërohet në lartësinë e rrjedhës, prandaj s'mund ta shtyjë
+  // kurrë përmbajtjen në një faqe të dytë. Kjo e lejon të pikturojë deri te fundi real i faqes
+  // (297mm) në vend që të ndalej te rezerva e sigurisë, ku linte një shirit të bardhë poshtë.
+  var gap=A4_PAGE_PX-elRect.height;
   if(gap<=2)return; // pa hapësirë kuptimplote, ose përmbajtja tashmë kalon faqen
   var filler=document.createElement('div');
   filler.className='a4-fill-gap';
   filler.setAttribute('aria-hidden','true');
-  filler.style.cssText='width:'+elRect.width+'px;height:'+gap+'px;flex-shrink:0;pointer-events:none;display:flex';
+  filler.style.cssText='position:absolute;left:0;top:'+elRect.height+'px;width:'+elRect.width+'px;height:'+gap+'px;pointer-events:none;display:flex;z-index:0';
+  // Rreshti i kolonave mund të jetë vetë rrënja (p.sh. Vlora/Durrësi, ku grid-i është në rrënjë)
+  // ose një fëmijë i saj. Pa e provuar rrënjën, ato modele merrnin një brez njëngjyrësh
+  // të errët përgjatë gjithë gjerësisë, mbi kolonën e bardhë.
   var row=null;
-  Array.from(el.children).forEach(function(child){
-    var cs=getComputedStyle(child);
-    if(!row&&(cs.display==='grid'||cs.display==='flex')&&child.children.length===2)row=child;
-  });
+  // Kontroll gjeometrik, jo vetëm display: dy fëmijë numërohen si kolona vetëm nëse nisin në
+  // të njëjtën lartësi dhe gjerësitë e tyre e mbushin prindin. Pa këtë, një rrënjë flex-kolonë
+  // (kokë + trup) merrej gabimisht si rresht kolonash.
+  var isRow=function(node){
+    if(node.children.length!==2) return false;
+    var cs=getComputedStyle(node);
+    if(cs.display!=='grid'&&cs.display!=='flex') return false;
+    var a=node.children[0].getBoundingClientRect(), b=node.children[1].getBoundingClientRect();
+    if(!a.width||!b.width) return false;
+    return Math.abs(a.top-b.top)<2 && Math.abs((a.width+b.width)-node.getBoundingClientRect().width)<3;
+  };
+  if(isRow(el)) row=el;
+  Array.from(el.children).forEach(function(child){ if(!row&&isRow(child)) row=child; });
   if(row){
     Array.from(row.children).forEach(function(kid){
       var kidRect=kid.getBoundingClientRect();
@@ -3304,7 +3316,14 @@ function fillA4Gap(preview,el){
       part.style.cssText='width:'+kidRect.width+'px;height:100%;flex-shrink:0;background:'+getComputedStyle(kid).backgroundColor;
       filler.appendChild(part);
     });
-  }else{
+    // Nëse të gjitha pjesët dolën transparente, mbushësi s'do të pikturonte asgjë — bjer te sfondi.
+    var opaque=Array.from(filler.children).some(function(p){
+      var b=p.style.background||'';
+      return b && b.indexOf('rgba(0, 0, 0, 0)')===-1 && b!=='transparent';
+    });
+    if(!opaque){ filler.innerHTML=''; row=null; }
+  }
+  if(!row){
     var bg=getComputedStyle(el).backgroundColor;
     // Sfond transparent te dokumenti => mbushësi do të linte të dukej sfondi i faqes.
     filler.style.background=(!bg||bg==='transparent'||/,\s*0\s*\)$/.test(bg))?'#fff':bg;
@@ -3322,6 +3341,19 @@ function fitCvToPage(finalPrint){
   el.style.transform='';
   el.classList.add('cv-document');
   el.style.minHeight=el.classList.contains('cv-twopage')?'':'296mm';
+  // Rrënja me display:block nuk i shtrin fëmijët mbi min-height: kolonat me ngjyrë ndalen
+  // para fundit dhe del sfondi i dokumentit si shirit. Kjo e bën fëmijën e fundit ta mbushë
+  // faqen pa ndryshuar mënyrën si template-i i rendit elementet (bllok → kolonë flex rendit njësoj).
+  if(!el.classList.contains('cv-twopage')){
+    var rootDisp=getComputedStyle(el).display;
+    if(rootDisp==='block'||rootDisp==='flow-root'){
+      el.style.display='flex'; el.style.flexDirection='column'; rootDisp='flex';
+    }
+    if(rootDisp==='flex'&&getComputedStyle(el).flexDirection.indexOf('column')===0){
+      var lastKid=el.lastElementChild;
+      if(lastKid){ lastKid.style.flexGrow='1'; lastKid.style.flexShrink='0'; }
+    }
+  }
   // Never shrink the complete document to illegible type. Long content may use more pages.
   el.querySelectorAll('*').forEach(function(node){
     if(node.style.textOverflow==='ellipsis'){node.style.textOverflow='clip';node.style.whiteSpace='normal';node.style.overflow='visible';}

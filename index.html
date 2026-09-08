@@ -267,72 +267,48 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
 
 /* ============ AI FORM ============ */
 .ai-form{background:var(--gray);border-radius:var(--radius-sm);padding:1.3rem;margin-bottom:1rem;border:1px solid var(--gray2)}
-.ai-result{
-  border:none;
-  border-radius:12px;
-  padding:24px 28px;
-  font-size:13px;
-  line-height:1.9;
-  color:#1a1a1a;
+/* ============ ANSCHREIBEN — dokument A4 sipas DIN 5008 ============ */
+/* Nje perkufizim i vetem, i perdorur njesoj ne hapin 5, hapin 6 dhe ne printim, qe pamja
+   paraprake dhe PDF-i te mos ndryshojne nga njeri-tjetri. Permasat jepen ne mm/pt sepse ato
+   jane njesi dokumenti: 210mm mbetet 210mm si ne ekran ashtu edhe ne leter. */
+.letter-stage{position:relative;overflow:hidden}
+.letter-page{
+  width:210mm;
+  min-height:297mm;
+  box-sizing:border-box;
+  padding:25mm 25mm 20mm;
   background:#fff;
-  min-height:400px;
-  box-shadow:0 8px 40px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.06);
+  color:#111;
   font-family:'Georgia','Times New Roman',serif;
-  max-width:680px;
-  margin:0 auto;
-  border-top:4px solid #1e2d3d;
+  font-size:11pt;
+  line-height:1.55;
+  transform-origin:top left;
+  position:relative;
+  /* Mbi watermark-un (z-index 60/61): filigrani duhet te mbetet PAS tekstit dhe te mos e
+     veshtiresoje leximin. */
+  z-index:62;
+  /* Emra kompanish, adresa dhe email-e te gjate nuk duhet te dalin kurre jashte faqes. */
+  overflow-wrap:break-word;
 }
-.ai-result .letter-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:24px;
-  margin-bottom:28px;
-  padding-bottom:18px;
-  border-bottom:1px solid #e5e7eb;
-}
-.ai-result .letter-sender{flex:1}
-.ai-result .letter-recipient{text-align:right;flex:1}
-.ai-result .letter-date{text-align:right;margin-bottom:22px;color:#777;font-size:12px}
-.ai-result .letter-subject{font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block}
-.ai-result p{margin-bottom:14px}
+.letter-page>*{max-width:100%}
+.letter-sender{font-size:9.5pt;line-height:1.5;color:#3a3a3a}
+.letter-sender-name{color:#111}
+.letter-recipient{margin-top:9mm}
+.letter-date{margin-top:12mm;text-align:right}
+.letter-subject{margin-top:10mm;font-weight:700}
+.letter-salutation{margin:9mm 0 0}
+.letter-body{margin-top:5mm}
+.letter-body p{margin:0 0 4.5mm}
+.letter-closing{margin-top:8mm}
+/* Hapesire reale per nenshkrim mes pershendetjes dhe emrit. */
+.letter-signature{margin-top:18mm}
+/* Kur letra e kalon nje faqe, shenohet ne ekran ku do ta ndaje printeri — qe pamja paraprake
+   te tregoje te njejten gje qe del ne PDF. Hiqet ne printim, ku faqet ndahen vertet. */
+.letter-page.letter-multipage{background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 296.6mm,rgba(0,0,0,0.16) 296.6mm,rgba(0,0,0,0.16) 297mm)}
+
+/* Hapi 5: kutia mban vetem faqen A4; kuadri i vjeter si "karte faqeje interneti" u hoq. */
+.ai-result{background:transparent;padding:0;margin:0 auto;border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,0.14)}
 .ai-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-
-/* Letra e motivimit — pamja në ekran (step 6, para pagesës) duhet të duket njësoj profesionale
-   si PDF-i i printuar; më parë kjo strukturë ekzistonte vetëm brenda @media print. */
-.anschreiben-print .letter-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid #e5e7eb}
-.anschreiben-print .letter-sender{flex:1}
-.anschreiben-print .letter-recipient{text-align:right;flex:1}
-.anschreiben-print .letter-date{text-align:right;margin:22px 0;color:#777;font-size:12px}
-.anschreiben-print .letter-subject{font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block}
-/* `screen and`: Safari e iOS-it printon me gjerësinë e telefonit, jo me 210mm të faqes A4 —
-   pa këtë kufizim, stivosja për ekran të vogël hyn edhe në PDF dhe adresa e marrësit del
-   poshtë dërguesit në vend që të jetë djathtas tij. */
-@media screen and (max-width:600px){
-  .anschreiben-print .letter-header{flex-direction:column;gap:16px}
-  .anschreiben-print .letter-recipient{text-align:left;border-top:1px solid #eee;padding-top:14px}
-}
-
-@media(max-width:600px){
-  .ai-result{
-    padding:18px 16px;
-    font-size:13px;
-    line-height:1.85;
-    border-radius:10px;
-    max-width:100%;
-  }
-  .ai-result .letter-header{
-    flex-direction:column;
-    gap:16px;
-  }
-  .ai-result .letter-recipient{
-    text-align:left;
-    border-top:1px solid #eee;
-    padding-top:14px;
-  }
-  .ai-result .letter-date{font-size:12px}
-  .ai-result .letter-subject{font-size:13px;word-break:break-word}
-}
 
 /* ============ BUTTONS ============ */
 .btn{
@@ -384,13 +360,14 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
   .cv-twopage>*:last-child{break-after:auto}
   .cv-document tr,.cv-entry{break-inside:avoid}
   .cv-document p{orphans:3;widows:3}
-  .anschreiben-print{display:block;box-shadow:none!important;border:0;border-radius:0!important;margin:0!important;padding:20mm;break-before:page;height:auto!important;overflow:visible!important}
+  /* Marzhet e letres vijne tani nga vete .letter-page, jo nga kontejneri. */
+  .anschreiben-print{display:block;box-shadow:none!important;border:0;border-radius:0!important;margin:0!important;padding:0!important;break-before:page;height:auto!important;overflow:visible!important}
   .anschreiben-print.hidden,.anschreiben-print:empty{display:none!important}
-  .anschreiben-print .letter-header{display:flex;justify-content:space-between;gap:24px;margin-bottom:28px}
-  .anschreiben-print .letter-recipient{text-align:right}
-  .anschreiben-print .letter-date{text-align:right;margin:22px 0}
-  .anschreiben-print .letter-subject{font-weight:bold;margin-bottom:18px}
-  .anschreiben-print p{margin:0 0 13px;orphans:3;widows:3}
+  /* Faqja printohet ne permasat e veta reale — pa shkallezimin qe perdoret vetem ne ekran. */
+  .letter-stage{height:auto!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}
+  .letter-page{transform:none!important;width:210mm!important;min-height:0;box-shadow:none!important;background-image:none!important}
+  .letter-page p{orphans:3;widows:3}
+  .letter-subject,.letter-salutation{break-after:avoid}
   body.payment-verified .cv-preview::before,body.payment-verified .cv-preview::after{display:none!important;content:none!important}
 }
 
@@ -2139,7 +2116,7 @@ html.theme-dark{background:#12151c;color-scheme:dark}
       </div>
 
       <div id="anschreibenResult" class="hidden">
-        <div class="ai-result" id="anschreibenText" lang="de"></div>
+        <div class="ai-result letter-stage" id="anschreibenText" lang="de"></div>
         <div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--gray2)">
           <label style="display:block;font-size:12px;font-weight:700;color:var(--gray5);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">✏️ Redakto tekstin para eksportit <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--gray4)">(ndryshimet përditësojnë pamjen dhe PDF-in)</span></label>
           <textarea id="anschreibenEdit" rows="14" style="font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.8;width:100%" oninput="applyEditedAnschreiben(this.value)"></textarea>
@@ -2209,8 +2186,8 @@ html.theme-dark{background:#12151c;color-scheme:dark}
     </div>
 
     <!-- ANSCHREIBEN PRINT - faqe e dytë -->
-    <div lang="de" class="anschreiben-print cv-preview hidden" id="anschreibenPrintSection" style="background:#fff;margin-top:1.25rem;border-radius:var(--radius);box-shadow:var(--shadow)">
-      <div style="font-family:'Inter',Arial,sans-serif;font-size:12px;line-height:1.8;color:#222;white-space:pre-wrap" id="anschreibenPrintText"></div>
+    <div lang="de" class="anschreiben-print cv-preview letter-stage hidden" id="anschreibenPrintSection" style="background:#fff;margin-top:1.25rem;border-radius:var(--radius);box-shadow:var(--shadow)">
+      <div id="anschreibenPrintText"></div>
     </div>
   </div>
 
@@ -2255,6 +2232,7 @@ function goStep(n){
     if(sl){sl.classList.toggle('done',i<n);}
   }
   if(n===6)renderCV();
+  if(n===5||n===6)scaleLetterPreview();
   if(typeof refreshLivePreview==='function') refreshLivePreview();
   window.scrollTo(0,0);
 }
@@ -2455,28 +2433,28 @@ function collectAnschreibenData(){
 
 // ===== Ndërton HTML-në e letrës nga teksti i trupit (paragrafë) =====
 function buildAnschreibenHTML(d, bodyParagraphs){
-  var bodyHTML=bodyParagraphs.map(function(p){return '<p>'+esc2(p)+'</p>';}).join('');
-  return '<div style="font-family:\'Georgia\',\'Times New Roman\',serif;font-size:13px;line-height:1.9;color:#1a1a1a">'+
-    '<div class="letter-header">'+
-      '<div class="letter-sender">'+
-        '<div style="font-weight:700;font-size:13.5px;margin-bottom:3px">'+esc2(d.fname)+' '+esc2(d.lname)+'</div>'+
-        (d.addr?'<div style="color:#555;font-size:12.5px">'+esc2(d.addr)+'</div>':'')+
-        ((d.plz||d.pcity)?'<div style="color:#555;font-size:12.5px">'+esc2((d.plz?d.plz+' ':'')+d.pcity)+'</div>':'')+
-        (d.phone?'<div style="color:#555;font-size:12.5px">'+esc2(d.phone)+'</div>':'')+
-        (d.email?'<div style="color:#555;font-size:12.5px">'+esc2(d.email)+'</div>':'')+
-      '</div>'+
-      '<div class="letter-recipient">'+
-        '<div style="font-weight:700;font-size:13.5px;margin-bottom:3px">'+esc2(d.company)+'</div>'+
-        (d.aStreet?'<div style="color:#555;font-size:12.5px">'+esc2(d.aStreet)+'</div>':'')+
-        (d.city?'<div style="color:#555;font-size:12.5px">'+esc2(d.city)+'</div>':'')+
-      '</div>'+
-    '</div>'+
+  // Struktura e nje letre gjermane sipas DIN 5008: derguesi lart majtas, marresi poshte tij
+  // ne fushen e adreses (jo djathtas), data djathtas mbi subjektin, pastaj subjekti.
+  // Stilizimi vjen krejt nga .letter-page ne CSS, qe hapi 5, hapi 6 dhe PDF-i te jene identike.
+  var line=function(v){return '<div>'+esc2(v)+'</div>';};
+  var sender='';
+  if(d.addr) sender+=line(d.addr);
+  if(d.plz||d.pcity) sender+=line((d.plz?d.plz+' ':'')+(d.pcity||''));
+  if(d.phone) sender+=line(d.phone);
+  if(d.email) sender+=line(d.email);
+  var recipient='';
+  if(d.aStreet) recipient+=line(d.aStreet);
+  if(d.city) recipient+=line(d.city);
+  var name=esc2(d.fname)+' '+esc2(d.lname);
+  return '<div class="letter-page">'+
+    '<div class="letter-sender"><div class="letter-sender-name">'+name+'</div>'+sender+'</div>'+
+    '<div class="letter-recipient">'+line(d.company)+recipient+'</div>'+
     '<div class="letter-date">'+esc2(d.dateStr)+'</div>'+
-    '<div class="letter-subject">Bewerbung als '+esc2(d.position)+'</div><br>'+
-    '<p>Sehr geehrte Damen und Herren,</p>'+
-    bodyHTML+
-    '<p style="margin-bottom:6px;margin-top:32px">Mit freundlichen Grüßen</p>'+
-    '<div style="font-weight:700">'+esc2(d.fname)+' '+esc2(d.lname)+'</div>'+
+    '<div class="letter-subject">Bewerbung als '+esc2(d.position)+'</div>'+
+    '<p class="letter-salutation">Sehr geehrte Damen und Herren,</p>'+
+    '<div class="letter-body">'+bodyParagraphs.map(function(p){return '<p>'+esc2(p)+'</p>';}).join('')+'</div>'+
+    '<div class="letter-closing">Mit freundlichen Grüßen</div>'+
+    '<div class="letter-signature">'+name+'</div>'+
   '</div>';
 }
 
@@ -2599,6 +2577,7 @@ function renderAnschreibenFromBody(d, bodyParagraphs){
   var printSec=document.getElementById('anschreibenPrintSection');
   var printTxt=document.getElementById('anschreibenPrintText');
   if(printSec&&printTxt){printSec.classList.remove('hidden');printTxt.innerHTML=html;}
+  scaleLetterPreview();
 }
 
 // ===== Variantë e shpejtë (pa KI) — motor lokal me variacione =====
@@ -2662,25 +2641,29 @@ function generateAnschreibenAI(){
 // ===== Redaktimi manual i tekstit para eksportit =====
 function applyEditedAnschreiben(txt){
   anschreibenContent=txt;
-  document.getElementById('anschreibenText').textContent=txt;
   document.getElementById('anschreibenResult').classList.toggle('hidden',!txt.trim());
   var html=formatEditedLetterHTML(txt);
+  document.getElementById('anschreibenText').innerHTML=html;
   anschreibenHTMLFull=html;
   var printTxt=document.getElementById('anschreibenPrintText');
   var printSec=document.getElementById('anschreibenPrintSection');
   if(printTxt) printTxt.innerHTML=html;
   if(printSec) printSec.classList.toggle('hidden',!txt.trim());
+  scaleLetterPreview();
 }
 // Rikthen pamjen profesionale të letrës edhe pasi përdoruesi e ka redaktuar tekstin e lirë
 // (më parë letra e redaktuar dilte krejt pa stilizim). Njeh blloqet sipas përmbajtjes
 // (Bewerbung/Sehr geehrte/Mit freundlichen) — jo pozicione fikse — kështu që çdo bllok
 // i panjohur bie mbrapa te paragraf normal, pa u prishur kurrë vizualisht.
 function formatEditedLetterHTML(txt){
-  var FONT="'Georgia','Times New Roman',serif";
-  var wrap=function(inner){return '<div style="font-family:'+FONT+';font-size:13px;line-height:1.9;color:#1a1a1a">'+inner+'</div>';};
+  // Njeh blloqet sipas përmbajtjes (Bewerbung/Sehr geehrte/Mit freundlichen), jo sipas pozicionit,
+  // kështu që një bllok i panjohur bie mbrapa te paragraf normal pa u prishur pamja. Përdor të
+  // njëjtat klasa si buildAnschreibenHTML, që letra e redaktuar të duket identike me origjinalen.
+  var wrap=function(inner){return '<div class="letter-page">'+inner+'</div>';};
   var blocks=txt.split(/\n{2,}/).map(function(b){return b.trim();}).filter(Boolean);
   if(!blocks.length) return wrap('');
   function toLines(b){return esc2(b).split('\n').join('<br>');}
+  function divs(arr){return arr.map(function(l){return '<div>'+esc2(l)+'</div>';}).join('');}
 
   var subjectIdx=-1, greetIdx=-1, closingIdx=-1;
   blocks.forEach(function(b,i){
@@ -2693,40 +2676,41 @@ function formatEditedLetterHTML(txt){
   var senderIdx=0, recipientIdx=(subjectIdx>1||(subjectIdx===-1&&blocks.length>1))?1:-1;
   if(recipientIdx===1 && (recipientIdx===greetIdx||recipientIdx===closingIdx)) recipientIdx=-1;
 
-  function addBlockBold(i){
-    var lines=blocks[i].split('\n');
-    parts.push('<div style="margin-bottom:16px">'+
-      '<div style="font-weight:700;font-size:13.5px;margin-bottom:3px">'+esc2(lines[0])+'</div>'+
-      (lines.length>1?'<div style="color:#555;font-size:12.5px;line-height:1.6">'+lines.slice(1).map(esc2).join('<br>')+'</div>':'')+
-    '</div>');
+  if(blocks[senderIdx]!==undefined && senderIdx!==greetIdx && senderIdx!==closingIdx){
+    var sl=blocks[senderIdx].split('\n');
+    parts.push('<div class="letter-sender"><div class="letter-sender-name">'+esc2(sl[0])+'</div>'+divs(sl.slice(1))+'</div>');
   }
-  if(blocks[senderIdx]!==undefined && senderIdx!==greetIdx && senderIdx!==closingIdx) addBlockBold(senderIdx);
-  if(recipientIdx>-1 && blocks[recipientIdx]!==undefined) addBlockBold(recipientIdx);
+  if(recipientIdx>-1 && blocks[recipientIdx]!==undefined){
+    parts.push('<div class="letter-recipient">'+divs(blocks[recipientIdx].split('\n'))+'</div>');
+  }
 
-  // Blloqe të shkurtra (p.sh. data "Stuttgart, 05.09.2026") mes dërguesit/marrësit dhe subjektit.
+  // Blloqe njërreshtore mes marrësit dhe subjektit trajtohen si datë (p.sh. "Stuttgart, 08.09.2026").
   var scanFrom=Math.max(senderIdx,recipientIdx)+1;
   var scanTo=subjectIdx>-1?subjectIdx:Math.min(blocks.length,scanFrom+2);
   var dateIdxs=[];
   for(var i=scanFrom;i<scanTo;i++){ if(blocks[i].indexOf('\n')===-1) dateIdxs.push(i); }
-  dateIdxs.forEach(function(i){ parts.push('<div style="color:#777;font-size:12px;margin-bottom:18px">'+esc2(blocks[i])+'</div>'); });
+  dateIdxs.forEach(function(i){ parts.push('<div class="letter-date">'+esc2(blocks[i])+'</div>'); });
 
-  if(subjectIdx>-1){
-    parts.push('<div style="font-weight:700;font-size:13px;margin-bottom:18px;border-bottom:1px solid #111;padding-bottom:4px;display:inline-block">'+esc2(blocks[subjectIdx])+'</div><br>');
-  }
+  if(subjectIdx>-1) parts.push('<div class="letter-subject">'+esc2(blocks[subjectIdx])+'</div>');
+  if(greetIdx>-1) parts.push('<p class="letter-salutation">'+esc2(blocks[greetIdx])+'</p>');
 
-  var bodyStart=greetIdx>-1?greetIdx:(subjectIdx>-1?subjectIdx+1:scanTo);
+  var bodyStart=greetIdx>-1?greetIdx+1:(subjectIdx>-1?subjectIdx+1:scanTo);
   var bodyEnd=closingIdx>-1?closingIdx:blocks.length;
-  var handled={}; handled[senderIdx]=1; if(recipientIdx>-1)handled[recipientIdx]=1; dateIdxs.forEach(function(i){handled[i]=1;}); if(subjectIdx>-1)handled[subjectIdx]=1;
+  var handled={}; handled[senderIdx]=1; if(recipientIdx>-1)handled[recipientIdx]=1;
+  dateIdxs.forEach(function(i){handled[i]=1;}); if(subjectIdx>-1)handled[subjectIdx]=1; if(greetIdx>-1)handled[greetIdx]=1;
+  var body=[];
   for(var i=Math.max(bodyStart,0);i<bodyEnd;i++){
     if(handled[i])continue;
-    parts.push('<p style="margin:0 0 13px">'+toLines(blocks[i])+'</p>');
+    body.push('<p>'+toLines(blocks[i])+'</p>');
   }
+  if(body.length) parts.push('<div class="letter-body">'+body.join('')+'</div>');
 
   if(closingIdx>-1){
     var cl=blocks[closingIdx].split('\n');
-    parts.push('<p style="margin-bottom:6px;margin-top:32px">'+esc2(cl[0])+'</p>');
-    if(cl.length>1) parts.push('<div style="font-weight:700">'+cl.slice(1).map(esc2).join('<br>')+'</div>');
-    for(var i=closingIdx+1;i<blocks.length;i++){ parts.push('<div style="font-weight:700">'+toLines(blocks[i])+'</div>'); }
+    parts.push('<div class="letter-closing">'+esc2(cl[0])+'</div>');
+    var sig=cl.slice(1);
+    for(var i=closingIdx+1;i<blocks.length;i++){ sig=sig.concat(blocks[i].split('\n')); }
+    if(sig.length) parts.push('<div class="letter-signature">'+sig.map(esc2).join('<br>')+'</div>');
   }
   return wrap(parts.join(''));
 }
@@ -3272,6 +3256,24 @@ function fitCvToPage(finalPrint){
   // overflow:hidden për shkallëzimin mobile, ku një shtesë e tillë do të pritej/fshihej).
   if(finalPrint&&!el.classList.contains('cv-twopage'))fillA4Gap(preview,el);
 }
+// Shkallëzon çdo faqe A4 letre që të hyjë në gjerësinë e kontejnerit të vet, pa e ndryshuar
+// vetë dokumentin: përmasat mbeten 210×297mm, ndryshon vetëm sa i madh duket në ekran.
+// Kështu pamja në telefon është e njëjta faqe, thjesht më e vogël — jo një faqosje tjetër.
+function scaleLetterPreview(){
+  document.querySelectorAll('.letter-stage').forEach(function(stage){
+    var page=stage.querySelector('.letter-page');
+    if(!page){stage.style.height='';return;}
+    page.style.transform='';
+    stage.style.height='';
+    if(!stage.clientWidth)return;
+    var rect=page.getBoundingClientRect();
+    if(!rect.width||!rect.height)return;
+    page.classList.toggle('letter-multipage',rect.height>1124);
+    var scale=Math.min(1,stage.clientWidth/rect.width);
+    page.style.transform='scale('+scale+')';
+    stage.style.height=Math.ceil(rect.height*scale)+'px';
+  });
+}
 function scaleCvPreview(){
   var preview=document.getElementById('cvPreview'),inner=preview&&preview.firstElementChild;
   if(!inner||!preview.offsetWidth)return;
@@ -3291,10 +3293,10 @@ function scaleCvPreview(){
 var __cvResizeTimer;
 window.addEventListener('resize',function(){
   clearTimeout(__cvResizeTimer);
-  __cvResizeTimer=setTimeout(scaleCvPreview,150);
+  __cvResizeTimer=setTimeout(function(){scaleCvPreview();scaleLetterPreview();},150);
 });
 window.addEventListener('orientationchange',function(){
-  setTimeout(scaleCvPreview,250);
+  setTimeout(function(){scaleCvPreview();scaleLetterPreview();},250);
 });
 
 function photoImg(cls,style){
@@ -4968,8 +4970,8 @@ document.addEventListener('keydown',function(event){
     else if(!event.shiftKey&&(document.activeElement===last||!activeDialog.contains(document.activeElement))){event.preventDefault();first.focus();}
   }
 });
-document.fonts.ready.then(function(){if(document.getElementById('cvPreview').firstElementChild){fitCvToPage();scaleCvPreview();refreshLivePreview();}});
-window.addEventListener('afterprint',function(){scaleCvPreview();});
+document.fonts.ready.then(function(){if(document.getElementById('cvPreview').firstElementChild){fitCvToPage();scaleCvPreview();refreshLivePreview();}scaleLetterPreview();});
+window.addEventListener('afterprint',function(){scaleCvPreview();scaleLetterPreview();});
 checkPaymentAndPrint();
 
 </script>

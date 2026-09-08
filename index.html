@@ -2924,10 +2924,14 @@ function renderTimelineBlue(d){
     '</div>'+
   '</section>' : '';
 
-  var hobbyHtml = d.hobbies ? '<section style="margin-top:9mm">'+
+  var strengthHtml = skills2.length ? '<section style="margin-top:9mm">'+
+    '<h2 style="font-size:13px;margin:0 0 8px;color:'+INK+'">Persönliche Stärken</h2>'+
+    '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+skills2.map(esc).join(', ')+'</p>'+
+  '</section>' : '';
+  var hobbyHtml = strengthHtml + (d.hobbies ? '<section style="margin-top:9mm">'+
     '<h2 style="font-size:13px;margin:0 0 8px;color:'+INK+'">Interessen</h2>'+
     '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</p>'+
-  '</section>' : '';
+  '</section>' : '');
 
   return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:Arial,Helvetica,sans-serif;color:'+INK+';padding:18mm 17mm 16mm">'+
     '<div style="position:relative">'+
@@ -2999,6 +3003,7 @@ function renderEditorialRed(d){
     '<h2 style="font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Kenntnisse und Interessen</h2>'+
     (skills.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Kenntnisse:</strong> '+skills.map(function(s){var lv=skillLevel(s);return esc(skillName(s))+(lv?' ('+esc(lv)+')':'');}).join(', ')+'</div>':'')+
     (allLangs.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Sprachen:</strong> '+allLangs.map(function(l){return esc(l.name)+(l.level?' ('+esc(l.level)+')':'');}).join(', ')+'</div>':'')+
+    (skills2.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Persönliche Stärken:</strong> '+skills2.map(esc).join(', ')+'</div>':'')+
     (d.fuehrerschein?'<div style="font-size:9.5px"><strong>Führerschein:</strong> '+esc(d.fuehrerschein)+'</div>':'')+
   '</section>' : '';
 
@@ -3085,6 +3090,10 @@ function renderSidebarOrange(d){
     }).join('')+'</div>'
   ) : '';
 
+  var strengthsSide = skills2.length ? sideBlock('Persönliche Stärken',
+    '<div style="font-size:9.5px;color:#e7ebed;line-height:1.65">'+skills2.map(esc).join(', ')+'</div>'
+  ) : '';
+
   var langsSide = allLangs.length ? sideBlock('Sprachen',
     allLangs.map(function(l){
       return '<div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:9.5px"><span style="color:#e7ebed;font-weight:600">'+esc(l.name)+'</span><span style="color:'+LIGHT+'">'+esc(l.level)+'</span></div>';
@@ -3125,7 +3134,7 @@ function renderSidebarOrange(d){
           (profile.civil?'<div style="font-size:9.5px;color:#e7ebed;margin-bottom:5px">'+profile.civil+'</div>':'')+
           (profile.inDe?'<div style="font-size:9.5px;color:#e7ebed"><strong style="color:#fff;font-weight:600">In Deutschland seit:</strong> '+profile.inDe+'</div>':'')
         ):'')+
-        skillsSide+langsSide+extrasSide+
+        skillsSide+strengthsSide+langsSide+extrasSide+
       '</aside>'+
     '</div>'+
   '</div>';
@@ -3193,10 +3202,14 @@ function renderTimelineClean(d){
     (d.fuehrerschein?'<div style="margin-top:10px;font-size:9.5px;color:'+MUT+'"><strong style="color:'+INK+'">Führerschein:</strong> '+esc(d.fuehrerschein)+'</div>':'')+
   '</section>' : '';
 
-  var hobbyHtml = d.hobbies ? '<section style="margin-top:10mm">'+
+  var strengthHtml = skills2.length ? '<section style="margin-top:10mm">'+
+    sectionTitle('Persönliche Stärken')+
+    '<div style="font-size:9.5px;color:'+MUT+'">'+skills2.map(esc).join(', ')+'</div>'+
+  '</section>' : '';
+  var hobbyHtml = strengthHtml + (d.hobbies ? '<section style="margin-top:10mm">'+
     sectionTitle('Interessen')+
     '<div style="font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</div>'+
-  '</section>' : '';
+  '</section>' : '');
 
   return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:'+sans+';color:'+INK+'">'+
     '<div style="position:relative;padding:15mm 16mm 12mm;background:'+ACC2+';border-bottom:3px solid '+ACC+'">'+
@@ -3637,6 +3650,7 @@ function renderKlassisch(d, _fs, _mb){
   if(eduHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Ausbildung')+eduHtml+'</div>';
   if(skillHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Kenntnisse')+skillHtml+'</div>';
   if(langHtml) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Sprachen')+langHtml+'</div>';
+  if(skills2.length) blocks+='<div style="margin-bottom:'+secGap+'px">'+secLabel('Persönliche Stärken')+'<div style="font-size:12.5px;font-weight:500;color:'+ink+'">'+skills2.map(esc).join(', ')+'</div></div>';
   if(d.hobbies) blocks+='<div>'+secLabel('Interessen')+'<div style="font-size:12.5px;font-weight:500;color:'+ink+'">'+esc(d.hobbies)+'</div></div>';
 
   var padV = heavy ? '18mm' : '22mm';
@@ -3680,6 +3694,7 @@ function renderModern(d){
       (experiences.length?'<div style="margin-bottom:26px">'+sectionTitle('Berufserfahrung',accent)+renderExperienceItems(accent)+'</div>':'')+
       (educations.length?'<div style="margin-bottom:26px">'+sectionTitle('Ausbildung',accent)+renderEducationItems(accent)+'</div>':'')+
       (skills.length?'<div style="margin-bottom:26px">'+sectionTitle('Kenntnisse',accent)+renderSkillsList()+'</div>':'')+
+      (skills2.length?'<div style="margin-bottom:26px">'+sectionTitle('Persönliche Stärken',accent)+'<div style="font-size:13px;font-weight:500;color:#374151">'+skills2.map(esc).join(', ')+'</div></div>':'')+
       (d.hobbies?'<div>'+sectionTitle('Interessen',accent)+'<div style="font-size:13px;font-weight:500;color:#374151">'+esc(d.hobbies)+'</div></div>':'')+
     '</div>'+
   '</div>';
@@ -3917,6 +3932,14 @@ function renderBlue(d){
         '</div>'
       :'')+
 
+      (skills2.length?wnHead('Persönliche Stärken')+
+        '<div style="text-align:center">'+
+          skills2.map(function(t){
+            return '<div style="font-size:12px;font-weight:700;color:'+INK+';margin-bottom:4px">'+esc(t)+'</div>';
+          }).join('')+
+        '</div>'
+      :'')+
+
       (d.hobbies?wnHead('Interessen')+
         '<div style="text-align:center">'+
           d.hobbies.split(',').map(function(h){
@@ -3971,6 +3994,7 @@ function renderDark(d){
       (experiences.length?'<div style="margin-bottom:22px">'+sectionTitle('Berufserfahrung','#1e3a8a')+renderExperienceItems('#1e40af')+'</div>':'')+
       (educations.length?'<div style="margin-bottom:22px">'+sectionTitle('Ausbildung','#1e3a8a')+renderEducationItems('#1e40af')+'</div>':'')+
       (mainSkillHtml?'<div style="margin-bottom:22px">'+sectionTitle('Kenntnisse','#1e3a8a')+mainSkillHtml+'</div>':'')+
+      (skills2.length?'<div style="margin-bottom:22px">'+sectionTitle('Persönliche Stärken','#1e3a8a')+'<div style="font-size:12px;font-weight:700;color:#1f2937">'+skills2.map(esc).join(', ')+'</div></div>':'')+
       (d.hobbies?'<div>'+sectionTitle('Interessen','#1e3a8a')+'<div style="font-size:12px;font-weight:700;color:#1f2937">'+esc(d.hobbies)+'</div></div>':'')+
     '</div>'+
   '</div>';
@@ -4089,6 +4113,12 @@ function renderMinimal(d){
             '<div style="margin-bottom:14px">'+
               '<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:'+MUTED+';font-weight:600;margin-bottom:4px">Führerschein</div>'+
               '<div style="font-size:11px;color:'+INK+'">'+esc(d.fuehrerschein)+'</div>'+
+            '</div>'
+          :'')+
+          (skills2.length?
+            '<div>'+
+              '<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:'+MUTED+';font-weight:600;margin-bottom:4px">Persönliche Stärken</div>'+
+              '<div style="font-size:11px;color:'+MUTED+'">'+skills2.map(esc).join(', ')+'</div>'+
             '</div>'
           :'')+
           (d.hobbies?
@@ -4498,8 +4528,17 @@ function renderTabellarisch(d){
   }
 
   var hobbyRows='';
+  if(skills2.length){
+    hobbyRows+=tabSection('Persönliche Stärken')+
+      tabRow('',
+        '<div style="font-size:13px;color:#333">'+
+          skills2.map(function(t){
+            return '<div style="margin-bottom:3px"><strong>'+esc(t)+'</strong></div>';
+          }).join('')+
+        '</div>');
+  }
   if(d.hobbies){
-    hobbyRows=tabSection('Interessen')+
+    hobbyRows+=tabSection('Interessen')+
       tabRow('',
         '<div style="font-size:13px;color:#333">'+
           d.hobbies.split(',').map(function(h){
@@ -4651,6 +4690,9 @@ function renderDarkElegant(d,sp){
         }).join('')+
       '</div>':'')+
       (mainSkillHtml?'<div style="margin-bottom:'+px(24)+'">'+mLabel('Kenntnisse')+mainSkillHtml+'</div>':'')+
+      (skills2.length?'<div style="margin-bottom:'+px(24)+'">'+mLabel('Persönliche Stärken')+
+        '<div style="font-size:11.5px;color:'+inkSoft+';line-height:1.7">'+skills2.map(esc).join(', ')+'</div>'+
+      '</div>':'')+
       (d.hobbies?'<div>'+mLabel('Interessen')+
         '<div style="font-size:11.5px;color:'+inkSoft+';line-height:1.7">'+esc(d.hobbies)+'</div>'+
       '</div>':'')+
@@ -4787,6 +4829,8 @@ function renderCormorant(d){
       // Languages
       (langHtml?'<div style="margin-bottom:24px">'+sLabel('Sprachen')+langHtml+'</div>':'')+
       // Hobbies
+      (skills2.length?'<div style="margin-bottom:24px">'+sLabel('Persönliche Stärken')+
+        '<div style="font-size:11.5px;color:#e7ebed;line-height:1.7">'+skills2.map(esc).join(', ')+'</div></div>':'')+
       (hobbyHtml?'<div>'+sLabel('Interessen')+'<div style="display:flex;flex-wrap:wrap;gap:6px">'+hobbyHtml+'</div></div>':'')+
     '</div>';
 

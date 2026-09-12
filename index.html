@@ -274,6 +274,11 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
   font-size:12.5px;line-height:1.7;color:var(--gray5);
 }
 .info-hint strong{display:block;margin-bottom:3px;font-size:12.5px;color:var(--text)}
+.edu-help-head{margin:10px 0 4px;font-weight:600}
+.edu-help-list{margin:0;padding-left:18px;line-height:1.55}
+.edu-help-list li{margin:3px 0;overflow-wrap:break-word}
+.edu-help-fields{margin-top:10px;line-height:1.6}
+.edu-help-key{font-weight:600}
 .entry-card:hover{border-color:var(--red);background:#fff;box-shadow:0 4px 16px rgba(200,16,46,0.08)}
 .entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .entry-num{font-size:10.5px;font-weight:700;color:var(--red);background:transparent;border:1px solid #f3d2d8;padding:4px 13px;border-radius:20px;letter-spacing:.5px;font-family:var(--font-ui);text-transform:uppercase}
@@ -1550,6 +1555,18 @@ html.theme-dark{background:#12151c;color-scheme:dark}
       <div class="info-hint">
         <strong>Çfarë duhet të shkruani këtu?</strong>
         Vendosni shkollimin, Ausbildung-un ose studimet tuaja, duke filluar nga më i fundit. Shkolla fillore zakonisht nuk është e nevojshme në CV.
+        <div class="edu-help-head">Shembuj:</div>
+        <ul class="edu-help-list">
+          <li>Shkollë e mesme → weiterführende Schule / shkruani emrin origjinal të shkollës</li>
+          <li>Gjimnaz → Gymnasium</li>
+          <li>Shkollë profesionale → Berufsschule</li>
+          <li>Fakultet / Universitet → Universität / Hochschule</li>
+          <li>Ausbildung → p.sh. Ausbildung zum Fachinformatiker für Systemintegration</li>
+        </ul>
+        <div class="edu-help-fields">
+          Te <span class="edu-help-key">‘Institucioni arsimor’</span> shkruani emrin e shkollës ose universitetit.<br>
+          Te <span class="edu-help-key">‘Drejtimi / Kualifikimi’</span> shkruani drejtimin, profesionin ose diplomën e përfunduar.
+        </div>
       </div>
       <div id="eduList"></div>
       <button class="add-entry-btn" onclick="addEdu()">+ Shto shkollim (Ausbildung hinzufügen)</button>
@@ -2423,8 +2440,8 @@ function renderEduList(){
     '<div class="entry-header"><span class="entry-num">Arsimi '+(i+1)+'</span>'+
     '<button class="btn-del" onclick="removeEdu('+e.id+')">✕ Hiq</button></div>'+
     '<div class="form-grid">'+
-    '<div class="field"><label>Institucioni arsimor <span>(Schule / Universität)</span></label><input value="'+esc(e.school)+'" oninput="updateEdu('+e.id+',\'school\',this.value)" placeholder="p.sh. Berufsschule Stuttgart"/></div>'+
-    '<div class="field"><label>Drejtimi / Kualifikimi <span>(Ausbildung / Studiengang / Abschluss)</span></label><input value="'+esc(e.degree)+'" oninput="updateEdu('+e.id+',\'degree\',this.value)" placeholder="p.sh. Fachinformatiker für Systemintegration"/></div>'+
+    '<div class="field"><label>Institucioni arsimor <span>(Schule / Universität)</span></label><input value="'+esc(e.school)+'" oninput="updateEdu('+e.id+',\'school\',this.value)" placeholder="p.sh. Berufsschule Stuttgart / Gymnasium Prishtina"/></div>'+
+    '<div class="field"><label>Drejtimi / Kualifikimi <span>(Ausbildung / Studiengang / Abschluss)</span></label><input value="'+esc(e.degree)+'" oninput="updateEdu('+e.id+',\'degree\',this.value)" placeholder="p.sh. Fachinformatiker für Systemintegration / Abitur"/></div>'+
     '<div class="field"><label>Nga <span>(Von)</span></label><input value="'+esc(e.from)+'" inputmode="numeric" oninput="formatMonthYearInput(this);updateEdu('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ"/></div>'+
     '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="formatMonthYearInput(this);updateEdu('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose aktualisht"/></div>'+
         '</div></div>';}).join('');

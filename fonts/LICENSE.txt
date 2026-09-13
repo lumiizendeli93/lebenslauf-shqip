@@ -1,14 +1,28 @@
-Fontet e perdorura nga lebenslauf-shqip.de (modeli "Tirana")
+Fontet e perdorura nga lebenslauf-shqip.de
 =========================================================
 
 Keta skedare jane te paleve te treta dhe shperndahen sipas SIL Open Font
-License 1.1. Teksti i plote i licences eshte me poshte.
+License 1.1. Ne CSS familjet mbajne emra alias ("CV Serif" etj.), jo emrat
+origjinale: keta jane versione te shkurtuara, dhe OFL nuk lejon qe nje version
+i modifikuar te mbaje nje Reserved Font Name. Teksti i plote i licences eshte me poshte.
 
   montserrat-latin.woff2, montserrat-latin-ext.woff2
   Copyright 2024 The Montserrat.Git Project Authors (https://github.com/JulietaUla/Montserrat.git)
 
   inter-latin.woff2, inter-latin-ext.woff2
   Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+
+  playfair-display-latin.woff2, playfair-display-latin-ext.woff2
+  Copyright 2017 The Playfair Display Project Authors (https://github.com/clauseggers/Playfair-Display), with Reserved Font Name "Playfair Display"
+
+  lato-400-latin.woff2, lato-400-latin-ext.woff2, lato-700-latin.woff2, lato-700-latin-ext.woff2
+  Copyright (c) 2010-2014 by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato"
+
+  dm-serif-display-latin.woff2, dm-serif-display-latin-ext.woff2
+  Copyright 2014-2018 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe in the United States and/or other countries. Copyright 2019 Google LLC.
+
+  dm-sans-latin.woff2, dm-sans-latin-ext.woff2
+  Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
 
 ---------------------------------------------------------
 

@@ -21,9 +21,6 @@ i modifikuar te mbaje nje Reserved Font Name. Teksti i plote i licences eshte me
   dm-serif-display-latin.woff2, dm-serif-display-latin-ext.woff2
   Copyright 2014-2018 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe in the United States and/or other countries. Copyright 2019 Google LLC.
 
-  dm-sans-latin.woff2, dm-sans-latin-ext.woff2
-  Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
-
 ---------------------------------------------------------
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.

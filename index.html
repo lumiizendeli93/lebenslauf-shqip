@@ -118,14 +118,26 @@
   font-weight:400;font-style:normal;font-display:swap;
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
+/* Trupi i çiftit editorial: Lato, jo DM Sans — DM Sans në 11–13px në ekran dukej i butë.
+   Të njëjtët skedarë si 'CV Serif Text'; shfletuesi i ngarkon vetëm një herë. */
 @font-face{
-  font-family:'CV Editorial Text';src:url('/fonts/dm-sans-latin.woff2') format('woff2');
-  font-weight:100 900;font-style:normal;font-display:swap;
+  font-family:'CV Editorial Text';src:url('/fonts/lato-400-latin.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
-  font-family:'CV Editorial Text';src:url('/fonts/dm-sans-latin-ext.woff2') format('woff2');
-  font-weight:100 900;font-style:normal;font-display:swap;
+  font-family:'CV Editorial Text';src:url('/fonts/lato-400-latin-ext.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'CV Editorial Text';src:url('/fonts/lato-700-latin.woff2') format('woff2');
+  font-weight:700;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'CV Editorial Text';src:url('/fonts/lato-700-latin-ext.woff2') format('woff2');
+  font-weight:700;font-style:normal;font-display:swap;
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3110,7 +3122,7 @@ function renderEditorialRed(d){
 // ===================================================================
 function renderSidebarOrange(d){
   var DARK='#28343d', ORANGE='#f0a23a', LIGHT='#aebac1', HAIR='rgba(255,255,255,0.14)', INK='#1f2933', MUT='#6b7580';
-  var sans="'CV Editorial Text','DM Sans',Arial,sans-serif";
+  var sans="'CV Editorial Text','Lato',Arial,sans-serif";
   var serif="'CV Editorial','DM Serif Display',Georgia,serif";
   var profile=buildProfileItems(d);
   var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
@@ -3214,7 +3226,7 @@ function renderSidebarOrange(d){
 // ===================================================================
 function renderTimelineClean(d){
   var ACC='#4f95ab', ACC2='#e8f2f4', INK='#1c2a30', MUT='#647178', TRACK='#c3dee4';
-  var sans="'CV Editorial Text','DM Sans',Arial,sans-serif";
+  var sans="'CV Editorial Text','Lato',Arial,sans-serif";
   var serif="'CV Editorial','DM Serif Display',Georgia,serif";
   var profile=buildProfileItems(d);
   var addrFull=[(d.addr||''),(d.plz||d.city?(d.plz?d.plz+' ':'')+d.city:'')].filter(Boolean).join(', ');
@@ -3743,7 +3755,7 @@ function renderKlassisch(d, _fs, _mb){
 
 function renderModern(d){
   var accent='#1e3a5f', sideBg='#1e2d3d', ink='#111827', muted='#6b7280';
-  var ui="'CV Editorial Text','DM Sans',Arial,sans-serif";
+  var ui="'CV Editorial Text','Lato',Arial,sans-serif";
   var disp="'CV Editorial','DM Serif Display',Georgia,serif";
   var profile=profileList(d);
   var allLangs=langs.filter(function(l){return l.name;});
@@ -4487,16 +4499,16 @@ function renderTabellarisch(d){
   var goldLight='#f5eedc';
 
   // PAGE 1 — Deckblatt modern: ari vetëm si theks, hapësira të ekuilibruara
-  function pLabel(t){return '<div style="font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'CV Editorial Text\',\'DM Sans\',Arial,sans-serif">'+t+'</div>';}
+  function pLabel(t){return '<div style="font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">'+t+'</div>';}
   var page1 =
-    '<div style="page-break-after:always;font-family:\'CV Editorial Text\',\'DM Sans\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
+    '<div style="page-break-after:always;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
 
         // ── LEFT COLUMN — shpërndarje vertikale që faqja të duket e mbushur
         '<div style="padding:72px 24px 56px 52px;display:flex;flex-direction:column;justify-content:flex-start">'+
 
           // TOP — eyebrow + emri (Playfair)
           '<div>'+
-            '<div style="font-size:12px;font-weight:700;color:'+gold+';margin-bottom:18px;letter-spacing:6px;text-transform:uppercase;font-family:\'CV Editorial Text\',\'DM Sans\',Arial,sans-serif">Lebenslauf</div>'+
+            '<div style="font-size:12px;font-weight:700;color:'+gold+';margin-bottom:18px;letter-spacing:6px;text-transform:uppercase;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">Lebenslauf</div>'+
             '<div style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:46px;font-weight:400;color:#1a1a1a;line-height:1.1;letter-spacing:0">'+esc(d.fname)+'<br><span style="font-weight:800">'+esc(d.lname)+'</span></div>'+
             (d.job?'<div style="font-size:12.5px;font-weight:600;color:#8a8378;letter-spacing:3px;text-transform:uppercase;margin-top:14px">'+esc(d.job)+'</div>':'')+
             '<div style="width:64px;height:2px;background:'+gold+';margin-top:24px"></div>'+
@@ -4629,7 +4641,7 @@ function renderTabellarisch(d){
   }
 
   var page2 =
-    '<div style="font-family:\'CV Editorial Text\',\'DM Sans\',Arial,sans-serif;background:#fff;color:#222;padding:44px 60px;font-size:13px;line-height:1.75;width:210mm;box-sizing:border-box">'+
+    '<div style="font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;padding:44px 60px;font-size:13px;line-height:1.75;width:210mm;box-sizing:border-box">'+
       '<table style="width:100%;border-collapse:collapse">'+
         '<tbody>'+expRows+eduRows+kennRows+hobbyRows+'</tbody>'+
       '</table>'+
@@ -4929,7 +4941,7 @@ function renderCormorant(d){
       (skillHtml?'<div>'+mLabel('Kenntnisse')+skillHtml+'</div>':'')+
     '</div>';
 
-  return '<div style="width:210mm;min-height:297mm;display:grid;grid-template-columns:240px 1fr;align-items:stretch;background:'+sidebar+';box-sizing:border-box;font-family:\'CV Editorial Text\',\'DM Sans\',Arial,sans-serif">'+
+  return '<div style="width:210mm;min-height:297mm;display:grid;grid-template-columns:240px 1fr;align-items:stretch;background:'+sidebar+';box-sizing:border-box;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">'+
     sidebarHTML+mainHTML+
   '</div>';
 }

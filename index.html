@@ -1097,6 +1097,7 @@ body.payment-verified label[for="widerrufCheck"]{display:none!important}
 .live-fab{bottom:calc(18px + env(safe-area-inset-bottom))}
 .consent-note{display:flex;gap:10px;margin-top:16px;text-transform:none;letter-spacing:0;font-weight:400;font-size:13px;line-height:1.6}
 .consent-note input{width:18px;flex-shrink:0;margin-top:4px}
+.field-hint{font-size:12px;color:var(--gray4);line-height:1.5;margin-top:6px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .skip-link{position:fixed;top:8px;left:8px;z-index:10001;transform:translateY(-160%);background:#fff;color:#111;padding:12px}
 .skip-link:focus{transform:none}
@@ -2532,6 +2533,10 @@ function renderExpList(){
     '<div class="field"><label>Vendndodhja <span>(Ort)</span></label><input value="'+esc(e.location)+'" oninput="updateExp('+e.id+',\'location\',this.value)" placeholder="z.B. Stuttgart"/></div>'+
     '<div class="field"><label>Nga <span>(Von) *</span></label><input value="'+esc(e.from)+'" inputmode="numeric" oninput="formatMonthYearInput(this);updateExp('+e.id+',\'from\',this.value)" placeholder="MM/JJJJ z.B. 01/2022"/></div>'+
     '<div class="field"><label>Deri <span>(Bis)</span></label><input value="'+esc(e.to)+'" oninput="formatMonthYearInput(this);updateExp('+e.id+',\'to\',this.value)" placeholder="MM/JJJJ ose Aktuell"/></div>'+
+    '<div class="field" style="grid-column:1/-1"><label>Detyrat <span>(Aufgaben — optional)</span></label>'+
+      '<textarea oninput="updateExp('+e.id+',\'desc\',this.value)" placeholder="z. B. Führung und Einarbeitung von Mitarbeitenden">'+esc(e.desc||'')+'</textarea>'+
+      '<div class="field-hint">Shkruani çdo detyrë në një rresht të ri.</div>'+
+    '</div>'+
     '</div>'+
     '</div>';}).join('');
 }
@@ -2969,7 +2974,7 @@ function renderTimelineBlue(d){
       '<div style="padding-bottom:6px">'+
         '<h4 style="margin:0 0 3px;font-size:10.5px;color:'+INK+'">'+title+'</h4>'+
         (sub?'<p style="margin:2px 0;font-size:9.5px;color:'+MUT+'">'+sub+'</p>':'')+
-        (desc?'<p style="margin:2px 0;font-size:9.5px;line-height:1.5;color:'+MUT+'">'+desc+'</p>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -2977,7 +2982,7 @@ function renderTimelineBlue(d){
   var expHtml = experiences.length ? '<section style="margin-top:9mm">'+
     '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Berufserfahrung</h2>'+
     experiences.map(function(e,i){
-      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'9.5px',color:MUT,lh:'1.5',top:'2px'}),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
@@ -3060,7 +3065,7 @@ function renderEditorialRed(d){
       '<div style="padding-bottom:6px">'+
         '<h4 style="margin:0 0 2px;font-size:10.5px">'+title+'</h4>'+
         (sub?'<p style="margin:2px 0;font-size:9.5px;color:'+MUT+'">'+sub+'</p>':'')+
-        (desc?'<p style="margin:2px 0;font-size:9.5px;line-height:1.5;color:'+MUT+'">'+desc+'</p>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -3068,7 +3073,7 @@ function renderEditorialRed(d){
   var expHtml = experiences.length ? '<section style="margin-top:10mm">'+
     '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Berufserfahrung</h2>'+
     experiences.map(function(e,i){
-      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+      return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'9.5px',color:MUT,lh:'1.5',top:'2px'}),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
@@ -3132,7 +3137,7 @@ function renderSidebarOrange(d){
       '<div style="font-size:9px;font-weight:700;color:'+ORANGE+';letter-spacing:.3px;margin-bottom:2px">'+date+'</div>'+
       '<strong style="display:block;color:'+INK+';font-size:11.5px;font-family:'+serif+'">'+title+'</strong>'+
       (sub?'<span style="display:block;color:'+MUT+';font-weight:600;margin-top:1px">'+sub+'</span>':'')+
-      (desc?'<div style="color:'+MUT+';margin-top:4px">'+desc+'</div>':'')+
+      desc+
     '</div>';
   }
   function sectionTitleMain(t){
@@ -3152,7 +3157,7 @@ function renderSidebarOrange(d){
   var expHtml = experiences.length ? '<section style="margin:0 0 9mm">'+
     sectionTitleMain('Berufserfahrung')+
     experiences.map(function(e,i){
-      return mainEntry(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',i===experiences.length-1);
+      return mainEntry(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{color:MUT,top:'4px'}),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
@@ -3250,7 +3255,7 @@ function renderTimelineClean(d){
       '<div style="padding-bottom:2px">'+
         '<h4 style="font-size:11px;font-weight:700;margin:0 0 2px;color:'+INK+'">'+title+'</h4>'+
         (sub?'<p style="font-size:9.5px;margin:0 0 3px;color:'+ACC+';font-weight:600">'+sub+'</p>':'')+
-        (desc?'<p style="font-size:9.5px;margin:0;line-height:1.55;color:'+MUT+'">'+desc+'</p>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -3258,7 +3263,7 @@ function renderTimelineClean(d){
   var expHtml = experiences.length ? '<section style="margin-top:10mm">'+
     sectionTitle('Berufserfahrung')+
     experiences.map(function(e,i){
-      return tlRow(esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'',formatRange(e.from,e.to),i===experiences.length-1);
+      return tlRow(esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'9.5px',color:MUT,lh:'1.55'}),formatRange(e.from,e.to),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
@@ -3557,6 +3562,27 @@ function sectionTitle(title, color){
   return '<div style="font-family:var(--cv-disp,inherit);font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:'+color+';margin-bottom:11px;padding-bottom:7px;border-bottom:2px solid '+color+'">'+title+'</div>';
 }
 
+// Fusha "Detyrat": çdo rresht bëhet një pikë. Rreshtat bosh injorohen dhe, kur s'mbetet
+// asnjë, kthehet varg bosh që modeli të mos lërë hapësirë të zbrazët.
+function taskBullets(desc,opt){
+  if(!desc) return '';
+  var rows=String(desc).split('\n').map(function(l){return l.trim();}).filter(Boolean);
+  if(!rows.length) return '';
+  var o=opt||{};
+  var size=o.size?'font-size:'+o.size+';':'';
+  var weight=o.weight?'font-weight:'+o.weight+';':'';
+  var color=o.color||'#4b5563';
+  var lh=o.lh||'1.6';
+  var mark=o.mark||'•';
+  var markColor=o.markColor||color;
+  var gap=o.gap||'3px';
+  return '<div'+(o.top?' style="margin-top:'+o.top+'"':'')+'>'+rows.map(function(l,i){
+    return '<div style="display:flex;gap:7px;'+size+weight+'color:'+color+';line-height:'+lh+(i?';margin-top:'+gap:'')+'">'+
+      '<span style="flex-shrink:0;color:'+markColor+'">'+mark+'</span>'+
+      '<span style="min-width:0;overflow-wrap:break-word">'+esc(l)+'</span>'+
+    '</div>';
+  }).join('')+'</div>';
+}
 function formatRange(from,to){
   if(from && to) return esc(from)+' – '+esc(to);
   return esc(from || to || '');
@@ -3590,7 +3616,7 @@ function renderExperienceItems(accent){
       '<div>'+
         '<div style="font-family:inherit;font-size:13px;font-weight:700;color:#111827">'+esc(e.role || '')+'</div>'+
         '<div style="font-size:12px;color:'+accent+';font-weight:700;margin-top:2px">'+esc(e.company || '')+(e.location?' · '+esc(e.location):'')+'</div>'+
-        (e.desc?'<div style="font-size:11.5px;color:#4b5563;margin-top:5px;line-height:1.6">'+esc(e.desc)+'</div>':'')+
+        taskBullets(e.desc,{size:'11.5px',color:'#4b5563',lh:'1.6',top:'5px'})+
       '</div>'+
     '</div>';
   }).join('');
@@ -3662,13 +3688,13 @@ function renderKlassisch(d, _fs, _mb){
         '<div style="position:absolute;left:-5.25px;top:3px;width:9px;height:9px;border-radius:50%;background:'+accent+';box-shadow:0 0 0 3px #fff,0 0 0 4px '+hair+'"></div>'+
         '<div style="font-size:'+(fs+0.5)+'px;font-weight:700;color:'+ink+';line-height:1.3">'+title+'</div>'+
         (org?'<div style="font-size:'+(fs-1)+'px;font-weight:600;color:'+accent+';margin-top:2px">'+org+'</div>':'')+
-        (desc?'<div style="font-size:'+(fs-1.5)+'px;font-weight:400;color:#5b626e;line-height:1.6;margin-top:5px">'+desc+'</div>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
 
   var expHtml=experiences.map(function(e,i){
-    return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.role||''), esc(e.company||'')+(e.location?' · '+esc(e.location):''), e.desc?esc(e.desc):'', i===experiences.length-1);
+    return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.role||''), esc(e.company||'')+(e.location?' · '+esc(e.location):''), taskBullets(e.desc,{size:(fs-1.5)+'px',weight:'400',color:'#5b626e',lh:'1.6',top:'5px'}), i===experiences.length-1);
   }).join('');
   var eduHtml=educations.map(function(e,i){
     return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.degree||''), esc(e.school||''), '', i===educations.length-1);
@@ -3814,7 +3840,7 @@ function renderKreativ(d){
       '<div style="min-width:0">'+
         '<div style="font-size:13px;font-weight:600;color:'+ink+';line-height:1.35;overflow-wrap:break-word">'+title+'</div>'+
         (org?'<div style="font-size:11.8px;font-weight:500;color:'+accent+';margin-top:2px;overflow-wrap:break-word">'+org+'</div>':'')+
-        (desc?'<div style="font-size:11.5px;font-weight:400;color:#4b5563;line-height:1.6;margin-top:5px">'+desc+'</div>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -3854,7 +3880,7 @@ function renderKreativ(d){
   // ---------- Përmbajtja ----------
   var expHtml = experiences.length ? experiences.map(function(e,i){
     return entry(formatRange(e.from,e.to).replace(' – ','<br>'), esc(e.role||''),
-      esc(e.company||'')+(e.location?' · '+esc(e.location):''), e.desc?esc(e.desc):'', i===experiences.length-1);
+      esc(e.company||'')+(e.location?' · '+esc(e.location):''), taskBullets(e.desc,{size:'11.5px',weight:'400',color:'#4b5563',lh:'1.6',top:'5px'}), i===experiences.length-1);
   }).join('') : '';
 
   var eduHtml = educations.length ? educations.map(function(e,i){
@@ -3949,7 +3975,7 @@ function renderBlue(d){
       '<div>'+
         '<div style="font-size:13px;font-weight:700;color:'+INK+';font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif">'+title+'</div>'+
         (sub?'<div style="font-size:11px;color:'+MUTED+';font-style:italic;margin-top:2px">'+sub+'</div>':'')+
-        (desc?'<div style="font-size:11px;color:'+MUTED+';margin-top:5px;line-height:1.7">'+desc+'</div>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -3985,7 +4011,7 @@ function renderBlue(d){
 
       (experiences.length?wnHead('Berufserfahrung')+
         experiences.map(function(e){
-          return wnRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),esc(e.desc||''));
+          return wnRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'11px',color:MUTED,lh:'1.7',top:'5px'}));
         }).join('')
       :'')+
 
@@ -4853,7 +4879,7 @@ function renderCormorant(d){
           '<div style="font-size:10px;font-weight:400;color:'+accent+';white-space:nowrap;letter-spacing:.5px">'+formatRange(e.from,e.to)+'</div>'+
         '</div>'+
         '<div style="font-size:11.5px;font-weight:300;color:#8a8a8a;font-style:italic;margin-bottom:5px">'+esc(e.company||'')+(e.location?' · '+esc(e.location):'')+'</div>'+
-        (e.desc?'<div style="font-size:12px;font-weight:300;color:#4a4a4a;line-height:1.65">'+esc(e.desc)+'</div>':'')+
+        taskBullets(e.desc,{size:'12px',weight:'300',color:'#4a4a4a',lh:'1.65'})+
       '</div>';
     }).join('');
   }
@@ -5050,7 +5076,7 @@ function renderRedClassic(d){
         '<div style="position:absolute;left:-5.25px;top:3px;width:9px;height:9px;border-radius:50%;background:'+red+';box-shadow:0 0 0 3px #fff,0 0 0 4px '+hair+'"></div>'+
         '<div style="font-size:13.5px;font-weight:600;color:'+ink+';line-height:1.35;margin-bottom:3px;overflow-wrap:break-word">'+title+'</div>'+
         (org?'<div style="font-size:12px;font-weight:500;color:'+redSoft+';margin-bottom:'+(desc?'6px':'0')+';overflow-wrap:break-word">'+org+'</div>':'')+
-        (desc?'<div style="font-size:12px;font-weight:400;color:#544c48;line-height:1.6">'+desc+'</div>':'')+
+        desc+
       '</div>'+
     '</div>';
   }
@@ -5059,7 +5085,7 @@ function renderRedClassic(d){
   if(experiences.length){
     expHtml=experiences.map(function(e,i){
       var dateStr=formatRange(e.from,e.to).replace(' – ','<br>');
-      return makeEntry(dateStr,esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),e.desc?esc(e.desc):'', i===experiences.length-1);
+      return makeEntry(dateStr,esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'12px',weight:'400',color:'#544c48',lh:'1.6'}), i===experiences.length-1);
     }).join('');
   }
 

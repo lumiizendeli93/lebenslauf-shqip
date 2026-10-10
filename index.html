@@ -2982,14 +2982,14 @@ function renderTimelineBlue(d){
   }
 
   var expHtml = experiences.length ? '<section style="margin-top:9mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Berufserfahrung</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Berufserfahrung</h2>'+
     experiences.map(function(e,i){
       return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'9.5px',color:MUT,lh:'1.5',top:'2px'}),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
   var eduHtml = educations.length ? '<section style="margin-top:9mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Ausbildung</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Ausbildung</h2>'+
     educations.map(function(e,i){
       return tlRow(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'',i===educations.length-1);
     }).join('')+
@@ -2997,7 +2997,7 @@ function renderTimelineBlue(d){
 
   var allLangs=langs.filter(function(l){return l.name;});
   var skillsHtml = (skills.length||allLangs.length||d.fuehrerschein) ? '<section style="margin-top:9mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Kenntnisse und Sprachen</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 10px;color:'+INK+'">Kenntnisse und Sprachen</h2>'+
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:9mm;font-size:9.5px">'+
       (skills.length?'<div>'+skills.map(function(s){
         var lv=skillLevel(s);
@@ -3013,11 +3013,11 @@ function renderTimelineBlue(d){
   '</section>' : '';
 
   var strengthHtml = skills2.length ? '<section style="margin-top:9mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 8px;color:'+INK+'">Persönliche Stärken</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 8px;color:'+INK+'">Persönliche Stärken</h2>'+
     '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+skills2.map(esc).join(', ')+'</p>'+
   '</section>' : '';
   var hobbyHtml = strengthHtml + (d.hobbies ? '<section style="margin-top:9mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 8px;color:'+INK+'">Interessen</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:13px;margin:0 0 8px;color:'+INK+'">Interessen</h2>'+
     '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</p>'+
   '</section>' : '');
 
@@ -3073,14 +3073,14 @@ function renderEditorialRed(d){
   }
 
   var expHtml = experiences.length ? '<section style="margin-top:10mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Berufserfahrung</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Berufserfahrung</h2>'+
     experiences.map(function(e,i){
       return tlRow(formatRange(e.from,e.to),esc(e.role||''),esc(e.company||'')+(e.location?' · '+esc(e.location):''),taskBullets(e.desc,{size:'9.5px',color:MUT,lh:'1.5',top:'2px'}),i===experiences.length-1);
     }).join('')+
   '</section>' : '';
 
   var eduHtml = educations.length ? '<section style="margin-top:10mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Ausbildung</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Ausbildung</h2>'+
     educations.map(function(e,i){
       return tlRow(formatRange(e.from,e.to),esc(e.degree||''),esc(e.school||''),'',i===educations.length-1);
     }).join('')+
@@ -3088,7 +3088,7 @@ function renderEditorialRed(d){
 
   var allLangs=langs.filter(function(l){return l.name;});
   var skillsHtml = (skills.length||allLangs.length||d.fuehrerschein) ? '<section style="margin-top:10mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Kenntnisse und Interessen</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 9px">Kenntnisse und Interessen</h2>'+
     (skills.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Kenntnisse:</strong> '+skills.map(function(s){var lv=skillLevel(s);return esc(skillName(s))+(lv?' ('+esc(lv)+')':'');}).join(', ')+'</div>':'')+
     (allLangs.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Sprachen:</strong> '+allLangs.map(function(l){return esc(l.name)+(l.level?' ('+esc(l.level)+')':'');}).join(', ')+'</div>':'')+
     (skills2.length?'<div style="margin-bottom:6px;font-size:9.5px"><strong>Persönliche Stärken:</strong> '+skills2.map(esc).join(', ')+'</div>':'')+
@@ -3096,7 +3096,7 @@ function renderEditorialRed(d){
   '</section>' : '';
 
   var hobbyHtml = d.hobbies ? '<section style="margin-top:10mm">'+
-    '<h2 style="font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px">Interessen</h2>'+
+    '<h2 class="cv-sec-head" style="break-after:avoid;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px">Interessen</h2>'+
     '<p style="margin:0;font-size:9.5px;color:'+MUT+'">'+esc(d.hobbies)+'</p>'+
   '</section>' : '';
 
@@ -3143,13 +3143,13 @@ function renderSidebarOrange(d){
     '</div>';
   }
   function sectionTitleMain(t){
-    return '<div style="break-after:avoid;display:flex;align-items:center;gap:9px;margin-bottom:10px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:9px;margin-bottom:10px">'+
       '<span style="width:5px;height:5px;border-radius:50%;background:'+ORANGE+';flex-shrink:0"></span>'+
       '<h2 style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:13.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin:0;color:'+INK+'">'+t+'</h2>'+
     '</div>';
   }
   function sideBlock(title,body){
-    return '<div style="break-after:avoid;margin-bottom:9mm">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;margin-bottom:9mm">'+
       '<div style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:9.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:'+ORANGE+';margin-bottom:8px">'+title+'</div>'+
       body+
     '</div>';
@@ -3241,7 +3241,7 @@ function renderTimelineClean(d){
   function contactRow(icon,val){ return val ? '<div style="display:flex;align-items:flex-start;gap:7px;font-size:9.5px;color:'+MUT+'"><span style="flex-shrink:0;color:'+ACC+'">'+icon+'</span><span>'+esc(val)+'</span></div>' : ''; }
 
   function sectionTitle(t){
-    return '<div style="break-after:avoid;display:flex;align-items:center;gap:9px;margin-bottom:13px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:9px;margin-bottom:13px">'+
       '<span style="width:20px;height:2px;background:'+ACC+';flex-shrink:0"></span>'+
       '<h2 style="font-family:'+serif+';font-size:15px;font-weight:700;margin:0;color:'+INK+'">'+t+'</h2>'+
     '</div>';
@@ -3437,6 +3437,28 @@ function fillA4Gap(preview,el){
   }
   preview.appendChild(filler);
 }
+// Kur CV-ja del pak mbi një faqe, shfletuesi e pret aty ku i bie — dhe faqja 2 mbetet me
+// dy seksione mbi një gjysmë bosh. Kjo duket si gabim shtypi, jo si dokument.
+// Zgjidhja: zhvendos ndarjen te një titull seksioni më lart, që të dyja faqet të kenë
+// përmbajtje të vërtetë. Zbatohet vetëm për CV dyfaqëshe me bisht të hollë.
+function balancePageBreak(el){
+  var heads=el.querySelectorAll('.cv-sec-head');
+  heads.forEach(function(h){ h.style.breakBefore=''; });
+  if(!heads.length) return;
+  var top=el.getBoundingClientRect().top;
+  var total=el.getBoundingClientRect().height;
+  if(total<=A4_PAGE_PX || total>A4_PAGE_PX*2) return;   // një faqe, ose më shumë se dy
+  var bishti=total-A4_PAGE_PX;
+  if(bishti>=A4_PAGE_PX*0.40) return;                   // faqja 2 tashmë e mbushur mjaftueshëm
+  // Titulli më i hershëm nga i cili gjithçka hyn në faqen 2, pa e lënë faqen 1 nën gjysmë.
+  var zgjedhur=null;
+  Array.prototype.forEach.call(heads,function(h){
+    if(zgjedhur) return;
+    var y=h.getBoundingClientRect().top-top;
+    if(y>=A4_PAGE_PX*0.5 && (total-y)<=A4_PAGE_PX) zgjedhur=h;
+  });
+  if(zgjedhur) zgjedhur.style.breakBefore='page';
+}
 function fitCvToPage(finalPrint){
   // Rezerva e sigurisë (A4_FIT_TARGET_PX) duhet të veprojë VETËM në momentin e printimit real
   // (finalPrint===true, thirrur nga printCV() para window.print()) — jo te pamja e zakonshme
@@ -3525,7 +3547,10 @@ function fitCvToPage(finalPrint){
   // Mbush hapësirën e mbetur me sfond eksplicit — vetëm në printim final, ku #cvPreview lejon
   // overflow:visible (shih @media print). Në ekran s'nevojitet (dhe #cvPreview atje ka
   // overflow:hidden për shkallëzimin mobile, ku një shtesë e tillë do të pritej/fshihej).
-  if(finalPrint&&!el.classList.contains('cv-twopage'))fillA4Gap(preview,el);
+  if(finalPrint&&!el.classList.contains('cv-twopage')){
+    balancePageBreak(el);
+    fillA4Gap(preview,el);
+  }
 }
 // Shkallëzon çdo faqe A4 letre që të hyjë në gjerësinë e kontejnerit të vet, pa e ndryshuar
 // vetë dokumentin: përmasat mbeten 210×297mm, ndryshon vetëm sa i madh duket në ekran.
@@ -3577,7 +3602,7 @@ function photoImg(cls,style){
 
 
 function sectionTitle(title, color){
-  return '<div style="break-after:avoid;font-family:var(--cv-disp,inherit);font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:'+color+';margin-bottom:11px;padding-bottom:7px;border-bottom:2px solid '+color+'">'+title+'</div>';
+  return '<div class="cv-sec-head" style="break-after:avoid;font-family:var(--cv-disp,inherit);font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:'+color+';margin-bottom:11px;padding-bottom:7px;border-bottom:2px solid '+color+'">'+title+'</div>';
 }
 
 // Fusha "Detyrat": çdo rresht bëhet një pikë. Rreshtat bosh injorohen dhe, kur s'mbetet
@@ -3691,7 +3716,7 @@ function renderKlassisch(d, _fs, _mb){
   var secGap = heavy ? 18 : 24;
 
   function secLabel(t){
-    return '<div style="break-after:avoid;display:flex;align-items:center;gap:14px;margin-bottom:16px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:14px;margin-bottom:16px">'+
       '<span style="font-family:'+serif+';font-size:16px;font-weight:700;color:'+accent+';letter-spacing:.2px;white-space:nowrap">'+t+'</span>'+
       '<span style="flex:1;height:1px;background:'+hair+'"></span>'+
     '</div>';
@@ -3850,7 +3875,7 @@ function renderKreativ(d){
   function secTitle(t){
     // Një vijë e hollë neutrale, jo 2px bordo si te ndihmësja e përbashkët — kërkesa ishte
     // të pakësoheshin vijat bordo, duke e mbajtur bordo vetëm te teksti i titullit.
-    return '<div style="break-after:avoid;font-family:'+disp+';font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:'+accent+';margin-bottom:13px;padding-bottom:6px;border-bottom:1px solid '+hair+'">'+t+'</div>';
+    return '<div class="cv-sec-head" style="break-after:avoid;font-family:'+disp+';font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.6px;color:'+accent+';margin-bottom:13px;padding-bottom:6px;border-bottom:1px solid '+hair+'">'+t+'</div>';
   }
   function entry(date,title,org,desc,last){
     return '<div class="cv-entry" style="display:grid;grid-template-columns:92px 1fr;gap:0 16px;'+(last?'':'margin-bottom:19px')+'">'+
@@ -3979,7 +4004,7 @@ function renderBlue(d){
   var allLangs=langs.filter(function(l){return l.name;});
 
   function wnHead(t){
-    return '<div style="break-after:avoid;text-align:center;margin-top:24px;margin-bottom:14px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;text-align:center;margin-top:24px;margin-bottom:14px">'+
       '<div style="font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:'+DARK+';display:inline-block;padding:0 18px;position:relative">'+
         '<span style="position:absolute;left:0;top:50%;height:1px;width:14px;background:'+GOLD+'"></span>'+
         t+
@@ -4146,7 +4171,7 @@ function renderMinimal(d){
   /* ── helpers ── */
   function minHead(label){
     return '<div class="cv-entry" style="display:grid;grid-template-columns:130px 1fr;gap:0;align-items:center;margin-bottom:18px">'+
-      '<div style="font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:'+MUTED+';padding-right:16px;border-right:1px solid '+RULE+'">'+label+'</div>'+
+      '<div class="cv-sec-head" style="break-after:avoid;font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:'+MUTED+';padding-right:16px;border-right:1px solid '+RULE+'">'+label+'</div>'+
       '<div style="height:1px;background:'+RULE+';margin-left:0"></div>'+
     '</div>';
   }
@@ -4543,7 +4568,7 @@ function renderTabellarisch(d){
   var goldLight='#f5eedc';
 
   // PAGE 1 — Deckblatt modern: ari vetëm si theks, hapësira të ekuilibruara
-  function pLabel(t){return '<div style="break-after:avoid;font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">'+t+'</div>';}
+  function pLabel(t){return '<div class="cv-sec-head" style="break-after:avoid;font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">'+t+'</div>';}
   var page1 =
     '<div style="page-break-after:always;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
 
@@ -4621,7 +4646,7 @@ function renderTabellarisch(d){
     '</tr>';
   }
   function tabSection(title){
-    return '<tr><td colspan="2" style="break-after:avoid;padding-top:18px;padding-bottom:5px">'+
+    return '<tr class="cv-sec-head"><td colspan="2" style="break-after:avoid;padding-top:18px;padding-bottom:5px">'+
       '<div style="font-size:14px;font-weight:800;color:'+gold+';letter-spacing:1px;font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;text-transform:uppercase">'+title+'</div>'+
       '<div style="height:1.5px;background:'+gold+';margin-top:3px"></div>'+
     '</td></tr>';
@@ -4721,7 +4746,7 @@ function renderDarkElegant(d,sp){
   var allLangs=langs.filter(function(l){return l.name;});
 
   function sLabel(t){
-    return '<div style="break-after:avoid;font-size:8.5px;font-weight:600;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:'+px(10)+';padding-bottom:6px;border-bottom:1px solid rgba(192,160,80,0.3)">'+t+'</div>';
+    return '<div class="cv-sec-head" style="break-after:avoid;font-size:8.5px;font-weight:600;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:'+px(10)+';padding-bottom:6px;border-bottom:1px solid rgba(192,160,80,0.3)">'+t+'</div>';
   }
   function sItem(label,value){
     if(!value) return '';
@@ -4731,7 +4756,7 @@ function renderDarkElegant(d,sp){
     '</div>';
   }
   function mLabel(t){
-    return '<div style="break-after:avoid;display:flex;align-items:center;gap:12px;margin-bottom:'+px(14)+'">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:12px;margin-bottom:'+px(14)+'">'+
       '<span style="font-size:9.5px;font-weight:700;color:'+goldInk+';letter-spacing:2.5px;text-transform:uppercase;white-space:nowrap;font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif">'+t+'</span>'+
       '<span style="flex:1;height:1px;background:'+hairline+'"></span>'+
     '</div>';
@@ -4917,10 +4942,10 @@ function renderCormorant(d){
   }
 
   function sLabel(t){
-    return '<div style="break-after:avoid;font-size:8.5px;font-weight:600;color:'+accent+';font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(200,152,74,0.3)">'+t+'</div>';
+    return '<div class="cv-sec-head" style="break-after:avoid;font-size:8.5px;font-weight:600;color:'+accent+';font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(200,152,74,0.3)">'+t+'</div>';
   }
   function mLabel(t){
-    return '<div style="break-after:avoid;font-size:9px;font-weight:600;color:'+accent+';font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;font-size:9px;font-weight:600;color:'+accent+';font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px">'+
       t+'<span style="flex:1;height:1px;background:rgba(200,152,74,0.25)"></span>'+
     '</div>';
   }
@@ -5074,13 +5099,13 @@ function renderRedClassic(d){
 
   // ---------- Labels ----------
   function secLabel(t){
-    return '<div style="break-after:avoid;display:flex;align-items:center;gap:12px;margin-bottom:18px">'+
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:12px;margin-bottom:18px">'+
       '<span style="font-family:'+disp+';font-size:15px;font-weight:600;color:'+red+';letter-spacing:.2px;white-space:nowrap">'+t+'</span>'+
       '<span style="flex:1;height:1px;background:'+hair+'"></span>'+
     '</div>';
   }
   function sideLabel(t){
-    return '<div style="break-after:avoid;font-family:'+disp+';font-size:12px;font-weight:600;color:'+red+';letter-spacing:.4px;margin-bottom:3px;text-transform:uppercase">'+t+'</div>'+
+    return '<div class="cv-sec-head" style="break-after:avoid;font-family:'+disp+';font-size:12px;font-weight:600;color:'+red+';letter-spacing:.4px;margin-bottom:3px;text-transform:uppercase">'+t+'</div>'+
            '<div style="width:26px;height:2px;background:'+red+';margin-bottom:13px"></div>';
   }
 

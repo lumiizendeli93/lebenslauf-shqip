@@ -1684,6 +1684,11 @@ html.theme-dark{background:#12151c;color-scheme:dark}
         </div>
         <span style="color:var(--red);font-weight:600">👉 Renditni punët nga më e fundit tek më e vjetra.</span>
       </div>
+      <label style="display:flex;align-items:flex-start;gap:9px;margin:2px 0 16px;cursor:pointer">
+        <input type="checkbox" id="showTasksChk" checked onchange="toggleTasks(this.checked)" style="margin-top:3px;flex-shrink:0;width:16px;height:16px;accent-color:var(--red)">
+        <span style="font-size:13.5px;line-height:1.5">Shfaq detyrat në CV <span style="color:#9ca3af">(Aufgaben)</span>
+          <br><span style="font-size:12.5px;color:#9ca3af">Hiqe shenjën nëse CV-ja po del në dy faqe dhe e do në një të vetme. Teksti nuk fshihet — thjesht nuk shfaqet.</span></span>
+      </label>
       <div id="expList"></div>
       <button class="add-entry-btn" onclick="addExp()">+ Shto pozicion (Position hinzufügen)</button>
     </div>
@@ -3742,10 +3747,20 @@ function sectionTitle(title, color){
   return '<div class="cv-sec-head" style="break-after:avoid;font-family:var(--cv-disp,inherit);font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:'+color+';margin-bottom:11px;padding-bottom:7px;border-bottom:2px solid '+color+'">'+title+'</div>';
 }
 
+// Detyrat janë pjesa më e gjatë e një CV-je dhe shpesh ato e shtyjnë në faqen e dytë.
+// Prandaj fiken me një klik, pa u fshirë teksti: kështu përdoruesi provon të dyja pamjet
+// dhe e mban tekstin nëse nesër i duhet.
+var showTasks=true;
+function toggleTasks(on){
+  showTasks=!!on;
+  if(typeof renderCV==='function') renderCV();
+  if(typeof refreshLivePreview==='function') refreshLivePreview();
+}
+
 // Fusha "Detyrat": çdo rresht bëhet një pikë. Rreshtat bosh injorohen dhe, kur s'mbetet
 // asnjë, kthehet varg bosh që modeli të mos lërë hapësirë të zbrazët.
 function taskBullets(desc,opt){
-  if(!desc) return '';
+  if(!showTasks||!desc) return '';
   var rows=String(desc).split('\n').map(function(l){return l.trim();}).filter(Boolean);
   if(!rows.length) return '';
   var o=opt||{};
@@ -4313,7 +4328,7 @@ function renderMinimal(d){
     '</div>';
   }
   function minExpRow(e){
-    var lines=e.desc?e.desc.split('\n').filter(function(l){return l.trim();}).map(function(l){
+    var lines=(showTasks&&e.desc)?e.desc.split('\n').filter(function(l){return l.trim();}).map(function(l){
       return '<div style="font-size:10.5px;color:'+MUTED+';margin-top:3px;padding-left:12px;border-left:1px solid #ddd;line-height:1.7">'+esc(l.trim())+'</div>';
     }).join(''):'';
     return '<div class="cv-entry" style="display:grid;grid-template-columns:130px 1fr;gap:0;margin-bottom:20px">'+
@@ -4781,7 +4796,7 @@ function renderTabellarisch(d){
     experiences.forEach(function(e){
       var desc='<div style="font-size:12.5px;font-weight:700;color:#111">'+esc(e.role||'')+'</div>';
       if(e.company) desc+='<div style="font-size:12px;color:#555;margin-top:2px">'+esc(e.company)+(e.location?' &middot; '+esc(e.location):'')+'</div>';
-      if(e.desc){
+      if(showTasks&&e.desc){
         var lines=e.desc.split('\n').filter(function(l){return l.trim();});
         desc+='<div style="margin-top:3px">'+lines.map(function(l){return '<div style="font-size:11.5px;color:#555">&#9658; '+esc(l.trim())+'</div>';}).join('')+'</div>';
       }
@@ -5454,7 +5469,7 @@ function renderDarkElegant(d,sp){
       '<div style="height:1px;background:linear-gradient(90deg,'+goldInk+'55,'+hairline+');margin:'+px(20)+' 0 '+px(24)+'"></div>'+
       (experiences.length?'<div style="margin-bottom:'+px(24)+'">'+mLabel('Berufserfahrung')+
         experiences.map(function(e){
-          return entry(formatRange(e.from,e.to),esc(e.role||''),(e.company?esc(e.company)+(e.location?' · '+esc(e.location):''):''),descLines(e.desc));
+          return entry(formatRange(e.from,e.to),esc(e.role||''),(e.company?esc(e.company)+(e.location?' · '+esc(e.location):''):''),descLines(showTasks?e.desc:''));
         }).join('')+
       '</div>':'')+
       (educations.length?'<div style="margin-bottom:'+px(24)+'">'+mLabel('Ausbildung')+

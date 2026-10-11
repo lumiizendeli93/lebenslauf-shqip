@@ -477,8 +477,11 @@ textarea{resize:vertical;min-height:88px;line-height:1.65}
   /* Kopertina zë saktësisht një faqe; përmbajtja rrjedh sa të duhet në vend që të
      ngjeshet në një faqe të vetme. */
   .cv-twopage>*{height:auto!important;max-height:none!important;overflow:visible!important}
-  .cv-twopage>*:first-child{height:286mm;min-height:0;break-after:page}
-  .cv-twopage>*:last-child{min-height:0;break-after:auto}
+  /* Rregulla e mesiperme me `height:auto!important` e mbyste kete: kopertina merrte
+     lartesine e tekstit, kolona krem dhe vija e arte ndalnin ne mes te fletes dhe poshte
+     tyre mbetej nje brez i bardh. Duhet !important plus specifika e `:first-child`. */
+  .cv-twopage>*:first-child{height:297mm!important;min-height:0!important;overflow:hidden!important;break-after:page}
+  .cv-twopage>*:last-child{break-after:auto}
   .cv-document tr,.cv-entry{break-inside:avoid}
   .cv-document p{orphans:3;widows:3}
   /* Marzhet e letres vijne tani nga vete .letter-page, jo nga kontejneri. */
@@ -2218,6 +2221,155 @@ html.theme-dark{background:#12151c;color-scheme:dark}
           <div class="template-desc">Timeline, i pastër</div>
         </div>
 
+        <!-- TPL MODERN PRO -->
+        <div class="template-card" id="tpl_modernpro" onclick="selectTemplate('modernpro')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="padding:9px 10px 6px;display:flex;justify-content:space-between;gap:6px">
+              <div><div style="font-size:3.2px;font-weight:800;letter-spacing:1px;color:#2f5d8c">LEBENSLAUF</div>
+                <div style="font-size:8px;font-weight:800;color:#17202c;margin-top:2px">Arber Krasniqi</div>
+                <div style="font-size:3.4px;color:#5d6b7c;letter-spacing:.8px;margin-top:1px">IT-ADMINISTRATOR</div></div>
+              <div style="width:19px;height:24px;background:#dfe5ed;flex-shrink:0;border-radius:2px"></div>
+            </div>
+            <div style="height:1.8px;background:#2f5d8c;margin:3px 10px 0"></div>
+            <div style="display:flex;gap:7px;padding:6px 10px">
+              <div style="flex:1.6">
+                <div style="font-size:3.4px;font-weight:800;color:#2f5d8c;border-bottom:1px solid #e3e8ef;padding-bottom:2px;margin-bottom:3px">BERUFSERFAHRUNG</div>
+                <div style="font-size:4.2px;font-weight:700;color:#17202c">Senior Developer</div>
+                <div style="font-size:3.4px;color:#2f5d8c">TechVision GmbH</div>
+              </div>
+              <div style="flex:1;border-left:1px solid #e3e8ef;padding-left:6px">
+                <div style="font-size:3.4px;font-weight:800;color:#2f5d8c;border-bottom:1px solid #e3e8ef;padding-bottom:2px;margin-bottom:3px">KONTAKT</div>
+                <div style="font-size:3.2px;color:#5d6b7c">Stuttgart</div>
+              </div>
+            </div>
+          </div>
+          <div class="template-name">Mitrovica</div>
+          <div class="template-desc">Modern, dy kolona</div>
+        </div>
+
+        <!-- TPL ELEGANT GOLD -->
+        <div class="template-card" id="tpl_elegantgold" onclick="selectTemplate('elegantgold')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fdfaf4;text-align:center">
+            <div class="template-check">✓</div>
+            <div style="padding:11px 10px 0">
+              <div style="width:20px;height:20px;border-radius:50%;background:#efe6d4;border:1px solid #a9833f;margin:0 auto 5px"></div>
+              <div style="font-size:3px;letter-spacing:1.6px;color:#a9833f">LEBENSLAUF</div>
+              <div style="font-size:9px;font-weight:700;color:#2b2520;margin-top:3px;font-family:Georgia,serif">Arber Krasniqi</div>
+              <div style="font-size:3.2px;letter-spacing:1.2px;color:#6d6358;margin-top:2px">IT-ADMINISTRATOR</div>
+              <div style="width:22px;height:1px;background:#a9833f;margin:5px auto 0"></div>
+            </div>
+            <div style="padding:6px 12px;text-align:left">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:3px"><span style="font-size:3.2px;letter-spacing:1.2px;color:#a9833f">BERUFSERFAHRUNG</span><span style="flex:1;height:1px;background:#e6dcc9"></span></div>
+              <div style="font-size:4.4px;font-weight:700;color:#2b2520;font-family:Georgia,serif">Senior Developer</div>
+              <div style="font-size:3.4px;color:#6d6358;font-style:italic">TechVision GmbH</div>
+            </div>
+          </div>
+          <div class="template-name">Ulqini</div>
+          <div class="template-desc">Elegant, krem dhe ar</div>
+        </div>
+
+        <!-- TPL MINIMAL PURE -->
+        <div class="template-card" id="tpl_minimalpure" onclick="selectTemplate('minimalpure')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="padding:12px 11px 8px;display:flex;justify-content:space-between;gap:6px">
+              <div><div style="font-size:8.5px;font-weight:600;color:#111418;letter-spacing:-.2px">Arber Krasniqi</div>
+                <div style="font-size:3.4px;color:#73787f;margin-top:2px">IT-Administrator</div>
+                <div style="font-size:3px;color:#73787f;margin-top:3px">Stuttgart · +49 170 000000</div></div>
+              <div style="width:17px;height:21px;background:#eef0f2;flex-shrink:0"></div>
+            </div>
+            <div style="padding:0 11px">
+              <div style="display:grid;grid-template-columns:28px 1fr;gap:6px;border-top:1px solid #e4e6e9;padding:4px 0">
+                <div style="font-size:3px;letter-spacing:.8px;color:#73787f">PERSÖNLICH</div>
+                <div style="font-size:3.4px;color:#111418">01.01.1990</div></div>
+              <div style="display:grid;grid-template-columns:28px 1fr;gap:6px;border-top:1px solid #e4e6e9;padding:4px 0">
+                <div style="font-size:3px;letter-spacing:.8px;color:#73787f">BERUF</div>
+                <div><div style="font-size:3.8px;font-weight:650;color:#111418">Senior Developer</div>
+                <div style="font-size:3.2px;color:#73787f">TechVision GmbH</div></div></div>
+            </div>
+          </div>
+          <div class="template-name">Berati</div>
+          <div class="template-desc">Minimal, pa ngjyra</div>
+        </div>
+
+        <!-- TPL CREATIVE BOLD -->
+        <div class="template-card" id="tpl_creativebold" onclick="selectTemplate('creativebold')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff;display:flex">
+            <div class="template-check">✓</div>
+            <div style="width:42px;background:#0e4f53;padding:7px 6px;flex-shrink:0">
+              <div style="width:100%;height:26px;background:#15666b;margin-bottom:6px"></div>
+              <div style="font-size:6px;font-weight:800;color:#fff;line-height:1.15">Arber<br>Krasniqi</div>
+              <div style="font-size:3px;color:#d9733a;font-weight:700;letter-spacing:.6px;margin-top:3px">IT-ADMIN</div>
+              <div style="font-size:2.8px;color:rgba(255,255,255,.6);margin-top:5px">KONTAKT</div>
+              <div style="font-size:3px;color:#fff">Stuttgart</div>
+            </div>
+            <div style="flex:1;padding:9px 8px">
+              <div style="display:flex;align-items:baseline;gap:3px;margin-bottom:4px">
+                <span style="font-size:7px;font-weight:800;color:#d9733a">01</span>
+                <span style="font-size:3.6px;font-weight:800;letter-spacing:.8px;color:#16202a">BERUFSERFAHRUNG</span></div>
+              <div style="font-size:3px;font-weight:700;color:#d9733a">SEIT 2016</div>
+              <div style="font-size:4.2px;font-weight:700;color:#16202a">Senior Developer</div>
+              <div style="font-size:3.4px;color:#5f6b76">TechVision GmbH</div>
+              <div style="display:flex;align-items:baseline;gap:3px;margin-top:6px">
+                <span style="font-size:7px;font-weight:800;color:#d9733a">02</span>
+                <span style="font-size:3.6px;font-weight:800;letter-spacing:.8px;color:#16202a">AUSBILDUNG</span></div>
+            </div>
+          </div>
+          <div class="template-name">Gostivari</div>
+          <div class="template-desc">Kreativ, smerald</div>
+        </div>
+
+        <!-- TPL CLASSIC BIZ -->
+        <div class="template-card" id="tpl_classicbiz" onclick="selectTemplate('classicbiz')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="padding:10px 11px 6px;display:flex;justify-content:space-between;gap:6px;border-bottom:1.6px solid #1f3047;margin:0 11px;padding-left:0;padding-right:0">
+              <div><div style="font-size:3px;letter-spacing:1.4px;color:#616a75">LEBENSLAUF</div>
+                <div style="font-size:8px;font-weight:700;color:#14181d;font-family:Georgia,serif;margin-top:2px">Arber Krasniqi</div>
+                <div style="font-size:3.4px;color:#1f3047;font-weight:700;margin-top:1px">IT-Administrator</div></div>
+              <div style="width:17px;height:21px;background:#f0f1f3;border:1px solid #d5d9de;flex-shrink:0"></div>
+            </div>
+            <div style="padding:5px 11px">
+              <div style="font-size:4px;font-weight:700;color:#1f3047;font-family:Georgia,serif">Persönliche Daten</div>
+              <div style="height:1px;background:#1f3047;margin:2px 0 3px"></div>
+              <div style="display:flex;gap:6px"><span style="font-size:3.2px;color:#616a75;width:30px">Geburtsdatum</span><span style="font-size:3.4px;font-weight:600;color:#14181d">01.01.1990</span></div>
+              <div style="font-size:4px;font-weight:700;color:#1f3047;font-family:Georgia,serif;margin-top:5px">Beruflicher Werdegang</div>
+              <div style="height:1px;background:#1f3047;margin:2px 0 3px"></div>
+              <div style="display:flex;gap:6px"><span style="font-size:3.2px;color:#616a75;width:30px">seit 2016</span><span style="font-size:3.4px;font-weight:700;color:#14181d">Senior Developer</span></div>
+            </div>
+          </div>
+          <div class="template-name">Gjirokastra</div>
+          <div class="template-desc">Klasik, tabelar</div>
+        </div>
+
+        <!-- TPL TECH PRO -->
+        <div class="template-card" id="tpl_techpro" onclick="selectTemplate('techpro')">
+          <div style="position:relative;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:10px;height:135px;background:#fff">
+            <div class="template-check">✓</div>
+            <div style="background:#101a28;padding:8px 9px;display:flex;align-items:center;gap:6px">
+              <div style="width:16px;height:20px;background:#223246;border:1px solid #0f7ea8;flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:7px;font-weight:800;color:#fff;line-height:1.1">Arber Krasniqi</div>
+              <div style="font-size:3px;font-weight:700;letter-spacing:1px;color:#4cc3e8;margin-top:2px">SYSTEMADMINISTRATOR</div></div>
+              <div style="font-size:2.8px;color:rgba(255,255,255,.8);text-align:right">+49 170<br>mail@web.de</div>
+            </div>
+            <div style="display:flex;gap:7px;padding:7px 9px">
+              <div style="flex:1.5">
+                <div style="font-size:3.2px;font-weight:800;letter-spacing:1px;color:#0f7ea8;border-bottom:1px solid #e2e7ec;padding-bottom:2px;margin-bottom:3px">BERUFSERFAHRUNG</div>
+                <div style="font-size:4.2px;font-weight:700;color:#141c26">Senior Developer</div>
+                <div style="font-size:3.4px;color:#0f7ea8">TechVision GmbH</div>
+              </div>
+              <div style="flex:1;border-left:1px solid #e2e7ec;padding-left:6px">
+                <div style="font-size:3.2px;font-weight:800;letter-spacing:1px;color:#0f7ea8;border-bottom:1px solid #e2e7ec;padding-bottom:2px;margin-bottom:3px">KENNTNISSE</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:3px;margin-bottom:2px"><span style="font-size:3.2px;color:#141c26">Linux</span><span style="display:inline-flex;gap:1px"><span style="width:4px;height:2px;background:#0f7ea8"></span><span style="width:4px;height:2px;background:#0f7ea8"></span><span style="width:4px;height:2px;background:#e2e7ec"></span></span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:3px"><span style="font-size:3.2px;color:#141c26">Netzwerk</span><span style="display:inline-flex;gap:1px"><span style="width:4px;height:2px;background:#0f7ea8"></span><span style="width:4px;height:2px;background:#0f7ea8"></span><span style="width:4px;height:2px;background:#0f7ea8"></span></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="template-name">Prizreni</div>
+          <div class="template-desc">Tech, IT dhe sisteme</div>
+        </div>
+
       </div>
     </div>
     <div class="actions no-print">
@@ -3024,10 +3176,10 @@ function renderTimelineBlue(d){
   return '<div style="width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:\'CV Serif Text\',\'Lato\',Arial,sans-serif;color:'+INK+';padding:18mm 17mm 16mm">'+
     '<div style="position:relative">'+
       '<div style="position:absolute;left:-17mm;top:-18mm;right:-17mm;bottom:0;background:'+ACC2+';z-index:0"></div>'+
-      '<header style="display:grid;grid-template-columns:42mm 1fr;gap:12mm;align-items:start;position:relative;z-index:1;padding-top:2mm">'+
+      '<header style="display:grid;grid-template-columns:'+(photoDataUrl?'42mm 1fr':'1fr')+';gap:12mm;align-items:start;position:relative;z-index:1;padding-top:2mm">'+
         (photoDataUrl?
           '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:42mm;height:42mm;object-fit:cover;object-position:top center;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.12)">':
-          '<div style="width:42mm;height:42mm;border-radius:6px;background:#fff;border:1px solid '+ACC+';display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:'+ACC+'">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+          ''
         )+
         '<div>'+
           '<h1 style="font-size:25px;font-weight:700;margin:0 0 2px">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
@@ -3117,7 +3269,7 @@ function renderEditorialRed(d){
       '</div>'+
       (photoDataUrl?
         '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:42mm;height:52mm;object-fit:cover;object-position:top center">':
-        '<div style="width:42mm;height:52mm;background:#f4f4f4;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#999">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+        ''
       )+
     '</header>'+
     expHtml+eduHtml+skillsHtml+hobbyHtml+
@@ -3208,7 +3360,7 @@ function renderSidebarOrange(d){
       '<aside style="background:'+DARK+';color:#fff;height:100%;box-sizing:border-box;padding:16mm 11mm">'+
         (photoDataUrl?
           '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top center;border-radius:8px;display:block;margin-bottom:10mm;box-shadow:0 6px 18px rgba(0,0,0,0.25)">':
-          '<div style="width:100%;aspect-ratio:1/1;border-radius:8px;background:rgba(255,255,255,0.08);border:1px solid '+HAIR+';display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:'+ORANGE+';margin-bottom:10mm">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+          ''
         )+
         sideBlock('Kontakt',
           sideRow('▣',profile.bdate)+
@@ -3301,10 +3453,10 @@ function renderTimelineClean(d){
 
   return '<div style="--cv-disp:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;width:210mm;min-height:297mm;box-sizing:border-box;background:#fff;font-family:'+sans+';color:'+INK+'">'+
     '<div style="position:relative;padding:15mm 16mm 12mm;background:'+ACC2+';border-bottom:3px solid '+ACC+'">'+
-      '<div style="display:grid;grid-template-columns:34mm 1fr;gap:14mm;align-items:center">'+
+      '<div style="display:grid;grid-template-columns:'+(photoDataUrl?'34mm 1fr':'1fr')+';gap:14mm;align-items:center">'+
         (photoDataUrl?
           '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:34mm;height:34mm;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,0.14)">':
-          '<div style="width:34mm;height:34mm;border-radius:50%;background:#fff;border:1.5px solid '+ACC+';display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:'+ACC+'">'+esc((d.fname||'?')[0].toUpperCase())+'</div>'
+          ''
         )+
         '<div>'+
           '<h1 style="font-family:'+serif+';font-size:27px;font-weight:700;margin:0;color:'+INK+'">'+esc((d.fname+' '+d.lname).trim())+'</h1>'+
@@ -3350,6 +3502,12 @@ function renderCV(){
   else if(selectedTemplate==='editorial') html=renderEditorialRed(data);
   else if(selectedTemplate==='sidebarorange') html=renderSidebarOrange(data);
   else if(selectedTemplate==='timelineclean') html=renderTimelineClean(data);
+  else if(selectedTemplate==='modernpro') html=renderModernPro(data);
+  else if(selectedTemplate==='elegantgold') html=renderElegantGold(data);
+  else if(selectedTemplate==='minimalpure') html=renderMinimalPure(data);
+  else if(selectedTemplate==='creativebold') html=renderCreativeBold(data);
+  else if(selectedTemplate==='classicbiz') html=renderClassicBiz(data);
+  else if(selectedTemplate==='techpro') html=renderTechPro(data);
   var preview=document.getElementById('cvPreview');
   preview.innerHTML=html;
 
@@ -3376,7 +3534,7 @@ var A4_FIT_TARGET_PX=A4_PAGE_PX-A4_SAFETY_PX;
 // në faqe të dytë. Përndryshe teksti shtypej deri në ~7px dhe PRAPË derdhej — e keqja e
 // të dyja botëve, pikërisht ajo që dukej te CV-të e para.
 var CV_ZOOM_LEVELS=[1,0.98,0.96,0.94,0.92,0.90];
-var CV_COMFORT_ZOOM=0.94;
+var CV_COMFORT_ZOOM=1;
 // Disa motorë printimi/PDF-je (raportuar nga përdoruesi, Windows "Microsoft Print to PDF")
 // e shfaqin hapësirën e papikturuar nën përmbajtjen e CV-së si TË ZEZË, jo të bardhë, kur
 // CV-ja s'e mbush plotësisht faqen A4 — pavarësisht se min-height+background janë të sakta
@@ -3437,28 +3595,6 @@ function fillA4Gap(preview,el){
   }
   preview.appendChild(filler);
 }
-// Kur CV-ja del pak mbi një faqe, shfletuesi e pret aty ku i bie — dhe faqja 2 mbetet me
-// dy seksione mbi një gjysmë bosh. Kjo duket si gabim shtypi, jo si dokument.
-// Zgjidhja: zhvendos ndarjen te një titull seksioni më lart, që të dyja faqet të kenë
-// përmbajtje të vërtetë. Zbatohet vetëm për CV dyfaqëshe me bisht të hollë.
-function balancePageBreak(el){
-  var heads=el.querySelectorAll('.cv-sec-head');
-  heads.forEach(function(h){ h.style.breakBefore=''; });
-  if(!heads.length) return;
-  var top=el.getBoundingClientRect().top;
-  var total=el.getBoundingClientRect().height;
-  if(total<=A4_PAGE_PX || total>A4_PAGE_PX*2) return;   // një faqe, ose më shumë se dy
-  var bishti=total-A4_PAGE_PX;
-  if(bishti>=A4_PAGE_PX*0.40) return;                   // faqja 2 tashmë e mbushur mjaftueshëm
-  // Titulli më i hershëm nga i cili gjithçka hyn në faqen 2, pa e lënë faqen 1 nën gjysmë.
-  var zgjedhur=null;
-  Array.prototype.forEach.call(heads,function(h){
-    if(zgjedhur) return;
-    var y=h.getBoundingClientRect().top-top;
-    if(y>=A4_PAGE_PX*0.5 && (total-y)<=A4_PAGE_PX) zgjedhur=h;
-  });
-  if(zgjedhur) zgjedhur.style.breakBefore='page';
-}
 function fitCvToPage(finalPrint){
   // Rezerva e sigurisë (A4_FIT_TARGET_PX) duhet të veprojë VETËM në momentin e printimit real
   // (finalPrint===true, thirrur nga printCV() para window.print()) — jo te pamja e zakonshme
@@ -3498,32 +3634,24 @@ function fitCvToPage(finalPrint){
   // koordinatat e brendshme të vetë elementit); getBoundingClientRect() jep madhësinë
   // reale të shfaqur, prandaj përdoret këtu për të vendosur nëse hyn në një faqe.
   function realH(){ return el.getBoundingClientRect().height; }
-  // Mat lartësinë reale dhe ngjesh me hapa derisa të hyjë në një faqe (ose të arrijë kufirin minimal të lexueshëm).
-  var chosen=1, fits=false;
-  for(var i=0;i<CV_ZOOM_LEVELS.length;i++){
-    var z=CV_ZOOM_LEVELS[i];
-    el.style.zoom=z;
-    el.style.width=(210/z)+'mm';
-    chosen=z;
-    if(realH()<=target){ fits=true; break; }
+  // Rendi ka rëndësi: fillimisht provohet vetëm zvogëlimi i butë (deri 10%); nëse s'mjafton,
+  // ngushtohen HAPËSIRAT (jo shkronjat) dhe provohet përsëri. Vetëm nëse as kjo s'e fut CV-në
+  // në një faqe, hapësirat kthehen mbrapsht dhe dokumenti rrjedh në dy faqe me shkronja të
+  // plota — më mirë dy faqe të lexueshme sesa një faqe që s'lexohet.
+  function provoNivelet(){
+    for(var i=0;i<CV_ZOOM_LEVELS.length;i++){
+      var z=CV_ZOOM_LEVELS[i];
+      el.style.zoom=z;
+      el.style.width=(210/z)+'mm';
+      if(realH()<=target) return z;
+    }
+    return 0;
   }
-  if(!fits){
-    // Asnjë nivel s'e futi në një faqe — mos e shkatërro leximin kot.
-    chosen=CV_COMFORT_ZOOM;
-    el.style.zoom=chosen;
-    el.style.width=(210/chosen)+'mm';
-  }
-  el.dataset.fitZoom=chosen;
-  // Vetëm tre hapa nga 0.92, jo tetë nga 0.85: tetë hapa e çonin hapësirën në 27% të
-  // origjinales dhe e shkatërronin faqosjen pa e zgjidhur problemin.
-  // Shtrydhja prek vetëm hapësirat, jo shkronjat, prandaj provohet edhe kur asnjë nivel
-  // zoom-i s'e futi në një faqe. Por ka kuptim VETËM nëse fiton vërtet një faqe: po s'ia
-  // doli, hapësirat kthehen mbrapsht. Përndryshe teksti i ngjeshur derdhej gjithsesi dhe
-  // faqja 2 mbetej me dy rreshta — pamja që duket si gabim shtypi.
-  if(realH()>target){
-    var squeezed=[];
-    for(var pass=0;pass<3&&realH()>target;pass++){
-      var shrunkAny=false;
+  // Ngushton vetëm marzhet/hapësirat e mëdha, tre hapa nga 0.92. Kthen listën për rikthim.
+  function ngushtoHapesirat(){
+    var ruajtur=[];
+    for(var pass=0;pass<3;pass++){
+      var ndryshoi=false;
       el.querySelectorAll('[style]').forEach(function(node){
         ['marginTop','marginBottom','paddingTop','paddingBottom','gap','rowGap','columnGap'].forEach(function(key){
           var value=node.style[key];
@@ -3532,25 +3660,32 @@ function fitCvToPage(finalPrint){
           var num=parseFloat(m[1]),unit=m[2];
           var minThreshold=unit==='mm'?3:8;
           if(num>=minThreshold){
-            if(!node.dataset.sqz){node.dataset.sqz='1';}
-            if(node.dataset['sqz_'+key]===undefined){node.dataset['sqz_'+key]=value;squeezed.push([node,key,value]);}
-            node.style[key]=(num*0.92)+unit;shrunkAny=true;
+            if(node.dataset['sqz_'+key]===undefined){node.dataset['sqz_'+key]=value;ruajtur.push([node,key,value]);}
+            node.style[key]=(num*0.92)+unit;ndryshoi=true;
           }
         });
       });
-      if(!shrunkAny)break;
+      if(!ndryshoi)break;
     }
-    if(realH()>target){
-      squeezed.forEach(function(r){ r[0].style[r[1]]=r[2]; });
+    return ruajtur;
+  }
+
+  var chosen=provoNivelet();
+  if(!chosen){
+    var ruajtur=ngushtoHapesirat();
+    chosen=provoNivelet();
+    if(!chosen){
+      ruajtur.forEach(function(r){ r[0].style[r[1]]=r[2]; r[0].removeAttribute('data-sqz_'+r[1].replace(/[A-Z]/g,function(c){return '-'+c.toLowerCase();})); });
+      chosen=CV_COMFORT_ZOOM;
     }
   }
+  el.style.zoom=chosen;
+  el.style.width=(210/chosen)+'mm';
+  el.dataset.fitZoom=chosen;
   // Mbush hapësirën e mbetur me sfond eksplicit — vetëm në printim final, ku #cvPreview lejon
   // overflow:visible (shih @media print). Në ekran s'nevojitet (dhe #cvPreview atje ka
   // overflow:hidden për shkallëzimin mobile, ku një shtesë e tillë do të pritej/fshihej).
-  if(finalPrint&&!el.classList.contains('cv-twopage')){
-    balancePageBreak(el);
-    fillA4Gap(preview,el);
-  }
+  if(finalPrint&&!el.classList.contains('cv-twopage')) fillA4Gap(preview,el);
 }
 // Shkallëzon çdo faqe A4 letre që të hyjë në gjerësinë e kontejnerit të vet, pa e ndryshuar
 // vetë dokumentin: përmasat mbeten 210×297mm, ndryshon vetëm sa i madh duket në ekran.
@@ -3595,9 +3730,11 @@ window.addEventListener('orientationchange',function(){
   setTimeout(function(){scaleCvPreview();scaleLetterPreview();},250);
 });
 
+// Pa foto nuk vizatohet asgje: fotoja eshte opsionale ne cdo model dhe nje kuti bosh
+// (ose nje "Kein Foto") duket si gabim ne nje CV te shtypur.
 function photoImg(cls,style){
   if(photoDataUrl) return '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" class="'+cls+'" style="'+style+'"/>';
-  return '<div class="'+cls.replace('cv-photo','cv-photo-placeholder')+'">Kein<br>Foto</div>';
+  return '';
 }
 
 
@@ -3834,7 +3971,7 @@ function renderModern(d){
     // inconsistent (notably Chrome's print/PDF pipeline) — same fix already used by the
     // Peja/Gjakova sidebar templates.
     '<div style="background:'+sideBg+';color:#f9fafb;padding:34px 24px;height:100%;box-sizing:border-box">'+
-      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:124px;height:150px;object-fit:cover;object-position:top center;border-radius:5px;border:2px solid rgba(255,255,255,0.18);margin:0 auto 20px;display:block">':'<div style="width:124px;height:150px;border-radius:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);margin:0 auto 20px"></div>')+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:124px;height:150px;object-fit:cover;object-position:top center;border-radius:5px;border:2px solid rgba(255,255,255,0.18);margin:0 auto 20px;display:block">':'')+
       '<div style="text-align:center;margin-bottom:26px">'+
         '<div style="font-family:'+disp+';font-size:20px;font-weight:700;line-height:1.2;color:#fff">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
         (d.job?'<div style="font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:#9fb3c8;margin-top:9px">'+esc(d.job)+'</div>':'')+
@@ -4028,7 +4165,7 @@ function renderBlue(d){
     '<div style="background:'+DARK+';padding:36px 52px;text-align:center">'+
       (photoDataUrl?
         '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:88px;height:110px;object-fit:cover;object-position:top center;border:3px solid '+GOLD+';margin-bottom:16px;display:block;margin-left:auto;margin-right:auto">':
-        '<div style="width:72px;height:72px;border-radius:50%;border:2px solid '+GOLD+';background:rgba(255,255,255,0.1);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:300;color:'+GOLD+';font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif">'+esc((d.fname||'K')[0].toUpperCase())+'</div>'
+        ''
       )+
       '<div style="font-size:30px;font-weight:300;color:#fff;font-family:\'CV Display\',\'Montserrat\',Arial,sans-serif;letter-spacing:2px;margin-bottom:6px">'+esc((d.fname+' '+d.lname).trim())+'</div>'+
       '<div style="width:60px;height:1.5px;background:'+GOLD+';margin:0 auto 10px"></div>'+
@@ -4139,7 +4276,7 @@ function renderDark(d){
 
   return '<div style="--cv-disp:\'CV Display\',\'Montserrat\',Arial,sans-serif;font-family:\'CV Text\',\'Inter\',Arial,sans-serif;background:#0f172a;color:#111827;font-size:12px;line-height:1.62;display:grid;grid-template-columns:220px 1fr;align-items:stretch;min-height:297mm">'+
     '<div style="background:#0f172a;color:#e5e7eb;padding:30px 20px;height:100%;box-sizing:border-box">'+
-      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:112px;height:134px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,0.14);margin:0 auto 16px;display:block">':'<div style="width:112px;height:134px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);margin:0 auto 16px"></div>')+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:112px;height:134px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,0.14);margin:0 auto 16px;display:block">':'')+
       '<div style="text-align:center">'+
         '<div style="font-size:16px;font-weight:800;color:#fff;line-height:1.25">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
         (d.job?'<div style="font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:'+accent+';margin-top:6px">'+esc(d.job)+'</div>':'')+
@@ -4567,73 +4704,58 @@ function renderTabellarisch(d){
   var gold='#8B6914';
   var goldLight='#f5eedc';
 
-  // PAGE 1 — Deckblatt modern: ari vetëm si theks, hapësira të ekuilibruara
-  function pLabel(t){return '<div class="cv-sec-head" style="break-after:avoid;font-size:10.5px;font-weight:700;color:'+gold+';letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">'+t+'</div>';}
+  // PAGE 1 — Deckblatt: emri qendron i qete ne fushen e bardhe majtas, nderkohe qe paneli
+  // krem djathtas mban foton, te dhenat personale dhe kontaktin — pra zihet nga skaji i
+  // siperm deri te ai i poshtmi. Me pare krejt permbajtja rrinte lart dhe gjysma e fletes
+  // mbetej bosh. Vija e holle e arte e pershkon tere lartesine, sikurse te referenca.
+  function pLabel(t){return '<div style="font-size:9.5px;font-weight:700;color:'+gold+';letter-spacing:2.2px;text-transform:uppercase;margin-bottom:6px">'+t+'</div>';}
+  function pRow(label,val){return '<div>'+pLabel(label)+'<div style="font-size:12.5px;color:#3a3a3a;line-height:1.6">'+val+'</div></div>';}
+  var hasFoto=!!photoDataUrl;
   var page1 =
-    '<div style="page-break-after:always;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:5px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.4fr 1fr;overflow:hidden">'+
+    '<div style="page-break-after:always;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;box-sizing:border-box;border-right:3px solid '+gold+';width:210mm;height:297mm;display:grid;grid-template-columns:1.18fr 1fr;grid-template-rows:1fr;overflow:hidden">'+
 
-        // ── LEFT COLUMN — shpërndarje vertikale që faqja të duket e mbushur
-        '<div style="padding:72px 24px 56px 52px;display:flex;flex-direction:column;justify-content:flex-start">'+
-
-          // TOP — eyebrow + emri (Playfair)
+        // ── LEFT — vetem emri, i vendosur ne mes vertikalisht: fushe e qete, pa vrima
+        // Padding-u i poshtem me i madh se i siperm e ngre bllokun e emrit rreth 36% te fletes,
+        // ne vend te 50% — fusha e madhe e bardhe majtas shfrytezohet me mire.
+        '<div style="padding:70px 34px 360px 56px;display:flex;flex-direction:column;justify-content:center">'+
           '<div>'+
-            '<div style="font-size:12px;font-weight:700;color:'+gold+';margin-bottom:18px;letter-spacing:6px;text-transform:uppercase;font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif">Lebenslauf</div>'+
-            '<div style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:46px;font-weight:400;color:#1a1a1a;line-height:1.1;letter-spacing:0">'+esc(d.fname)+'<br><span style="font-weight:800">'+esc(d.lname)+'</span></div>'+
-            (d.job?'<div style="font-size:12.5px;font-weight:600;color:#8a8378;letter-spacing:3px;text-transform:uppercase;margin-top:14px">'+esc(d.job)+'</div>':'')+
-            '<div style="width:64px;height:2px;background:'+gold+';margin-top:24px"></div>'+
+            '<div style="font-size:11px;font-weight:700;color:'+gold+';margin-bottom:20px;letter-spacing:6px;text-transform:uppercase">Lebenslauf</div>'+
+            '<div style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:44px;font-weight:400;color:#1a1a1a;line-height:1.12;overflow-wrap:break-word">'+esc(d.fname)+'<br><span style="font-weight:800">'+esc(d.lname)+'</span></div>'+
+            (d.job?'<div style="font-size:11.5px;font-weight:600;color:#6f685d;letter-spacing:3px;text-transform:uppercase;margin-top:16px;line-height:1.55">'+esc(d.job)+'</div>':'')+
+            '<div style="width:64px;height:2px;background:'+gold+';margin-top:26px"></div>'+
           '</div>'+
-
-          // MIDDLE — të dhënat personale, me hapësirë gjeneroze
-          '<div style="display:flex;flex-direction:column;gap:22px;margin:44px 0 0">'+
-            (d.bdate?
-              '<div>'+pLabel('Geburtsdatum, -ort')+
-              '<div style="font-size:15px;color:#3d3d3d;line-height:1.6">'+esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')+'</div></div>'
-            :'')+
-            (d.nation?
-              '<div>'+pLabel('Staatsangehörigkeit')+
-              '<div style="font-size:15px;color:#3d3d3d">'+esc(d.nation)+'</div></div>'
-            :'')+
-            (d.civil?
-              '<div>'+pLabel('Familienstand')+
-              '<div style="font-size:15px;color:#3d3d3d">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</div></div>'
-            :'')+
-            (d.einreise?
-              '<div>'+pLabel('In Deutschland seit')+
-              '<div style="font-size:15px;color:#3d3d3d">'+esc(d.einreise)+'</div></div>'
-            :'')+
-          '</div>'+
-
         '</div>'+
 
-        // ── RIGHT COLUMN — foto e madhe + Kontakt si NJË bllok i lidhur
-        '<div style="display:flex;flex-direction:column;background:'+goldLight+'">'+
+        // ── RIGHT — paneli krem nga skaji lart deri te skaji poshte: foto → te dhena → kontakt
+        '<div style="display:flex;flex-direction:column;background:'+goldLight+';text-align:right">'+
 
-          '<div style="flex:1;min-height:64px"></div>'+
+          // FOTO — format portreti 3:4, skaji i djathte ne nje vije me etiketat dhe me vijen e arte
+          (hasFoto?
+            '<div style="padding:76px 30px 0"><img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:276px;height:368px;object-fit:cover;object-position:top center;display:block;margin-left:auto"/></div>'
+          :'<div style="height:70px"></div>')+
 
-          // PHOTO — e madhe, mbush gjerësinë e kolonës, e lidhur me kutinë e kontaktit poshtë
-          (photoDataUrl?
-            '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:340px;object-fit:cover;object-position:top center;display:block"/>':
-            '<div style="width:100%;height:340px;background:#eceae3;display:flex;align-items:center;justify-content:center;font-size:13px;color:#aaa"></div>'
-          )+
+          // Boshlleku i lire rri mes fotos dhe te dhenave, jo para vijes se arte: keshtu kalimi
+          // te Kontakti mbetet kompakt dhe blloku i poshtem i lidhur.
+          '<div style="flex:1;min-height:28px"></div>'+
 
-          // KONTAKT — ngjitur direkt nën foto, pa hapësirë, si një element i vetëm
-          '<div style="padding:30px 40px 40px;border-top:3px solid '+gold+';text-align:right">'+
-            '<div style="font-size:13px;font-weight:700;color:'+gold+';letter-spacing:4px;text-transform:uppercase;margin-bottom:24px">Kontakt</div>'+
-            (d.addr||d.plz||d.city?
-              pLabel('Adresse')+
-              '<div style="font-size:13px;color:#3d3d3d;margin-bottom:18px;line-height:1.6">'+(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+d.city)+'</div>'
-            :'')+
-            (d.phone?
-              pLabel('Telefon')+
-              '<div style="font-size:13px;color:#3d3d3d;margin-bottom:18px">'+esc(d.phone)+'</div>'
-            :'')+
-            (d.email?
-              pLabel('E-Mail')+
-              '<div style="font-size:12.5px;color:#3d3d3d;word-break:break-word">'+esc(d.email)+'</div>'
-            :'')+
+          '<div style="padding:0 30px;display:flex;flex-direction:column;gap:18px">'+
+            (d.bdate?pRow('Geburtsdatum, -ort',esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):'')):'')+
+            (d.nation?pRow('Staatsangehörigkeit',esc(d.nation)):'')+
+            (d.civil?pRow('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')):'')+
+            (d.einreise?pRow('In Deutschland seit',esc(d.einreise)):'')+
           '</div>'+
 
-          '<div style="flex:1;min-height:40px"></div>'+
+          '<div style="height:28px"></div>'+
+
+          '<div style="height:2px;background:'+gold+';margin:0 30px"></div>'+
+
+          // KONTAKT — i ankoruar poshte, qe fleta te mbyllet dhe jo te shuhet ne te bardhe
+          '<div style="padding:22px 30px 56px">'+
+            '<div style="font-size:11px;font-weight:700;color:'+gold+';letter-spacing:4px;text-transform:uppercase;margin-bottom:18px">Kontakt</div>'+
+            ((d.addr||d.plz||d.city)?pLabel('Adresse')+'<div style="font-size:12.5px;color:#3a3a3a;line-height:1.6;margin-bottom:16px">'+(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+d.city)+'</div>':'')+
+            (d.phone?pLabel('Telefon')+'<div style="font-size:12.5px;color:#3a3a3a;margin-bottom:16px">'+esc(d.phone)+'</div>':'')+
+            (d.email?pLabel('E-Mail')+'<div style="font-size:12px;color:#3a3a3a;word-break:break-word">'+esc(d.email)+'</div>':'')+
+          '</div>'+
 
         '</div>'+ // end RIGHT
 
@@ -4645,10 +4767,11 @@ function renderTabellarisch(d){
       '<td style="vertical-align:top;padding:5px 0;font-size:12.5px;color:#111;line-height:1.75">'+cont+'</td>'+
     '</tr>';
   }
+  var tabSectionCount=0;
   function tabSection(title){
-    return '<tr class="cv-sec-head"><td colspan="2" style="break-after:avoid;padding-top:18px;padding-bottom:5px">'+
+    return '<tr class="cv-sec-head"><td colspan="2" style="break-after:avoid;padding-top:'+(tabSectionCount++?'18px':'0')+';padding-bottom:5px">'+
       '<div style="font-size:14px;font-weight:800;color:'+gold+';letter-spacing:1px;font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;text-transform:uppercase">'+title+'</div>'+
-      '<div style="height:1.5px;background:'+gold+';margin-top:3px"></div>'+
+      '<div style="height:2px;background:'+gold+';margin-top:3px"></div>'+
     '</td></tr>';
   }
 
@@ -4689,28 +4812,20 @@ function renderTabellarisch(d){
   }
 
   var hobbyRows='';
+  // Nje rresht i vetem, si rreshti "Kenntnisse". Me pare secila pike zinte nje rresht te
+  // veten: kater cilesi + tre interesa hanin ~190px dhe e shtynin permbajtjen ne nje faqe
+  // te trete pa pasur se cfare te mbante aty.
   if(skills2.length){
     hobbyRows+=tabSection('Persönliche Stärken')+
-      tabRow('',
-        '<div style="font-size:11.5px;color:#333">'+
-          skills2.map(function(t){
-            return '<div style="margin-bottom:3px">'+esc(t)+'</div>';
-          }).join('')+
-        '</div>');
+      tabRow('','<div style="font-size:12.5px;color:#111;line-height:1.7">'+skills2.map(function(t){return esc(t);}).join(' &middot; ')+'</div>');
   }
   if(d.hobbies){
     hobbyRows+=tabSection('Interessen')+
-      tabRow('',
-        '<div style="font-size:13px;color:#333">'+
-          d.hobbies.split(',').map(function(h){
-            return '<div style="margin-bottom:3px"><strong>'+esc(h.trim())+'</strong></div>';
-          }).join('')+
-        '</div>'
-      );
+      tabRow('','<div style="font-size:12.5px;color:#111;line-height:1.7">'+d.hobbies.split(',').map(function(h){return esc(h.trim());}).filter(Boolean).join(' &middot; ')+'</div>');
   }
 
   var page2 =
-    '<div style="font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;padding:44px 60px;font-size:13px;line-height:1.75;width:210mm;box-sizing:border-box">'+
+    '<div style="font-family:\'CV Editorial Text\',\'Lato\',Arial,sans-serif;background:#fff;color:#222;padding:44px 58px;font-size:13px;line-height:1.75;width:210mm;min-height:297mm;box-sizing:border-box;border-right:3px solid '+gold+'">'+
       '<table style="width:100%;border-collapse:collapse">'+
         '<tbody>'+expRows+eduRows+kennRows+hobbyRows+'</tbody>'+
       '</table>'+
@@ -4718,6 +4833,506 @@ function renderTabellarisch(d){
 
   // Wrap both pages so scaling in renderCV applies to entire CV
   return '<div class="cv-twopage" style="width:210mm;box-sizing:border-box">'+page1+page2+'</div>';
+}
+
+/* ==========================================================================
+   GJASHTË MODELE TË REJA — Mitrovica, Ulqini, Berati, Gostivari,
+   Gjirokastra, Prizreni. Çdo model përdor VETËM fontet e vetë-strehuara
+   (/fonts) dhe ndihmësit ekzistues: esc, formatRange, taskBullets,
+   skillName, skillLevel, photoDataUrl, experiences, educations, skills,
+   skills2, langs. Asnjë burim i jashtëm, asnjë fushë e re të dhënash.
+   ========================================================================== */
+
+var TPL_DISP = "'CV Display','Montserrat',Arial,sans-serif";
+var TPL_TEXT = "'CV Text','Inter',Arial,sans-serif";
+var TPL_SERIF = "'CV Serif','Playfair Display',Georgia,serif";
+var TPL_SERIFTEXT = "'CV Serif Text','Lato',Arial,sans-serif";
+
+// Niveli i njohurisë si numër 1–3, për shiritat te Prizreni.
+function tplSkillRank(s){
+  var lv = skillLevel(s);
+  if(lv.indexOf('Sehr') === 0) return 3;
+  if(lv.indexOf('Gute') === 0) return 2;
+  if(lv) return 1;
+  return 0;
+}
+// Interesat vijnë si varg i ndarë me presje; i kthejmë në listë të pastër.
+function tplHobbies(d){
+  if(!d.hobbies) return [];
+  return d.hobbies.split(',').map(function(h){return h.trim();}).filter(Boolean);
+}
+function tplLangs(){
+  return langs.filter(function(l){return l.name;});
+}
+
+/* ------------------------------------------------------------------ 1
+   MITROVICA — Modern Professional
+   Kokë e gjerë me emrin dhe foton, pastaj dy kolona: përvoja majtas,
+   të dhënat anash. Tipografi gjeometrike, një theks i vetëm blu.
+   ------------------------------------------------------------------ */
+function renderModernPro(d){
+  var ink='#17202c', accent='#2f5d8c', soft='#5d6b7c', line='#e3e8ef';
+  function sec(t){
+    return '<div class="cv-sec-head" style="break-after:avoid;font-family:'+TPL_DISP+';font-size:9.5px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;color:'+accent+';margin-bottom:10px;padding-bottom:6px;border-bottom:1.5px solid '+line+'">'+esc(t)+'</div>';
+  }
+  function row(label,val){
+    if(!val) return '';
+    return '<div style="display:flex;gap:8px;font-size:11px;line-height:1.55;margin-bottom:5px">'+
+      '<span style="flex:0 0 74px;color:'+soft+'">'+esc(label)+'</span>'+
+      '<span style="min-width:0;color:'+ink+';font-weight:600;overflow-wrap:break-word">'+val+'</span></div>';
+  }
+
+  var exp='';
+  if(experiences.length){
+    exp=sec('Berufserfahrung')+experiences.map(function(e){
+      return '<div class="cv-entry" style="display:grid;grid-template-columns:96px 1fr;gap:12px;margin-bottom:13px">'+
+        '<div style="font-size:10px;color:'+soft+';font-weight:600;white-space:nowrap;padding-top:1px">'+formatRange(e.from,e.to)+'</div>'+
+        '<div><div style="font-size:12.5px;font-weight:700;color:'+ink+'">'+esc(e.role||'')+'</div>'+
+        (e.company?'<div style="font-size:11px;color:'+accent+';font-weight:600;margin-top:1px">'+esc(e.company)+(e.location?' · '+esc(e.location):'')+'</div>':'')+
+        taskBullets(e.desc,{size:'11px',color:'#4a5665',lh:'1.55',top:'4px',mark:'–',markColor:accent,gap:'2px'})+
+        '</div></div>';
+    }).join('')+'<div style="height:8px"></div>';
+  }
+  var edu='';
+  if(educations.length){
+    edu=sec('Ausbildung')+educations.map(function(e){
+      return '<div class="cv-entry" style="display:grid;grid-template-columns:96px 1fr;gap:12px;margin-bottom:11px">'+
+        '<div style="font-size:10px;color:'+soft+';font-weight:600;white-space:nowrap;padding-top:1px">'+formatRange(e.from,e.to)+'</div>'+
+        '<div><div style="font-size:12.5px;font-weight:700;color:'+ink+'">'+esc(e.degree||'')+'</div>'+
+        (e.school?'<div style="font-size:11px;color:'+accent+';font-weight:600;margin-top:1px">'+esc(e.school)+'</div>':'')+
+        '</div></div>';
+    }).join('');
+  }
+
+  var kontakt=row('Adresse',(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+(d.city||'')))+
+    row('Telefon',esc(d.phone))+row('E-Mail',esc(d.email))+row('Web',esc(d.web));
+  var person=row('Geburtstag',esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):''))+
+    row('Nationalität',esc(d.nation))+
+    row('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):''))+
+    row('In D. seit',esc(d.einreise))+row('Führerschein',esc(d.fuehrerschein));
+
+  var lg=tplLangs();
+  var sprachen=lg.length?sec('Sprachen')+lg.map(function(l){
+    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-bottom:5px">'+
+      '<span style="font-weight:700;color:'+ink+'">'+esc(l.name)+'</span>'+
+      '<span style="color:'+soft+';text-align:right">'+esc(l.level||'')+'</span></div>';
+  }).join('')+'<div style="height:14px"></div>':'';
+
+  var kenn=skills.length?sec('Kenntnisse')+'<div style="font-size:11px;line-height:1.75;color:'+ink+'">'+
+    skills.map(function(s){
+      var lv=skillLevel(s);
+      return '<div style="margin-bottom:3px"><strong style="font-weight:700">'+esc(skillName(s))+'</strong>'+(lv?'<span style="color:'+soft+';font-weight:400"> · '+esc(lv)+'</span>':'')+'</div>';
+    }).join('')+'</div><div style="height:14px"></div>':'';
+
+  var staerken=skills2.length?sec('Persönliche Stärken')+'<div style="font-size:11px;line-height:1.7;color:'+ink+'">'+skills2.map(esc).join(' · ')+'</div><div style="height:14px"></div>':'';
+  var hob=tplHobbies(d);
+  var inter=hob.length?sec('Interessen')+'<div style="font-size:11px;line-height:1.7;color:'+ink+'">'+hob.map(esc).join(' · ')+'</div>':'';
+
+  return '<div style="font-family:'+TPL_TEXT+';background:#fff;color:'+ink+';width:210mm;box-sizing:border-box;display:flex;flex-direction:column">'+
+    '<div style="padding:40px 46px 24px;display:flex;align-items:flex-start;gap:26px">'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-family:'+TPL_DISP+';font-size:9.5px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:'+accent+';margin-bottom:9px">Lebenslauf</div>'+
+        '<div style="font-family:'+TPL_DISP+';font-size:30px;font-weight:800;line-height:1.12;letter-spacing:-0.4px;overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+        (d.job?'<div style="font-size:11.5px;font-weight:600;color:'+soft+';letter-spacing:2.6px;text-transform:uppercase;margin-top:8px">'+esc(d.job)+'</div>':'')+
+      '</div>'+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:88px;height:112px;object-fit:cover;object-position:top center;border-radius:3px;flex-shrink:0"/>':'')+
+    '</div>'+
+    '<div style="height:3px;background:'+accent+';margin:0 46px"></div>'+
+    '<div style="display:flex;gap:28px;padding:22px 46px 40px;flex:1">'+
+      '<div style="flex:1.6;min-width:0">'+exp+edu+'</div>'+
+      '<div style="flex:1;min-width:0;border-left:1px solid '+line+';padding-left:24px">'+
+        sec('Kontakt')+kontakt+'<div style="height:14px"></div>'+
+        sec('Persönliche Daten')+person+'<div style="height:14px"></div>'+
+        sprachen+kenn+staerken+inter+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ 2
+   ULQINI — Elegant Premium
+   Kompozim simetrik: emri në qendër mes dy vijave ari, mbi letër krem.
+   Një kolonë e vetme, hapësira bujare, shkronja me serif.
+   ------------------------------------------------------------------ */
+function renderElegantGold(d){
+  var ink='#2b2520', gold='#a9833f', soft='#6d6358', paper='#fdfaf4', line='#e6dcc9';
+  function sec(t){
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:center;gap:12px;margin-bottom:12px">'+
+      '<span style="font-family:'+TPL_SERIFTEXT+';font-size:10px;font-weight:700;letter-spacing:3.4px;text-transform:uppercase;color:'+gold+';white-space:nowrap">'+esc(t)+'</span>'+
+      '<span style="flex:1;height:1px;background:'+line+'"></span></div>';
+  }
+  function duo(label,val){
+    if(!val) return '';
+    return '<div style="margin-bottom:6px"><div style="font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:'+gold+';margin-bottom:2px">'+esc(label)+'</div>'+
+      '<div style="font-size:11.5px;color:'+ink+';line-height:1.55">'+val+'</div></div>';
+  }
+
+  var exp='';
+  if(experiences.length){
+    exp=sec('Berufserfahrung')+experiences.map(function(e){
+      return '<div class="cv-entry" style="margin-bottom:12px">'+
+        '<div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline">'+
+          '<div style="font-family:'+TPL_SERIF+';font-size:14px;font-weight:700;color:'+ink+'">'+esc(e.role||'')+'</div>'+
+          '<div style="font-size:10px;color:'+gold+';letter-spacing:1px;white-space:nowrap">'+formatRange(e.from,e.to)+'</div>'+
+        '</div>'+
+        (e.company?'<div style="font-size:11px;color:'+soft+';font-style:italic;margin-top:1px">'+esc(e.company)+(e.location?', '+esc(e.location):'')+'</div>':'')+
+        taskBullets(e.desc,{size:'11px',color:'#504739',lh:'1.6',top:'5px',mark:'·',markColor:gold,gap:'2px'})+
+      '</div>';
+    }).join('');
+  }
+  var edu='';
+  if(educations.length){
+    edu='<div style="height:12px"></div>'+sec('Ausbildung')+educations.map(function(e){
+      return '<div class="cv-entry" style="display:flex;justify-content:space-between;gap:14px;align-items:baseline;margin-bottom:10px">'+
+        '<div><div style="font-family:'+TPL_SERIF+';font-size:13px;font-weight:700;color:'+ink+'">'+esc(e.degree||'')+'</div>'+
+        (e.school?'<div style="font-size:11px;color:'+soft+';font-style:italic;margin-top:1px">'+esc(e.school)+'</div>':'')+'</div>'+
+        '<div style="font-size:10px;color:'+gold+';letter-spacing:1px;white-space:nowrap">'+formatRange(e.from,e.to)+'</div>'+
+      '</div>';
+    }).join('')+'<div style="height:12px"></div>';
+  }
+
+  var lg=tplLangs();
+  var col1=duo('Geburtsdatum, -ort',esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):''))+
+    duo('Staatsangehörigkeit',esc(d.nation))+duo('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):''));
+  var col2=duo('Adresse',(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+(d.city||'')))+
+    duo('Telefon',esc(d.phone))+duo('E-Mail',esc(d.email));
+  var col3=duo('In Deutschland seit',esc(d.einreise))+duo('Führerschein',esc(d.fuehrerschein))+
+    (lg.length?duo('Sprachen',lg.map(function(l){return esc(l.name)+(l.level?' <span style="color:'+soft+'">('+esc(l.level)+')</span>':'');}).join('<br>')):'');
+
+  var kenn=skills.length?sec('Kenntnisse')+'<div style="columns:2;column-gap:28px;font-size:11.5px;line-height:1.8;color:'+ink+'">'+
+    skills.map(function(s){var lv=skillLevel(s);
+      return '<div style="break-inside:avoid">'+esc(skillName(s))+(lv?'<span style="color:'+soft+';font-size:10px"> — '+esc(lv)+'</span>':'')+'</div>';
+    }).join('')+'</div><div style="height:14px"></div>':'';
+  var st=skills2.length?sec('Persönliche Stärken')+'<div style="font-size:11.5px;line-height:1.8;color:'+ink+'">'+skills2.map(esc).join('&nbsp;&nbsp;·&nbsp;&nbsp;')+'</div><div style="height:14px"></div>':'';
+  var hob=tplHobbies(d);
+  var inter=hob.length?sec('Interessen')+'<div style="font-size:11.5px;line-height:1.8;color:'+ink+'">'+hob.map(esc).join('&nbsp;&nbsp;·&nbsp;&nbsp;')+'</div>':'';
+
+  return '<div style="font-family:'+TPL_SERIFTEXT+';background:'+paper+';color:'+ink+';width:210mm;box-sizing:border-box;display:flex;flex-direction:column">'+
+    '<div style="padding:34px 64px 0;text-align:center">'+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:top center;border:2px solid '+gold+';display:block;margin:0 auto 12px"/>':'')+
+      '<div style="font-size:9.5px;letter-spacing:5px;text-transform:uppercase;color:'+gold+';margin-bottom:10px">Lebenslauf</div>'+
+      '<div style="font-family:'+TPL_SERIF+';font-size:33px;font-weight:700;line-height:1.15;color:'+ink+';overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+      (d.job?'<div style="font-size:10.5px;letter-spacing:3.2px;text-transform:uppercase;color:'+soft+';margin-top:10px">'+esc(d.job)+'</div>':'')+
+      '<div style="width:70px;height:1.5px;background:'+gold+';margin:14px auto 0"></div>'+
+    '</div>'+
+    '<div style="display:flex;gap:26px;padding:18px 64px 0">'+
+      '<div style="flex:1;min-width:0">'+col1+'</div>'+
+      '<div style="flex:1;min-width:0">'+col2+'</div>'+
+      '<div style="flex:1;min-width:0">'+col3+'</div>'+
+    '</div>'+
+    '<div style="padding:14px 64px 36px;flex:1">'+exp+edu+kenn+st+inter+'</div>'+
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ 3
+   BERATI — Minimalistisch
+   Rrjet editorial: titulli i seksionit rri në margjinën e majtë, teksti
+   djathtas. Pa ngjyra, pa korniza — vetëm vija flokë dhe hapësirë.
+   ------------------------------------------------------------------ */
+function renderMinimalPure(d){
+  var ink='#111418', soft='#73787f', hair='#e4e6e9';
+  function block(title,inner){
+    if(!inner) return '';
+    return '<div style="display:grid;grid-template-columns:124px 1fr;gap:22px;padding:15px 0;border-top:1px solid '+hair+'">'+
+      '<div class="cv-sec-head" style="break-after:avoid;font-size:9px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:'+soft+';padding-top:2px">'+esc(title)+'</div>'+
+      '<div style="min-width:0">'+inner+'</div></div>';
+  }
+  function meta(label,val){
+    if(!val) return '';
+    return '<div style="display:flex;gap:10px;font-size:11.5px;line-height:1.6;margin-bottom:4px">'+
+      '<span style="flex:0 0 108px;color:'+soft+'">'+esc(label)+'</span><span style="min-width:0;overflow-wrap:break-word">'+val+'</span></div>';
+  }
+
+  var exp=experiences.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:13px">'+
+      '<div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline">'+
+        '<div style="font-size:12.5px;font-weight:650;color:'+ink+'">'+esc(e.role||'')+'</div>'+
+        '<div style="font-size:10.5px;color:'+soft+';white-space:nowrap">'+formatRange(e.from,e.to)+'</div></div>'+
+      (e.company?'<div style="font-size:11.5px;color:'+soft+';margin-top:1px">'+esc(e.company)+(e.location?', '+esc(e.location):'')+'</div>':'')+
+      taskBullets(e.desc,{size:'11.5px',color:'#4b5058',lh:'1.6',top:'5px',mark:'—',markColor:'#b9bdc3',gap:'2px'})+
+    '</div>';
+  }).join('');
+  var edu=educations.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:10px">'+
+      '<div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline">'+
+        '<div style="font-size:12.5px;font-weight:650;color:'+ink+'">'+esc(e.degree||'')+'</div>'+
+        '<div style="font-size:10.5px;color:'+soft+';white-space:nowrap">'+formatRange(e.from,e.to)+'</div></div>'+
+      (e.school?'<div style="font-size:11.5px;color:'+soft+';margin-top:1px">'+esc(e.school)+'</div>':'')+
+    '</div>';
+  }).join('');
+  var lg=tplLangs();
+  var sprachen=lg.map(function(l){
+    return '<div style="display:flex;gap:10px;font-size:11.5px;line-height:1.6;margin-bottom:3px">'+
+      '<span style="flex:0 0 108px">'+esc(l.name)+'</span><span style="color:'+soft+'">'+esc(l.level||'')+'</span></div>';
+  }).join('');
+  var kenn=skills.length?'<div style="columns:2;column-gap:26px;font-size:11.5px;line-height:1.75">'+skills.map(function(s){
+    var lv=skillLevel(s);
+    return '<div style="break-inside:avoid">'+esc(skillName(s))+(lv?'<span style="color:'+soft+';font-size:10px"> '+esc(lv)+'</span>':'')+'</div>';
+  }).join('')+'</div>':'';
+  var hob=tplHobbies(d);
+  var contact=[d.phone?esc(d.phone):'',d.email?esc(d.email):'',esc((d.plz?d.plz+' ':'')+(d.city||'')),d.web?esc(d.web):''].filter(Boolean).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
+
+  return '<div style="font-family:'+TPL_TEXT+';background:#fff;color:'+ink+';width:210mm;box-sizing:border-box;padding:52px 58px 46px;display:flex;flex-direction:column">'+
+    '<div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:26px">'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:31px;font-weight:600;letter-spacing:-0.6px;line-height:1.12;overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+        (d.job?'<div style="font-size:12px;color:'+soft+';margin-top:6px">'+esc(d.job)+'</div>':'')+
+        (contact?'<div style="font-size:11px;color:'+soft+';margin-top:10px">'+contact+'</div>':'')+
+      '</div>'+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:80px;height:100px;object-fit:cover;object-position:top center;flex-shrink:0"/>':'')+
+    '</div>'+
+    '<div style="flex:1">'+
+      block('Persönliches',
+        meta('Geburtsdatum',esc(d.bdate)+(d.bplace?', '+esc(d.bplace):''))+
+        meta('Staatsangehörigkeit',esc(d.nation))+
+        meta('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):''))+
+        meta('In Deutschland seit',esc(d.einreise))+
+        meta('Adresse',(d.addr?esc(d.addr)+', ':'')+esc((d.plz?d.plz+' ':'')+(d.city||'')))+
+        meta('Führerschein',esc(d.fuehrerschein)))+
+      block('Berufserfahrung',exp)+
+      block('Ausbildung',edu)+
+      block('Sprachen',sprachen)+
+      block('Kenntnisse',kenn)+
+      block('Stärken',skills2.length?'<div style="font-size:11.5px;line-height:1.75">'+skills2.map(esc).join('&nbsp;&nbsp;·&nbsp;&nbsp;')+'</div>':'')+
+      block('Interessen',hob.length?'<div style="font-size:11.5px;line-height:1.75">'+hob.map(esc).join('&nbsp;&nbsp;·&nbsp;&nbsp;')+'</div>':'')+
+    '</div>'+
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ 4
+   GOSTIVARI — Creative Modern
+   Kolonë e plotë ngjyrë smerald majtas me foton dhe të dhënat; djathtas
+   seksionet me numra të mëdhenj si element vizual.
+   ------------------------------------------------------------------ */
+function renderCreativeBold(d){
+  var deep='#0e4f53', warm='#d9733a', ink='#16202a', soft='#5f6b76', onDark='rgba(255,255,255,0.78)';
+  function dsec(t){
+    return '<div class="cv-sec-head" style="break-after:avoid;font-family:'+TPL_DISP+';font-size:8.5px;font-weight:800;letter-spacing:2.6px;text-transform:uppercase;color:#fff;margin:0 0 9px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,0.26)">'+esc(t)+'</div>';
+  }
+  var secNo=0;
+  function lsec(t){
+    secNo++;
+    var num=(secNo<10?'0':'')+secNo;
+    return '<div class="cv-sec-head" style="break-after:avoid;display:flex;align-items:baseline;gap:10px;margin-bottom:11px">'+
+      '<span style="font-family:'+TPL_DISP+';font-size:19px;font-weight:800;color:'+warm+';line-height:1">'+num+'</span>'+
+      '<span style="font-family:'+TPL_DISP+';font-size:11px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;color:'+ink+'">'+esc(t)+'</span>'+
+      '<span style="flex:1;height:2px;background:'+warm+';opacity:0.25"></span></div>';
+  }
+  function drow(label,val){
+    if(!val) return '';
+    return '<div style="margin-bottom:9px"><div style="font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2px">'+esc(label)+'</div>'+
+      '<div style="font-size:11px;color:#fff;line-height:1.5;overflow-wrap:break-word">'+val+'</div></div>';
+  }
+
+  var lg=tplLangs();
+  var side=
+    (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:188px;object-fit:cover;object-position:top center;display:block;margin-bottom:22px"/>':'<div style="height:10px"></div>')+
+    '<div style="font-family:'+TPL_DISP+';font-size:21px;font-weight:800;color:#fff;line-height:1.18;overflow-wrap:break-word">'+esc(d.fname)+'<br>'+esc(d.lname)+'</div>'+
+    (d.job?'<div style="font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;color:'+warm+';margin-top:8px;font-weight:700">'+esc(d.job)+'</div>':'')+
+    '<div style="height:22px"></div>'+
+    dsec('Kontakt')+
+    drow('Adresse',(d.addr?esc(d.addr)+'<br>':'')+esc((d.plz?d.plz+' ':'')+(d.city||'')))+
+    drow('Telefon',esc(d.phone))+drow('E-Mail',esc(d.email))+drow('Web',esc(d.web))+
+    '<div style="height:12px"></div>'+
+    dsec('Persönliches')+
+    drow('Geburtsdatum',esc(d.bdate)+(d.bplace?'<br>'+esc(d.bplace):''))+
+    drow('Staatsangehörigkeit',esc(d.nation))+
+    drow('Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):''))+
+    drow('In Deutschland seit',esc(d.einreise))+
+    drow('Führerschein',esc(d.fuehrerschein))+
+    (lg.length?'<div style="height:12px"></div>'+dsec('Sprachen')+lg.map(function(l){
+      return '<div style="font-size:11px;color:#fff;margin-bottom:4px">'+esc(l.name)+(l.level?'<span style="color:'+onDark+';font-size:9.5px"> · '+esc(l.level)+'</span>':'')+'</div>';
+    }).join(''):'');
+
+  var exp=experiences.length?lsec('Berufserfahrung')+experiences.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:13px">'+
+      '<div style="font-size:9.5px;font-weight:700;letter-spacing:1.2px;color:'+warm+';text-transform:uppercase">'+formatRange(e.from,e.to)+'</div>'+
+      '<div style="font-size:12.5px;font-weight:700;color:'+ink+';margin-top:2px">'+esc(e.role||'')+'</div>'+
+      (e.company?'<div style="font-size:11px;color:'+soft+';margin-top:1px">'+esc(e.company)+(e.location?' · '+esc(e.location):'')+'</div>':'')+
+      taskBullets(e.desc,{size:'11px',color:'#4b5663',lh:'1.55',top:'4px',mark:'▸',markColor:deep,gap:'2px'})+
+    '</div>';
+  }).join('')+'<div style="height:6px"></div>':'';
+
+  var edu=educations.length?lsec('Ausbildung')+educations.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:10px">'+
+      '<div style="font-size:9.5px;font-weight:700;letter-spacing:1.2px;color:'+warm+';text-transform:uppercase">'+formatRange(e.from,e.to)+'</div>'+
+      '<div style="font-size:12.5px;font-weight:700;color:'+ink+';margin-top:2px">'+esc(e.degree||'')+'</div>'+
+      (e.school?'<div style="font-size:11px;color:'+soft+';margin-top:1px">'+esc(e.school)+'</div>':'')+
+    '</div>';
+  }).join('')+'<div style="height:6px"></div>':'';
+
+  var kenn=skills.length?lsec('Kenntnisse')+'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">'+
+    skills.map(function(s){var lv=skillLevel(s);
+      return '<span style="font-size:10.5px;color:'+ink+';background:#f2f5f4;border-left:2px solid '+deep+';padding:4px 9px">'+esc(skillName(s))+(lv?'<span style="color:'+soft+';font-size:9px"> '+esc(lv)+'</span>':'')+'</span>';
+    }).join('')+'</div>':'';
+  var st=skills2.length?lsec('Persönliche Stärken')+'<div style="font-size:11.5px;line-height:1.75;color:'+ink+';margin-bottom:14px">'+skills2.map(esc).join(' · ')+'</div>':'';
+  var hob=tplHobbies(d);
+  var inter=hob.length?lsec('Interessen')+'<div style="font-size:11.5px;line-height:1.75;color:'+ink+'">'+hob.map(esc).join(' · ')+'</div>':'';
+
+  return '<div style="font-family:'+TPL_TEXT+';background:#fff;color:'+ink+';width:210mm;box-sizing:border-box;display:flex;align-items:stretch">'+
+    '<div style="flex:0 0 252px;background:'+deep+';padding:32px 24px 36px;box-sizing:border-box">'+side+'</div>'+
+    '<div style="flex:1;min-width:0;padding:38px 34px 40px;box-sizing:border-box">'+exp+edu+kenn+st+inter+'</div>'+
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ 5
+   GJIROKASTRA — Classic Business
+   Lebenslauf tabelar klasik gjerman: datë majtas, përmbajtje djathtas,
+   pa ngjyra dekorative. I përshtatshëm për firma konservative.
+   ------------------------------------------------------------------ */
+function renderClassicBiz(d){
+  var ink='#14181d', navy='#1f3047', soft='#616a75', hair='#d5d9de';
+  function sec(t){
+    return '<tr class="cv-sec-head"><td colspan="2" style="break-after:avoid;padding:12px 0 5px">'+
+      '<div style="font-family:'+TPL_SERIF+';font-size:13px;font-weight:700;color:'+navy+';letter-spacing:0.6px">'+esc(t)+'</div>'+
+      '<div style="height:1.5px;background:'+navy+';margin-top:4px"></div></td></tr>';
+  }
+  function tr(left,right){
+    return '<tr class="cv-entry"><td style="width:132px;vertical-align:top;padding:4px 16px 4px 0;font-size:11px;color:'+soft+';white-space:nowrap;line-height:1.55">'+left+'</td>'+
+      '<td style="vertical-align:top;padding:4px 0;font-size:12px;color:'+ink+';line-height:1.55">'+right+'</td></tr>';
+  }
+
+  var rows='';
+  var pers='';
+  if(d.bdate) pers+=tr('Geburtsdatum, -ort','<span style="font-weight:600">'+esc(d.bdate)+(d.bplace?', '+esc(d.bplace):'')+'</span>');
+  if(d.nation) pers+=tr('Staatsangehörigkeit','<span style="font-weight:600">'+esc(d.nation)+'</span>');
+  if(d.civil) pers+=tr('Familienstand','<span style="font-weight:600">'+esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')+'</span>');
+  if(d.einreise) pers+=tr('In Deutschland seit','<span style="font-weight:600">'+esc(d.einreise)+'</span>');
+  if(pers) rows+=sec('Persönliche Daten')+pers;
+
+  if(experiences.length){
+    rows+=sec('Beruflicher Werdegang');
+    experiences.forEach(function(e){
+      var c='<div style="font-weight:700">'+esc(e.role||'')+'</div>';
+      if(e.company) c+='<div style="color:'+soft+';font-size:11.5px;margin-top:1px">'+esc(e.company)+(e.location?', '+esc(e.location):'')+'</div>';
+      c+=taskBullets(e.desc,{size:'11px',color:'#4c545e',lh:'1.55',top:'4px',mark:'–',markColor:soft,gap:'2px'});
+      rows+=tr(formatRange(e.from,e.to),c);
+    });
+  }
+  if(educations.length){
+    rows+=sec('Ausbildung');
+    educations.forEach(function(e){
+      var c='<div style="font-weight:700">'+esc(e.degree||'')+'</div>';
+      if(e.school) c+='<div style="color:'+soft+';font-size:11.5px;margin-top:1px">'+esc(e.school)+'</div>';
+      rows+=tr(formatRange(e.from,e.to),c);
+    });
+  }
+  var lg=tplLangs();
+  if(lg.length||skills.length||d.fuehrerschein){
+    rows+=sec('Kenntnisse und Fähigkeiten');
+    if(lg.length) rows+=tr('Sprachen',lg.map(function(l){
+      return '<div style="margin-bottom:2px"><span style="font-weight:700">'+esc(l.name)+'</span>'+(l.level?'<span style="color:'+soft+'"> — '+esc(l.level)+'</span>':'')+'</div>';
+    }).join(''));
+    if(skills.length) rows+=tr('EDV / Fachkenntnisse',skills.map(function(s){
+      var lv=skillLevel(s);
+      return '<span style="font-weight:600">'+esc(skillName(s))+'</span>'+(lv?'<span style="color:'+soft+';font-size:11px"> ('+esc(lv)+')</span>':'');
+    }).join(', '));
+    if(d.fuehrerschein) rows+=tr('Führerschein','<span style="font-weight:600">'+esc(d.fuehrerschein)+'</span>');
+  }
+  if(skills2.length) rows+=sec('Persönliche Stärken')+tr('',skills2.map(esc).join(' · '));
+  var hob=tplHobbies(d);
+  if(hob.length) rows+=sec('Interessen')+tr('',hob.map(esc).join(' · '));
+
+  var kontakt=[(d.addr?esc(d.addr):''),esc((d.plz?d.plz+' ':'')+(d.city||'')),(d.phone?esc(d.phone):''),(d.email?esc(d.email):'')].filter(Boolean).join('&nbsp;&nbsp;|&nbsp;&nbsp;');
+
+  return '<div style="font-family:'+TPL_SERIFTEXT+';background:#fff;color:'+ink+';width:210mm;box-sizing:border-box;padding:36px 56px 34px;display:flex;flex-direction:column">'+
+    '<div style="display:flex;align-items:flex-start;gap:24px;padding-bottom:13px;border-bottom:2px solid '+navy+'">'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:9.5px;letter-spacing:4px;text-transform:uppercase;color:'+soft+';margin-bottom:8px">Lebenslauf</div>'+
+        '<div style="font-family:'+TPL_SERIF+';font-size:29px;font-weight:700;line-height:1.14;color:'+ink+';overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+        (d.job?'<div style="font-size:11.5px;color:'+navy+';font-weight:700;margin-top:6px">'+esc(d.job)+'</div>':'')+
+        (kontakt?'<div style="font-size:10.5px;color:'+soft+';margin-top:9px">'+kontakt+'</div>':'')+
+      '</div>'+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:84px;height:106px;object-fit:cover;object-position:top center;border:1px solid '+hair+';flex-shrink:0"/>':'')+
+    '</div>'+
+    '<table style="width:100%;border-collapse:collapse;flex:1"><tbody>'+rows+'</tbody></table>'+
+  '</div>';
+}
+
+/* ------------------------------------------------------------------ 6
+   PRIZRENI — Tech Professional
+   Kokë e errët me kontaktin në një rresht; djathtas një matricë e
+   kompetencave teknike me shirit niveli. Arsimi mban edhe çertifikatat.
+   ------------------------------------------------------------------ */
+function renderTechPro(d){
+  var dark='#101a28', ink='#141c26', cyan='#0f7ea8', soft='#5b6775', hair='#e2e7ec';
+  function sec(t){
+    return '<div class="cv-sec-head" style="break-after:avoid;font-family:'+TPL_DISP+';font-size:9px;font-weight:800;letter-spacing:2.6px;text-transform:uppercase;color:'+cyan+';margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid '+hair+'">'+esc(t)+'</div>';
+  }
+  function bar(rank){
+    var out='<span style="display:inline-flex;gap:2px;margin-left:6px;vertical-align:middle">';
+    for(var i=1;i<=3;i++){
+      out+='<span style="width:13px;height:4px;background:'+(i<=rank?cyan:hair)+'"></span>';
+    }
+    return out+'</span>';
+  }
+  function hrow(label,val){
+    if(!val) return '';
+    return '<div style="font-size:10.5px;color:rgba(255,255,255,0.86);line-height:1.6"><span style="color:rgba(255,255,255,0.5)">'+esc(label)+'</span> '+val+'</div>';
+  }
+
+  var exp=experiences.length?sec('Berufserfahrung')+experiences.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:13px">'+
+      '<div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">'+
+        '<div style="font-size:12.5px;font-weight:700;color:'+ink+'">'+esc(e.role||'')+'</div>'+
+        '<div style="font-size:10px;color:'+soft+';white-space:nowrap">'+formatRange(e.from,e.to)+'</div></div>'+
+      (e.company?'<div style="font-size:11px;color:'+cyan+';font-weight:600;margin-top:1px">'+esc(e.company)+(e.location?' · '+esc(e.location):'')+'</div>':'')+
+      taskBullets(e.desc,{size:'11px',color:'#49535f',lh:'1.55',top:'4px',mark:'▪',markColor:cyan,gap:'2px'})+
+    '</div>';
+  }).join('')+'<div style="height:8px"></div>':'';
+
+  var edu=educations.length?sec('Ausbildung und Zertifikate')+educations.map(function(e){
+    return '<div class="cv-entry" style="margin-bottom:10px">'+
+      '<div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">'+
+        '<div style="font-size:12px;font-weight:700;color:'+ink+'">'+esc(e.degree||'')+'</div>'+
+        '<div style="font-size:10px;color:'+soft+';white-space:nowrap">'+formatRange(e.from,e.to)+'</div></div>'+
+      (e.school?'<div style="font-size:11px;color:'+soft+';margin-top:1px">'+esc(e.school)+'</div>':'')+
+    '</div>';
+  }).join(''):'';
+
+  var kenn=skills.length?sec('Technische Kenntnisse')+skills.map(function(s){
+    var r=tplSkillRank(s);
+    return '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:'+ink+';margin-bottom:6px">'+
+      '<span style="min-width:0;overflow-wrap:break-word;font-weight:600">'+esc(skillName(s))+'</span>'+(r?bar(r):'')+'</div>';
+  }).join('')+'<div style="height:14px"></div>':'';
+
+  var lg=tplLangs();
+  var sprachen=lg.length?sec('Sprachen')+lg.map(function(l){
+    return '<div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:5px">'+
+      '<span style="font-weight:600;color:'+ink+'">'+esc(l.name)+'</span><span style="color:'+soft+';text-align:right">'+esc(l.level||'')+'</span></div>';
+  }).join('')+'<div style="height:14px"></div>':'';
+
+  var person='';
+  [['Geburtsdatum',esc(d.bdate)+(d.bplace?', '+esc(d.bplace):'')],['Staatsangehörigkeit',esc(d.nation)],
+   ['Familienstand',esc(d.civil)+(d.kinder?', '+esc(d.kinder):'')],['In Deutschland seit',esc(d.einreise)],
+   ['Führerschein',esc(d.fuehrerschein)]].forEach(function(p){
+    if(!p[1]) return;
+    person+='<div style="font-size:11px;line-height:1.6;margin-bottom:4px"><span style="color:'+soft+'">'+p[0]+'</span><br><span style="font-weight:600;color:'+ink+'">'+p[1]+'</span></div>';
+  });
+  person=person?sec('Persönliche Daten')+person+'<div style="height:14px"></div>':'';
+
+  var st=skills2.length?sec('Persönliche Stärken')+'<div style="font-size:11px;line-height:1.7;color:'+ink+'">'+skills2.map(esc).join(' · ')+'</div><div style="height:14px"></div>':'';
+  var hob=tplHobbies(d);
+  var inter=hob.length?sec('Interessen')+'<div style="font-size:11px;line-height:1.7;color:'+ink+'">'+hob.map(esc).join(' · ')+'</div>':'';
+
+  return '<div style="font-family:'+TPL_TEXT+';background:#fff;color:'+ink+';width:210mm;box-sizing:border-box;display:flex;flex-direction:column">'+
+    '<div style="background:'+dark+';padding:30px 44px;display:flex;align-items:center;gap:22px">'+
+      (photoDataUrl?'<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:76px;height:94px;object-fit:cover;object-position:top center;flex-shrink:0;border:2px solid '+cyan+'"/>':'')+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-family:'+TPL_DISP+';font-size:26px;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-0.3px;overflow-wrap:break-word">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
+        (d.job?'<div style="font-size:10.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:#4cc3e8;margin-top:6px">'+esc(d.job)+'</div>':'')+
+      '</div>'+
+      '<div style="flex:0 0 auto;text-align:right;max-width:40%">'+
+        hrow('T',esc(d.phone))+hrow('M',esc(d.email))+
+        hrow('A',esc((d.addr?d.addr+', ':''))+esc((d.plz?d.plz+' ':'')+(d.city||'')))+
+        hrow('W',esc(d.web))+
+      '</div>'+
+    '</div>'+
+    '<div style="display:flex;gap:26px;padding:26px 44px 38px;flex:1">'+
+      '<div style="flex:1.55;min-width:0">'+exp+edu+'</div>'+
+      '<div style="flex:1;min-width:0;border-left:1px solid '+hair+';padding-left:24px">'+kenn+sprachen+person+st+inter+'</div>'+
+    '</div>'+
+  '</div>';
 }
 
 function renderDarkElegant(d,sp){
@@ -4782,12 +5397,9 @@ function renderDarkElegant(d,sp){
   var sidebarHTML=
     '<div style="background:'+sidebarBg+';padding:'+px(34)+' 24px;color:'+sideText+';height:100%;box-sizing:border-box">'+
       '<div data-fit="side">'+
-      '<div style="width:104px;height:128px;margin:0 auto '+px(22)+';border:1px solid rgba(192,160,80,0.55);padding:3px;background:rgba(255,255,255,0.03)">'+
-        (photoDataUrl?
-          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"/>':
-          '<div style="width:100%;height:100%;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:24px;color:'+gold+';font-family:\'CV Serif\',\'Playfair Display\',Georgia,serif">'+esc((d.fname||'').charAt(0))+esc((d.lname||'').charAt(0))+'</div>'
-        )+
-      '</div>'+
+      (photoDataUrl?'<div style="width:104px;height:128px;margin:0 auto '+px(22)+';border:1px solid rgba(192,160,80,0.55);padding:3px;background:rgba(255,255,255,0.03)">'+
+        '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"/>'+
+      '</div>':'')+
       '<div style="margin-bottom:'+px(24)+'">'+sLabel('Kontakt')+
         sItem('Telefon',d.phone?esc(d.phone):'')+
         sItem('E-Mail',d.email?esc(d.email):'')+
@@ -4960,15 +5572,9 @@ function renderCormorant(d){
     '<div style="background:'+sidebar+';padding:40px 26px;position:relative;overflow:hidden;height:100%;box-sizing:border-box">'+
       '<div style="position:absolute;bottom:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:rgba(200,152,74,0.06);pointer-events:none"></div>'+
       // Photo
-      '<div style="width:120px;height:120px;border-radius:50%;border:3px solid '+accent+';padding:4px;margin:0 auto 20px">'+
-        (photoDataUrl?
-          '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block"/>':
-          '<div style="width:100%;height:100%;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">'+
-            '<span style="font-size:22px;opacity:.5">📷</span>'+
-            '<span style="font-size:8px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;text-align:center"></span>'+
-          '</div>'
-        )+
-      '</div>'+
+      (photoDataUrl?'<div style="width:120px;height:120px;border-radius:50%;border:3px solid '+accent+';padding:4px;margin:0 auto 20px">'+
+        '<img src="'+photoDataUrl+'" alt="Bewerbungsfoto" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block"/>'+
+      '</div>':'')+
       '<div style="font-family:\'CV Editorial\',\'DM Serif Display\',Georgia,serif;font-size:19px;font-weight:600;color:#fff;text-align:center;line-height:1.2;margin-bottom:3px">'+esc(d.fname)+' '+esc(d.lname)+'</div>'+
       '<div style="font-size:9.5px;font-weight:300;color:'+accent+';text-align:center;letter-spacing:3px;text-transform:uppercase;margin-bottom:26px">'+esc(d.job||'')+'</div>'+
       // Kontakt

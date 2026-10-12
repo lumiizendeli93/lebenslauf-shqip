@@ -3373,6 +3373,9 @@ var A4_PAGE_PX=1122; // 297mm @ 96dpi
 // ekran mund të derdhet pak mbi një faqe 2 pothuajse bosh në PDF-in real. Kjo rezervë e sigurisë
 // e bën ngjeshjen pak më agresive, që të mos ndodhë kjo.
 var A4_SAFETY_PX=40; // ~10.6mm rezervë
+// 297mm @ 96dpi = 1122.52px. A4_PAGE_PX është rrumbullakosur poshtë për vendimet e
+// përshtatjes; mbushësi i fundit duhet vlerën e saktë, se ndryshe lë një vijë të bardhë.
+var A4_PAGE_EXACT_PX=1122.5197;
 var A4_FIT_TARGET_PX=A4_PAGE_PX-A4_SAFETY_PX;
 // Nivelet e ngjeshjes progresive — vetëm aq sa duhet për të hyrë në 1 faqe A4.
 // zoom tkurr fontin+hapësirat bashkë (jo vetëm marzhe), dhe mbetet edhe në print/PDF
@@ -3400,8 +3403,12 @@ function fillA4Gap(preview,el){
   // Mbushësi vendoset ABSOLUT: nuk numërohet në lartësinë e rrjedhës, prandaj s'mund ta shtyjë
   // kurrë përmbajtjen në një faqe të dytë. Kjo e lejon të pikturojë deri te fundi real i faqes
   // (297mm) në vend që të ndalej te rezerva e sigurisë, ku linte një shirit të bardhë poshtë.
-  var gap=A4_PAGE_PX-elRect.height;
-  if(gap<=2)return; // pa hapësirë kuptimplote, ose përmbajtja tashmë kalon faqen
+  // Hapësira matet deri te fundi i fletës SË FUNDIT, jo i së parës. Me një CV që zë dy
+  // faqe kjo dilte negative dhe mbushësi s'krijohej fare: shiriti anësor me ngjyrë ndalej
+  // aty ku mbaronte teksti dhe pjesa tjetër e fletës mbetej e bardhë.
+  var faqe=Math.max(1,Math.ceil(elRect.height/A4_PAGE_EXACT_PX-0.002));
+  var gap=faqe*A4_PAGE_EXACT_PX-elRect.height;
+  if(gap<=0.2)return; // fleta është e mbushur deri në fund
   var filler=document.createElement('div');
   filler.className='a4-fill-gap';
   filler.setAttribute('aria-hidden','true');
